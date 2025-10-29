@@ -44,13 +44,17 @@ public class PlayerController : MonoBehaviour
         Vector2 centerOfScreen = new Vector2(Screen.width / 2, Screen.height / 2);
         Vector2 mousePositionInput = Input.mousePosition;
         Vector2 mousePosition = mousePositionInput - centerOfScreen;
-        float rotationAngleRad = Mathf.Atan(mousePosition.y / mousePosition.x);
-        float rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
-        turret.transform.rotation = Quaternion.Euler(0, 0, rotationAngleDeg - 90);
-        Debug.Log(rotationAngleDeg);
-
+        if (mousePosition.x < 0)
+        {
+            float rotationAngleRad = Mathf.Atan(mousePosition.y / mousePosition.x);
+            float rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
+            turret.transform.rotation = Quaternion.Euler(0, 0, rotationAngleDeg + 90);
+        }
+        else
+        {
+            float rotationAngleRad = Mathf.Atan(mousePosition.y / mousePosition.x);
+            float rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
+            turret.transform.rotation = Quaternion.Euler(0, 0, rotationAngleDeg - 90);
+        }
     }
-
-
-    
 }
