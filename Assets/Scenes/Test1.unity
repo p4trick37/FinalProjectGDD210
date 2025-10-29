@@ -204,8 +204,13 @@ Transform:
   m_GameObject: {fileID: 526172969}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: 1.25, y: 1.76, z: 0}
   m_LocalScale: {x: 1, y: 1.63, z: 1}
+=======
+  m_LocalPosition: {x: 3.48, y: 3.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+>>>>>>> 98eec54fb567a847ce4b3288dbdfa27e89dd224b
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1904784108}
@@ -247,6 +252,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 526172969}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: c80fc8b555d5c0749b8dce0a322ee3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
@@ -254,6 +260,18 @@ MonoBehaviour:
   rotationSpeed: 4
   turret: {fileID: 1594107901}
   playerCamera: {fileID: 907779204}
+=======
+  m_Script: {fileID: 11500000, guid: 98590bb776f3ec7449c2a6c4134c3e87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBoatController2D
+  moveSpeed: 6
+  acceleration: 12
+  damping: 8
+  rotateToFaceMovement: 1
+  rotationLerpSpeed: 10
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+>>>>>>> 98eec54fb567a847ce4b3288dbdfa27e89dd224b
 --- !u!1 &907779204
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: modeSpiral
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: modeMinigun
@@ -732,6 +750,10 @@ PrefabInstance:
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: ballisticArcAmount
       value: 0.593
+      objectReference: {fileID: 0}
+    - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
+      propertyPath: bulletHitMask.m_Bits
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 1936190879381947093, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: m_LocalPosition.x
