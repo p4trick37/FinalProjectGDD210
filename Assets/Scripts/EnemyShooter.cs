@@ -69,25 +69,24 @@ public class EnemyShooter : MonoBehaviour
     [Tooltip("If cap is reached, reuse the oldest bullet instead of skipping new spawns.")]
     public bool reuseOldestWhenCapped = true;
 
-// === Fire Cadence ===
-public enum BurstMode { Single, Burst3, Burst5, Custom }
+    // === Fire Cadence ===
+    public enum BurstMode { Single, Burst3, Burst5, Custom }
 
-[Header("=== Fire Cadence ===")]
-[Tooltip("Burst style for each cycle.")]
-public BurstMode burstMode = BurstMode.Single;
+    [Header("=== Fire Cadence ===")]
+    [Tooltip("Burst style for each cycle.")]
+    public BurstMode burstMode = BurstMode.Single;
 
-[Tooltip("If BurstMode = Custom, number of shots per burst.")]
-public int customBurstCount = 4;
+    [Tooltip("If BurstMode = Custom, number of shots per burst.")]
+    public int customBurstCount = 4;
 
-[Tooltip("Time between shots within a burst.")]
-public float intraBurstDelay = 0.08f;
+    [Tooltip("Time between shots within a burst.")]
+    public float intraBurstDelay = 0.08f;
 
-[Tooltip("Pause after a burst finishes.")]
-public float postBurstPause = 0.6f;
+    [Tooltip("Pause after a burst finishes.")]
+    public float postBurstPause = 0.6f;
 
-[Tooltip("Add random +/- jitter to postBurstPause.")]
-public float postBurstPauseJitter = 0.0f;
-
+    [Tooltip("Add random +/- jitter to postBurstPause.")]
+    public float postBurstPauseJitter = 0.0f;
 
     [Header("=== Aim & Lead ===")]
     [Tooltip("Base aim mode for most weapons.")]
@@ -166,6 +165,10 @@ public float postBurstPauseJitter = 0.0f;
     public float heatMax = 100f;
     public float heatCoolPerSecond = 20f;
     public float overheatLockSeconds = 1.0f;
+
+    [Tooltip("If true, apply overheat to ALL fire modes. Otherwise only Minigun uses heat.")]
+    public bool overheatAffectsAllModes = false;
+
     float _heat, _overheatLockTimer;
 
     [Space(6)]
@@ -199,6 +202,7 @@ public float postBurstPauseJitter = 0.0f;
     readonly Queue<Projectile2D> _pool = new Queue<Projectile2D>();
     readonly LinkedList<Projectile2D> _live = new LinkedList<Projectile2D>();
     System.Random _rng;
+    bool _cycleRunning;
 
     void Awake()
     {
@@ -256,8 +260,10 @@ public float postBurstPauseJitter = 0.0f;
         if (!enableFiring) return;
         if (_overheatLockTimer > 0f) return;
 
-        if (Time.time >= _nextCycleTime)
+        if (!_cycleRunning && Time.time >= _nextCycleTime)
         {
+            _cycleRunning = true;               // gate re-entry
+            _nextCycleTime = Time.time + 999f;  // temporary far future while we run
             StartCoroutine(FireCycle());
         }
     }
@@ -280,20 +286,20 @@ public float postBurstPauseJitter = 0.0f;
         // Fire sequence
         for (int i = 0; i < shots; i++)
         {
-            // Handle Minigun spin-up affecting rate dynamically (intra-burst delays)
             float delay = (i == 0) ? 0f : intraBurstDelay;
 
             // Fire according to blend
             yield return StartCoroutine(FireOnceBlend());
 
             // Overheat accounting
-            if (useOverheat && (modeMinigun || heatPerShot > 0f))
+            bool applyHeat = useOverheat && (modeMinigun || overheatAffectsAllModes);
+            if (applyHeat && heatPerShot > 0f)
             {
                 _heat += heatPerShot;
                 if (_heat >= heatMax)
                 {
                     _overheatLockTimer = overheatLockSeconds;
-                    _heat = heatMax * 0.65f; // come back under threshold after lock
+                    _heat = heatMax * 0.65f; // drop below threshold after lock
                     break; // end burst early
                 }
             }
@@ -310,6 +316,7 @@ public float postBurstPauseJitter = 0.0f;
         // Schedule next cycle considering baseFireRate / cadenceRate
         float cycleGap = (cadenceRate > 0f) ? (1f / cadenceRate) : 0.5f;
         _nextCycleTime = Time.time + pause + cycleGap;
+        _cycleRunning = false;
     }
 
     float GetEffectiveFireRateForCadence()
@@ -318,7 +325,6 @@ public float postBurstPauseJitter = 0.0f;
         float rate = baseFireRate;
         if (modeMinigun)
         {
-            // spin up toward 1 over time
             _spinupLerp = Mathf.Clamp01(_spinupLerp + Time.fixedDeltaTime / Mathf.Max(0.0001f, minigunSpinUp));
             float minRate = Mathf.Max(0.01f, minigunMinRate);
             float maxRate = Mathf.Max(minRate, baseFireRate * minigunFireRateMult);
@@ -452,7 +458,6 @@ public float postBurstPauseJitter = 0.0f;
     void FireMinigun()
     {
         Vector2 dir = GetAimDirection();
-        float dynamicRate = GetEffectiveFireRateForCadence(); // just for clarity
         float speed = baseBulletSpeed * (1f + 0.1f * _spinupLerp);
         SpawnBullet(dir, speed, baseDamage);
 
@@ -501,54 +506,61 @@ public float postBurstPauseJitter = 0.0f;
     #endregion
 
     #region Aim & Telegraph
-    Vector2 GetAimDirection()
+// --- Replace entire GetAimDirection() with this version ---
+Vector2 _smoothedAimDir = Vector2.right; // add near other private fields
+
+Vector2 GetAimDirection()
+{
+    Vector3 muzzlePos = muzzle ? muzzle.position : transform.position;
+    Vector2 desiredDir = Vector2.right;
+
+    switch (aimMode)
     {
-        Vector3 muzzlePos = muzzle ? muzzle.position : transform.position;
-        Vector2 dir = Vector2.right; // default
+        case AimMode.AimAtPlayer:
+            if (player)
+                desiredDir = (player.position - muzzlePos).normalized;
+            break;
 
-        switch (aimMode)
-        {
-            case AimMode.AimAtPlayer:
-                if (player)
-                {
-                    dir = (player.position - muzzlePos).normalized;
-                }
-                break;
+        case AimMode.PredictiveLead:
+            if (player)
+            {
+                Vector2 targetPos = player.position;
+                Vector2 targetVel = (playerRb ? playerRb.linearVelocity : Vector2.zero);
+                float speed = baseBulletSpeed * globalBulletSpeedMult * upgradeMult;
+                desiredDir = PredictInterceptDirection((Vector2)muzzlePos, targetPos, targetVel, speed, leadMultiplier);
+            }
+            break;
 
-            case AimMode.PredictiveLead:
-                if (player)
-                {
-                    Vector2 targetPos = player.position;
-                    Vector2 targetVel = (playerRb ? playerRb.linearVelocity : Vector2.zero);
-                    float speed = baseBulletSpeed * globalBulletSpeedMult * upgradeMult;
-                    dir = PredictInterceptDirection((Vector2)muzzlePos, targetPos, targetVel, speed, leadMultiplier);
-                }
-                break;
+        case AimMode.FixedDirection:
+            desiredDir = AngleToDir(fixedAngleDegrees);
+            break;
 
-            case AimMode.FixedDirection:
-                dir = AngleToDir(fixedAngleDegrees);
-                break;
-
-            case AimMode.Sweep:
-            case AimMode.RotateTurret:
-                _localAimAngleDeg += rotateDegreesPerSecond * Time.deltaTime;
-                dir = AngleToDir(_localAimAngleDeg);
-                break;
-        }
-
-        // Random inaccuracy (cone)
-        float noise = (float)(_rng.NextDouble() * 2 - 1) * aimInaccuracyDegrees;
-        dir = Rotate(dir, noise);
-
-        // Auto-rotate body to match
-        if (autoRotateToTarget)
-        {
-            float z = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, z - 90f); // face up by default
-        }
-
-        return dir.normalized;
+        case AimMode.Sweep:
+        case AimMode.RotateTurret:
+            _localAimAngleDeg += rotateDegreesPerSecond * Time.deltaTime;
+            desiredDir = AngleToDir(_localAimAngleDeg);
+            break;
     }
+
+    // --- new smoothing & forgiveness ---
+    float forgiveness = 0.25f;        // smaller = snappier, larger = lazier
+    _smoothedAimDir = Vector2.Lerp(_smoothedAimDir, desiredDir, 1f - Mathf.Exp(-Time.deltaTime / forgiveness));
+    Vector2 dir = _smoothedAimDir.normalized;
+
+    // Add mild random offset
+    float noise = (float)(_rng.NextDouble() * 2 - 1) * aimInaccuracyDegrees;
+    dir = Rotate(dir, noise);
+
+    // Optional body rotation
+    if (autoRotateToTarget)
+    {
+        float z = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, z - 90f), 0.2f);
+    }
+
+    return dir;
+}
+
 
     void UpdateAimLine()
     {
@@ -569,7 +581,6 @@ public float postBurstPauseJitter = 0.0f;
     IEnumerator BoldLineFor(float t)
     {
         if (!_line) yield break;
-        float original = _line.startWidth;
         _line.startWidth = lineWidthFiring;
         _line.endWidth = lineWidthFiring;
         yield return new WaitForSeconds(t);
@@ -583,7 +594,12 @@ public float postBurstPauseJitter = 0.0f;
         if (!lr) lr = gameObject.AddComponent<LineRenderer>();
         lr.positionCount = 2;
         lr.useWorldSpace = true;
-        lr.material = new Material(Shader.Find("Sprites/Default"));
+
+        // URP-safe shader fallback
+        var shader = Shader.Find("Sprites/Default");
+        if (!shader) shader = Shader.Find("Universal Render Pipeline/Unlit");
+        lr.material = new Material(shader);
+
         lr.textureMode = LineTextureMode.Stretch;
         lr.numCapVertices = 4;
         lr.numCornerVertices = 2;
@@ -697,7 +713,7 @@ public float postBurstPauseJitter = 0.0f;
 
     Sprite CreateCircleSprite(float r)
     {
-        int size = 32;
+        int size = 128;
         var tex = new Texture2D(size, size, TextureFormat.ARGB32, false);
         var col = new Color32[size * size];
         Vector2 c = new Vector2(size / 2f, size / 2f);
@@ -725,7 +741,7 @@ public float postBurstPauseJitter = 0.0f;
         float r = deg * Mathf.Deg2Rad;
         float cs = Mathf.Cos(r), sn = Mathf.Sin(r);
         return new Vector2(v.x * cs - v.y * sn, v.x * sn + v.y * cs);
-    }
+        }
 
     static Vector2 PredictInterceptDirection(Vector2 shooterPos, Vector2 targetPos, Vector2 targetVel, float projSpeed, float leadMult)
     {
@@ -785,7 +801,6 @@ public class Projectile2D : MonoBehaviour
     Vector2 _vel;
     float _timer;
     float _seekTimer;
-    Vector3 _startPos;
 
     void Awake()
     {
@@ -803,7 +818,6 @@ public class Projectile2D : MonoBehaviour
 
         _timer = 0f;
         _seekTimer = homingSeekTime;
-        _startPos = transform.position;
         if (_rb) _rb.linearVelocity = _vel;
     }
 
@@ -855,10 +869,7 @@ public class Projectile2D : MonoBehaviour
 
         // Damage
         var d = other.GetComponent<IDamageable>();
-        if (d != null)
-        {
-            d.TakeDamage(damage);
-        }
+        if (d != null) d.TakeDamage(damage);
 
         // Optional knockback if they have Rigidbody2D
         if (knockback > 0f)
@@ -871,10 +882,7 @@ public class Projectile2D : MonoBehaviour
             }
         }
 
-        if (destroyOnHit)
-        {
-            Despawn();
-        }
+        if (destroyOnHit) Despawn();
     }
 
     void Despawn()
@@ -882,7 +890,7 @@ public class Projectile2D : MonoBehaviour
         onDespawn?.Invoke(this);
     }
 
-    // (Optional) purely visual fake arc (top-down flavor)
+    // (Optional) purely visual fake arc (debug visualization only)
     void OnDrawGizmosSelected()
     {
         if (ballisticArcAmount <= 0f) return;
