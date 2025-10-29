@@ -141,7 +141,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.9354274, y: 2.9354274, z: 2.9354274}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1867234267816676574}
@@ -292,6 +292,7 @@ MonoBehaviour:
   heatMax: 100
   heatCoolPerSecond: 20
   overheatLockSeconds: 1
+  overheatAffectsAllModes: 0
   modeSpiral: 0
   spiralStepDegrees: 12
   modeHomingMissile: 0
