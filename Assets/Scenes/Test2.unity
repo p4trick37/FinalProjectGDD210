@@ -289,7 +289,7 @@ PrefabInstance:
       objectReference: {fileID: 263215034}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: aimMode
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: playerRb
@@ -301,15 +301,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: modeSingle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
-      propertyPath: modeSpiral
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
+      propertyPath: modeSpiral
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: poolWarmup
-      value: 300
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: modeMinigun
@@ -321,7 +321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: showAimLine
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: useOverheat
@@ -341,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: maxLiveBullets
-      value: 250
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: multiModeBlend
@@ -353,7 +353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: customBurstCount
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: fixedAngleDegrees
@@ -361,7 +361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: autoRotateToTarget
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: globalFireRateMult
