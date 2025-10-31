@@ -5,17 +5,35 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed;
     public float rotationSpeed;
+    public float bulletSpeed;
     public GameObject turret;
 
     public GameObject playerCamera;
-    
 
+    public GameObject bulletPrefab;
+
+    private bool shouldShoot = false;
     private void Update()
     {
         PlayerMovement(true);
         PlayerRotation(true);
         TurretMovement(true);
 
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            shouldShoot = true;
+        }
+        
+    }
+
+    private void FixedUpdate()
+    {
+        if(shouldShoot == true)
+        {
+            TurretShooter();
+            shouldShoot = false;
+        }
     }
 
     //Player Movement
@@ -44,32 +62,37 @@ public class PlayerController : MonoBehaviour
     {
         if(shouldMove == true)
         {
-            if(MousePosition().x < 0)
-            {
-                turret.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker() + 90);
-            }
-            else
-            {
-                turret.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker() - 90);
-            }
+            turret.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
         }
     }
 
 
 
-    private void TurretShooter(bool shouldShoot)
+    private void TurretShooter()
     {
-        if(shouldShoot == true)
-        {
-            
-        }
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        float angle = GetRotationMouseTracker() + 90;
+        Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+        bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed);
+        Debug.Log(GetRotationMouseTracker());
+        Debug.Log(bulletDirection);
     }
+
 
     //Gathers the rotation angle of the player when using the mouse
     private float GetRotationMouseTracker()
     {
         float rotationAngleRad = Mathf.Atan(MousePosition().y / MousePosition().x);
         float rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
+        
+        if(MousePosition().x < 0)
+        {
+            rotationAngleDeg += 90;
+        }
+        else
+        {
+            rotationAngleDeg -= 90;
+        }
         return rotationAngleDeg;
     }
 
