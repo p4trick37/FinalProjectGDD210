@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   movementSpeed: 5
   rotationSpeed: 5
-  bulletSpeed: 100
+  bulletSpeed: 700
   turret: {fileID: 2042174641}
   playerCamera: {fileID: 519420028}
   bulletPrefab: {fileID: 1965384080407287419, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
