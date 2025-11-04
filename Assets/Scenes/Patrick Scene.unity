@@ -179,9 +179,18 @@ MonoBehaviour:
   movementSpeed: 5
   rotationSpeed: 5
   bulletSpeed: 700
+  bulletSpread: 10
+  semiAutoDelay: 0.5
+  autoDelay: 0.1
+  shotgunDelay: 1
   turret: {fileID: 2042174641}
   playerCamera: {fileID: 519420028}
   bulletPrefab: {fileID: 1965384080407287419, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
+  currentWeapon: 2
+  weapons:
+  - SemiAuto
+  - FullAuto
+  - 3RoundShot
 --- !u!4 &119052853
 Transform:
   m_ObjectHideFlags: 0
