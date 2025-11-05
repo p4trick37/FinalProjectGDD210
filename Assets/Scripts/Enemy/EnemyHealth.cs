@@ -11,10 +11,8 @@ public class EnemyHealth : MonoBehaviour
     public Color flashColor = Color.white;   // flash color when hit
     public float flashDuration = 0.12f;      // time each flash lasts
     public int flashCount = 2;               // number of flashes
-    public bool useEmission = true;          // toggle to flash emission instead of base color
 
-    private MeshRenderer meshRenderer;
-    private Material materialInstance;
+    private SpriteRenderer spriteRenderer;
     private Color originalColor;
     private bool isFlashing = false;
 
@@ -22,19 +20,12 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth = maxHealth;
 
-        meshRenderer = GetComponent<MeshRenderer>();
-        if (meshRenderer != null)
-        {
-            // Create an instance so the material isn't shared globally
-            materialInstance = meshRenderer.material;
-            originalColor = useEmission && materialInstance.HasProperty("_EmissionColor")
-                ? materialInstance.GetColor("_EmissionColor")
-                : materialInstance.color;
-        }
+        // Try to get sprite renderer
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+            originalColor = spriteRenderer.color;
         else
-        {
-            Debug.LogWarning($"{name}: EnemyHealth has no MeshRenderer!");
-        }
+            Debug.LogWarning($"{name}: EnemyHealth has no SpriteRenderer!");
     }
 
     public void TakeDamage(float amount)
@@ -42,7 +33,7 @@ public class EnemyHealth : MonoBehaviour
         currentHealth -= amount;
         Debug.Log($"{name} took {amount} damage! Current health: {currentHealth}");
 
-        if (!isFlashing && meshRenderer != null)
+        if (!isFlashing && spriteRenderer != null)
             StartCoroutine(FlashEffect());
 
         if (currentHealth <= 0)
@@ -56,15 +47,10 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log($"{name} died!");
         StopAllCoroutines();
 
-        if (materialInstance != null)
-        {
-            if (useEmission && materialInstance.HasProperty("_EmissionColor"))
-                materialInstance.SetColor("_EmissionColor", originalColor);
-            else
-                materialInstance.color = originalColor;
-        }
+        if (spriteRenderer != null)
+            spriteRenderer.color = originalColor;
 
-        // Disable this enemy (for pooling or cleanup)
+        // Disable the enemy so it can be pooled or reactivated later
         gameObject.SetActive(false);
     }
 
@@ -74,27 +60,13 @@ public class EnemyHealth : MonoBehaviour
 
         for (int i = 0; i < flashCount; i++)
         {
-            if (materialInstance != null)
-            {
-                if (useEmission && materialInstance.HasProperty("_EmissionColor"))
-                    materialInstance.SetColor("_EmissionColor", flashColor);
-                else
-                    materialInstance.color = flashColor;
-            }
-
+            spriteRenderer.color = flashColor;
             yield return new WaitForSeconds(flashDuration);
-
-            if (materialInstance != null)
-            {
-                if (useEmission && materialInstance.HasProperty("_EmissionColor"))
-                    materialInstance.SetColor("_EmissionColor", originalColor);
-                else
-                    materialInstance.color = originalColor;
-            }
-
+            spriteRenderer.color = originalColor;
             yield return new WaitForSeconds(flashDuration);
         }
 
+        spriteRenderer.color = originalColor;
         isFlashing = false;
     }
 }

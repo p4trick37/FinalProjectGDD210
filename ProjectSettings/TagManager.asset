@@ -5,17 +5,18 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
+  - Island
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Island
   - Water
   - UI
   - Enemy
   - Player
   - 
-  - 
+  - BulletPlayer
   - 
   - 
   - 
@@ -41,6 +42,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Island
+    uniqueID: 890077405
+    locked: 0
+  - name: Enemies
+    uniqueID: 124563215
     locked: 0
   m_RenderingLayers:
   - Default
