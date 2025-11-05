@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   movementSpeed: 5
   rotationSpeed: 5
-  bulletSpeed: 500
+  bulletSpeed: 8
   bulletSpread: 5
   semiAutoDelay: 0.9
   autoDelay: 0.1
