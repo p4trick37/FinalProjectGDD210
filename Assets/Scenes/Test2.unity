@@ -131,14 +131,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 473378636629930842, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908114619500082746, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: autoDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: bulletSpeed
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: bulletPrefab
       value: 
       objectReference: {fileID: 1965384080407287419, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: bulletSpread
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 368946573}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: shotgunDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: currentWeapon
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: semiAutoDelay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.4
@@ -184,6 +216,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+--- !u!4 &165130031 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1867234267816676574, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
+  m_PrefabInstance: {fileID: 1764898564}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &368946573
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +358,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1188119953
+--- !u!1 &546167932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6981561496186615296, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
+  m_PrefabInstance: {fileID: 1764898564}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &546167933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546167932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33937a292deb4b48a9903ca93059c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShooterSimple
+  player: {fileID: 2001595566}
+  muzzle: {fileID: 165130031}
+  bulletPrefab: {fileID: 1965384080407287419, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
+  fireRate: 1.5
+  bulletSpeed: 18
+  bulletLifetime: 6
+  faceTarget: 1
+  aimSmooth: 0.15
+--- !u!1001 &1764898564
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -329,25 +391,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2001595566}
-    - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
-      propertyPath: playerRb
-      value: 
-      objectReference: {fileID: 2001595563}
-    - target: {fileID: -6676791959385615860, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
-      propertyPath: useOverheat
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1936190879381947093, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.670892
+      value: 7.2934
       objectReference: {fileID: 0}
     - target: {fileID: 1936190879381947093, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.282803
+      value: 10.97977
       objectReference: {fileID: 0}
     - target: {fileID: 1936190879381947093, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -388,13 +438,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6981561496186615296, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 546167933}
   m_SourcePrefab: {fileID: 100100000, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
---- !u!50 &2001595563 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 7200823413016895861, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-  m_PrefabInstance: {fileID: 97753329}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2001595566 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
@@ -406,4 +454,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 368946577}
   - {fileID: 97753329}
-  - {fileID: 1188119953}
+  - {fileID: 1764898564}
