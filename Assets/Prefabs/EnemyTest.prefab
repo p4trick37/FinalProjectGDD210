@@ -236,10 +236,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c1ade827796dc48aa19bfde37f5e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
-  player: {fileID: 0}
-  playerRb: {fileID: 0}
-  muzzle: {fileID: 0}
-  bulletPrefab: {fileID: 0}
+  player: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+  playerRb: {fileID: 7200823413016895861, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+  muzzle: {fileID: 1867234267816676574}
+  bulletPrefab: {fileID: 1965384080407287419, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
   enableFiring: 1
   autoRotateToTarget: 1
   multiModeBlend: 0
@@ -260,21 +260,21 @@ MonoBehaviour:
   leadMultiplier: 1
   aimInaccuracyDegrees: 0
   fixedAngleDegrees: 0
-  rotateDegreesPerSecond: 60
-  showAimLine: 1
+  rotateDegreesPerSecond: 500
+  showAimLine: 0
   lineWidthTracking: 0.025
   lineWidthFiring: 0.08
   aimLineLength: 12
   boldDuration: 0.08
   aimLineColor: {r: 1, g: 0.3, b: 0.1, a: 0.9}
-  baseFireRate: 2
+  baseFireRate: 10
   baseBulletSpeed: 7.5
   baseDamage: 5
   baseLifetime: 6
   baseKnockback: 0
   bulletHitMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 183
   destroyOnHit: 1
   modeSingle: 1
   modeShotgun: 0
@@ -287,7 +287,7 @@ MonoBehaviour:
   minigunSpinUp: 0.75
   minigunMinRate: 4
   minigunFireRateMult: 3
-  useOverheat: 1
+  useOverheat: 0
   heatPerShot: 2
   heatMax: 100
   heatCoolPerSecond: 20
