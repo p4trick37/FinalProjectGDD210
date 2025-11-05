@@ -140,6 +140,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: turret
+      value: 
+      objectReference: {fileID: 795141942}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: autoDelay
       value: 1
       objectReference: {fileID: 0}
@@ -353,6 +357,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &795141942 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6908114619500082746, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+  m_PrefabInstance: {fileID: 97753329}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1626824764
 PrefabInstance:
   m_ObjectHideFlags: 0

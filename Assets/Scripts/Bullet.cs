@@ -1,9 +1,11 @@
-using System.Threading;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float bulletDecay;
+    [Header("Bullet Settings")]
+    public float bulletDecay = 3f;
+    public float damage = 10f; // how much damage this bullet deals
+
     private float timer;
 
     private void Start()
@@ -13,15 +15,20 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        BulletDecay();
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    void BulletDecay()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        timer -= Time.deltaTime;
-
-        if(timer <= 0)
+        // Check if we hit the player
+        PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+        if (playerHealth != null)
         {
+            playerHealth.TakeDamage(damage);
             Destroy(gameObject);
         }
     }
