@@ -26,20 +26,15 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
 
     [Header("Weapon List and its Current Weapon")]
-    public string[] weapons = new string[]{"SemiAuto", "FullAuto", "3RoundShot"};
+    public string[] weapons = new string[] { "SemiAuto", "FullAuto", "3RoundShot" };
     public int currentWeapon;
 
 
 
 
     private bool[] shootCurrentWeapon = new bool[3];
-    
 
-<<<<<<< HEAD
-    //private bool shouldShoot = false;
 
-=======
->>>>>>> ba7719651e3c4188bc1586c523073fbf0ddc332f
     private float semiAutoTimerDelay;
     private float autoTimerDelay;
     private float shotgunTimerDelay;
@@ -51,7 +46,7 @@ public class PlayerController : MonoBehaviour
         PlayerMovement(true);
         PlayerRotation(true);
         TurretMovement(true);
-        if(autoTimerDelay > 0)
+        if (autoTimerDelay > 0)
         {
             autoTimerDelay -= Time.deltaTime;
             canAutoShoot = false;
@@ -61,7 +56,7 @@ public class PlayerController : MonoBehaviour
             canAutoShoot = true;
         }
 
-        if(semiAutoTimerDelay > 0)
+        if (semiAutoTimerDelay > 0)
         {
             semiAutoTimerDelay -= Time.deltaTime;
             canSemiShoot = false;
@@ -71,54 +66,48 @@ public class PlayerController : MonoBehaviour
             canSemiShoot = true;
         }
 
-        if(shotgunTimerDelay > 0)
+        if (shotgunTimerDelay > 0)
         {
             shotgunTimerDelay -= Time.deltaTime;
             canShotgunShoot = false;
         }
         else
         {
-            canShotgunShoot= true;
+            canShotgunShoot = true;
         }
 
-        switch(currentWeapon)
+        switch (currentWeapon)
         {
             case 0:
-                if(Input.GetMouseButtonDown(0) && canSemiShoot == true)
+                if (Input.GetMouseButtonDown(0) && canSemiShoot == true)
                 {
                     shootCurrentWeapon[currentWeapon] = true;
                 }
                 break;
             case 1:
-                if(Input.GetMouseButton(0))
+                if (Input.GetMouseButton(0))
                 {
                     shootCurrentWeapon[currentWeapon] = true;
                 }
-                
-                if(Input.GetMouseButtonUp(0))
+
+                if (Input.GetMouseButtonUp(0))
                 {
                     shootCurrentWeapon[currentWeapon] = false;
                 }
                 break;
             case 2:
-                if(Input.GetMouseButtonDown(0) && canShotgunShoot == true)
+                if (Input.GetMouseButtonDown(0) && canShotgunShoot == true)
                 {
                     shootCurrentWeapon[currentWeapon] = true;
                 }
                 break;
-<<<<<<< HEAD
         }
-            
-
-=======
-        }        
->>>>>>> ba7719651e3c4188bc1586c523073fbf0ddc332f
     }
 
     private void FixedUpdate()
     {
 
-        switch(currentWeapon)
+        switch (currentWeapon)
         {
             case 0:
                 if (shootCurrentWeapon[currentWeapon] == true)
@@ -143,8 +132,8 @@ public class PlayerController : MonoBehaviour
                     shootCurrentWeapon[currentWeapon] = false;
                 }
                 break;
-            }
         }
+    }
 
     //Player Movement
     private void PlayerMovement(bool shouldMove)
@@ -160,9 +149,9 @@ public class PlayerController : MonoBehaviour
     //Player Rotation
     private void PlayerRotation(bool shouldRotate)
     {
-        if(shouldRotate == true)
+        if (shouldRotate == true)
         {
-            playerCamera.transform.rotation  = Quaternion.Euler(0, 0, 0);
+            playerCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
             transform.Rotate(0, 0, -(Input.GetAxisRaw("Horizontal") * rotationSpeed * Time.deltaTime * 30));
         }
     }
@@ -170,7 +159,7 @@ public class PlayerController : MonoBehaviour
     //Movement of the turret with the mouse
     private void TurretMovement(bool shouldMove)
     {
-        if(shouldMove == true)
+        if (shouldMove == true)
         {
             turret.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
         }
@@ -209,8 +198,8 @@ public class PlayerController : MonoBehaviour
     {
         float rotationAngleRad = Mathf.Atan(MousePosition().y / MousePosition().x);
         float rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
-        
-        if(MousePosition().x < 0)
+
+        if (MousePosition().x < 0)
         {
             rotationAngleDeg += 90;
         }
