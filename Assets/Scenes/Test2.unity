@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3603230634186166658, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: currentWeapon
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3603230634186166658, guid: fc34ebd899647be41962b45f961c6de3, type: 3}
       propertyPath: semiAutoDelay
