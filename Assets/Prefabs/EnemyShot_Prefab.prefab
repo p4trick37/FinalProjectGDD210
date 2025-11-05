@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5346625270024495935}
   - component: {fileID: 4952272860481148444}
-  - component: {fileID: 4578579295810048259}
   - component: {fileID: 2544633673861608287}
+  - component: {fileID: 2537382165388512678}
   m_Layer: 0
   m_Name: EnemyShot_Prefab
   m_TagString: Untagged
@@ -92,20 +92,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4578579295810048259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4989981917021308841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd3ba022c51566458a423c369017fe6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  bulletDecay: 5
-  damage: 10
 --- !u!58 &2544633673861608287
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -142,3 +128,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 20.025002
+--- !u!114 &2537382165388512678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4989981917021308841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df023ed15b3edcf408833833712eaa75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bullet
+  bulletDecay: 3
+  damage: 10
+  targetTag: Player

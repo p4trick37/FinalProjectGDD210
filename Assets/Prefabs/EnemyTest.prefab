@@ -124,9 +124,10 @@ GameObject:
   - component: {fileID: 2043053502443795489}
   - component: {fileID: 7552533708538759934}
   - component: {fileID: 3603230634186166658}
+  - component: {fileID: 1795285719967417246}
   m_Layer: 0
   m_Name: EnemyTest
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,7 +240,7 @@ MonoBehaviour:
   movementSpeed: 0
   rotationSpeed: 180
   faceTarget: 1
-  bulletSpeed: 8
+  bulletSpeed: 4
   bulletSpread: 8
   semiAutoDelay: 3
   autoDelay: 0.7
@@ -248,10 +249,27 @@ MonoBehaviour:
   turret: {fileID: 0}
   muzzle: {fileID: 1867234267816676574}
   bulletPrefab: {fileID: 4989981917021308841, guid: df00baad13c31b94e9fee09ed3a88310, type: 3}
-  target: {fileID: 0}
+  target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
   playerTag: Player
   weapons:
   - SemiAuto
   - FullAuto
   - 3RoundShot
   currentWeapon: 0
+--- !u!114 &1795285719967417246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6981561496186615296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed4ca22bcb1cf444ac7ea96e74df3bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  maxHealth: 50
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  flashDuration: 0.02
+  flashCount: 1
+  useEmission: 1
