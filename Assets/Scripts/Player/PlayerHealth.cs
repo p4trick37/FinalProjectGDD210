@@ -34,6 +34,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
+        GetComponent<PlayerController>()?.OnHitByEnemy();
+
         currentHealth -= amount;
         Debug.Log($"Player took {amount} damage! Current health: {currentHealth}");
 
