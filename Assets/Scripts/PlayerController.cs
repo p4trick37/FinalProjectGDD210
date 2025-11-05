@@ -35,8 +35,6 @@ public class PlayerController : MonoBehaviour
     private bool[] shootCurrentWeapon = new bool[3];
     
 
-    private bool shouldShoot = false;
-
     private float semiAutoTimerDelay;
     private float autoTimerDelay;
     private float shotgunTimerDelay;
@@ -103,14 +101,7 @@ public class PlayerController : MonoBehaviour
                     shootCurrentWeapon[currentWeapon] = true;
                 }
                 break;
-        }
-            
-
-        if(Input.GetMouseButtonDown(0))
-        {
-            shouldShoot = true;
-        }
-        
+        }        
     }
 
     private void FixedUpdate()
