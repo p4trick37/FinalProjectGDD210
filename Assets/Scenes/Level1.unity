@@ -457,6 +457,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
+--- !u!4 &1051409881 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3459463858520398717, guid: c80c0f4baa2f70e46911287c47fce997, type: 3}
+  m_PrefabInstance: {fileID: 7024282748943499947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1186723342 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4195121663761632240, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
@@ -474,6 +479,7 @@ GameObject:
   - component: {fileID: 1447264198}
   - component: {fileID: 1447264197}
   - component: {fileID: 1447264200}
+  - component: {fileID: 1447264201}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -599,6 +605,24 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1447264201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447264196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b82113969cfc44e914f4f8eb27502d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
+  player: {fileID: 370019890}
+  island: {fileID: 1051409881}
+  minCameraSize: 5
+  maxCameraSize: 10
+  maxDistance: 15
+  scaleFactor: 0.4
 --- !u!1 &1468808547 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6908114619500082746, guid: 682165561cd68334db40c6b988220a6b, type: 3}

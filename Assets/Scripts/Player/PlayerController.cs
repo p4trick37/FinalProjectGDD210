@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Object References")]
     public GameObject turret;
-    public GameObject playerCamera;
+    //public GameObject playerCamera;
     public GameObject bulletPrefab;
 
     [Header("Weapon List and its Current Weapon")]
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
         {
             float movementInput = Input.GetAxisRaw("Vertical");
             transform.position += transform.up * movementInput * movementSpeed * Time.deltaTime;
-            playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+            //playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
         }
     }
 
@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
     {
         if (shouldRotate)
         {
-            playerCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
+            //playerCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
             transform.Rotate(0, 0, -(Input.GetAxisRaw("Horizontal") * rotationSpeed * Time.deltaTime * 30));
         }
     }
