@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Object References")]
     public GameObject turret;
-    //public GameObject playerCamera;
+    public Camera playerCamera;
     public GameObject bulletPrefab;
 
     [Header("Weapon List and its Current Weapon")]
@@ -58,6 +58,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetMouseButtonDown(1))
+        {
+            Debug.Log(MousePosition());
+        }
+
         PlayerMovement(true);
         PlayerRotation(true);
         TurretMovement(true);
@@ -205,12 +210,14 @@ public class PlayerController : MonoBehaviour
         return rotationAngleDeg;
     }
 
-    //Gathers the mouse position with its origin at the center of the screen
+    //Gathers the mouse position with its origin at the player on the camera
     private Vector2 MousePosition()
     {
         Vector2 centerOfScreen = new Vector2(Screen.width / 2, Screen.height / 2);
+        Vector2 playerOrigen = transform.position;
+        Vector2 playerScreen = Camera.main.WorldToScreenPoint(playerOrigen);
         Vector2 mousePositionInput = Input.mousePosition;
-        Vector2 mousePosition = mousePositionInput - centerOfScreen;
+        Vector2 mousePosition = mousePositionInput - playerScreen;
         return mousePosition;
     }
 }

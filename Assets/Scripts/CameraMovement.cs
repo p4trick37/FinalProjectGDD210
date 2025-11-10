@@ -30,13 +30,6 @@ public class CameraMovement : MonoBehaviour
             transform.position = new Vector3(MidPoint(player.position, island.position).x, MidPoint(player.position, island.position).y, transform.position.z);
             camera.orthographicSize = CameraSize(distance, scaleFactor, minCameraSize, maxCameraSize);
         }
-
-
-        //camera.orthographicSize = 
-        if(Input.GetMouseButtonDown(1))
-        {
-            Debug.Log(distance);
-        }
        
     }
 
