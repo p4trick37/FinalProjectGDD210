@@ -206,18 +206,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 6500913477477616615, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6500913477477616615, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: bulletSpeed
+      value: 12.52
       objectReference: {fileID: 0}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: turret
-      value: 
-      objectReference: {fileID: 1740804908}
+      propertyPath: currentWeapon
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.091568
@@ -531,9 +527,9 @@ MonoBehaviour:
   player: {fileID: 917079458}
   island: {fileID: 1051409881}
   minCameraSize: 5
-  maxCameraSize: 10
-  maxDistance: 15
-  scaleFactor: 0.4
+  maxCameraSize: 13
+  maxDistance: 29.3
+  scaleFactor: 0.43
 --- !u!1001 &1714123811
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -603,11 +599,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4195121663761632240, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
   m_PrefabInstance: {fileID: 337720679}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1740804908 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6908114619500082746, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-  m_PrefabInstance: {fileID: 783838143}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1827911890
 PrefabInstance:
