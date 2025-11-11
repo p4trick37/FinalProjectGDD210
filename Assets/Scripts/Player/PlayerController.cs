@@ -5,26 +5,25 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Movement and Rotation")]
-    public float movementSpeed;
-    public float rotationSpeed;
+    [SerializeField] private float movementSpeed;
+    [SerializeField] private float rotationSpeed;
 
     [Header("Bullet Speed and Spread")]
-    public float bulletSpeed;
-    public float bulletSpread;
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float bulletSpread;
 
     [Header("Delays for Firing Weapons")]
-    public float semiAutoDelay;
-    public float autoDelay;
-    public float shotgunDelay;
+    [SerializeField] private float semiAutoDelay;
+    [SerializeField] private float autoDelay;
+    [SerializeField] private float shotgunDelay;
 
     [Header("Object References")]
-    public GameObject turret;
-    //public GameObject playerCamera;
-    public GameObject bulletPrefab;
+    [SerializeField] private GameObject turret;
+    [SerializeField] private GameObject bulletPrefab;
 
     [Header("Weapon List and its Current Weapon")]
-    public string[] weapons = new string[] { "SemiAuto", "FullAuto", "3RoundShot" };
-    public int currentWeapon;
+    [SerializeField] private string[] weapons = new string[] { "SemiAuto", "FullAuto", "3RoundShot" };
+    [SerializeField] private int currentWeapon;
 
     // --- NEW: hit-recovery + speed cap ---
     [Header("Hit Recovery & Physics Limits")]
@@ -58,6 +57,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetMouseButtonDown(1))
+        {
+            Debug.Log(MousePosition());
+        }
+
         PlayerMovement(true);
         PlayerRotation(true);
         TurretMovement(true);
@@ -205,12 +209,14 @@ public class PlayerController : MonoBehaviour
         return rotationAngleDeg;
     }
 
-    //Gathers the mouse position with its origin at the center of the screen
+    //Gathers the mouse position with its origin at the player on the camera
     private Vector2 MousePosition()
     {
         Vector2 centerOfScreen = new Vector2(Screen.width / 2, Screen.height / 2);
+        Vector2 playerOrigen = transform.position;
+        Vector2 playerScreen = Camera.main.WorldToScreenPoint(playerOrigen);
         Vector2 mousePositionInput = Input.mousePosition;
-        Vector2 mousePosition = mousePositionInput - centerOfScreen;
+        Vector2 mousePosition = mousePositionInput - playerScreen;
         return mousePosition;
     }
 }
