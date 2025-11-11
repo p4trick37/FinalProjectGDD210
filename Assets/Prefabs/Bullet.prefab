@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df023ed15b3edcf408833833712eaa75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  bulletDecay: 3
+  bulletDecay: 5
   damage: 10
   targetTag: Enemy
 --- !u!58 &-3643264703470358890

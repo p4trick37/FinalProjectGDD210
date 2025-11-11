@@ -114,7 +114,7 @@ MonoBehaviour:
   semiAutoDelay: 0.9
   autoDelay: 0.1
   shotgunDelay: 1.7
-  turret: {fileID: 0}
+  turret: {fileID: 6908114619500082746}
   bulletPrefab: {fileID: 1965384080407287419, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
   weapons:
   - SemiAuto
