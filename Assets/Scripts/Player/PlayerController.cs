@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour
     private bool canAutoShoot;
     private bool canShotgunShoot;
 
+    private float oldTurretRotationValue;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,11 +57,13 @@ public class PlayerController : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
 
-        Cursor.visible = false;
+        oldTurretRotationValue = 0;
     }
 
     private void Update()
     {
+        //Debug.Log(ConvertJoyStickToDeg(RightJoyStickInput()));
+
         PlayerMovement(true);
         PlayerRotation(true);
         TurretMovement(true);
@@ -151,7 +156,6 @@ public class PlayerController : MonoBehaviour
     {
         if (shouldRotate)
         {
-            //playerCamera.transform.rotation = Quaternion.Euler(0, 0, 0);
             transform.Rotate(0, 0, -(Input.GetAxisRaw("Horizontal") * rotationSpeed * Time.deltaTime * 30));
         }
     }
@@ -161,7 +165,14 @@ public class PlayerController : MonoBehaviour
     {
         if (shouldMove)
         {
-            turret.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
+            //turret.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
+            float angle = JoyStickAngle(RightJoyStickInput());
+            if(float.IsNaN(angle) == true)
+            {
+                angle = oldTurretRotationValue;
+            }
+            turret.transform.rotation = Quaternion.Euler(0, 0, angle);
+            oldTurretRotationValue = angle;
         }
     }
 
@@ -217,8 +228,33 @@ public class PlayerController : MonoBehaviour
         return mousePosition;
     }
 
-    private void RightJoyStickPosition()
+    private Vector2 RightJoyStickInput()
     {
-        float rightStickX = Input.GetAxis("RightStickX");
+        float x = Input.GetAxis("RightStickX");
+        float y = Input.GetAxis("RightStickY");
+        if(x < 0.1 && x > -0.1)
+        {
+            x = 0;
+        }
+        if(y < 0.1 && y > -0.1)
+        {
+            y = 0;
+        }
+        Vector2 input = new Vector2(x, y);
+        return input;
+    }
+    private float JoyStickAngle(Vector2 input)
+    {
+        float angleRad = Mathf.Atan(input.y / input.x);
+        float angleDeg = Mathf.Rad2Deg * angleRad;
+        if(input.x < 0)
+        {
+            angleDeg += 90;
+        }
+        else
+        {
+            angleDeg -= 90;
+        }
+        return angleDeg;
     }
 }

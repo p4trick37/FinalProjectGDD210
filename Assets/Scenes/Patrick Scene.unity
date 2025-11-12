@@ -184,7 +184,6 @@ MonoBehaviour:
   autoDelay: 0.1
   shotgunDelay: 1
   turret: {fileID: 2042174641}
-  playerCamera: {fileID: 0}
   bulletPrefab: {fileID: 1965384080407287419, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
   weapons:
   - SemiAuto
@@ -553,6 +552,10 @@ PrefabInstance:
     - target: {fileID: 473378636629930842, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_Name
       value: Player (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7458616791353582424, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.x
