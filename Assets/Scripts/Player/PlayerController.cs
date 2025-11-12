@@ -53,15 +53,12 @@ public class PlayerController : MonoBehaviour
             // Ensure we don't spin from impacts unless you want that:
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
+
+        Cursor.visible = false;
     }
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(1))
-        {
-            Debug.Log(MousePosition());
-        }
-
         PlayerMovement(true);
         PlayerRotation(true);
         TurretMovement(true);
@@ -218,5 +215,10 @@ public class PlayerController : MonoBehaviour
         Vector2 mousePositionInput = Input.mousePosition;
         Vector2 mousePosition = mousePositionInput - playerScreen;
         return mousePosition;
+    }
+
+    private void RightJoyStickPosition()
+    {
+        float rightStickX = Input.GetAxis("RightStickX");
     }
 }
