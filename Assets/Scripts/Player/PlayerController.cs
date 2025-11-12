@@ -165,7 +165,8 @@ public class PlayerController : MonoBehaviour
     {
         if (shouldMove)
         {
-            //turret.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
+            turret.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
+
             float angle = JoyStickAngle(RightJoyStickInput());
             if(float.IsNaN(angle) == true)
             {
