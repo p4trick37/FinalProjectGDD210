@@ -1,10 +1,14 @@
 using JetBrains.Annotations;
 using System.Collections;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Controller or Mouse and Keyboard")]
+    [SerializeField] private bool usingController;
+
     [Header("Player Movement and Rotation")]
     [SerializeField] private float movementSpeed;
     [SerializeField] private float rotationSpeed;
@@ -62,33 +66,74 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(ConvertJoyStickToDeg(RightJoyStickInput()));
-
         PlayerMovement(true);
         PlayerRotation(true);
         TurretMovement(true);
 
-        if (autoTimerDelay > 0) { autoTimerDelay -= Time.deltaTime; canAutoShoot = false; } else { canAutoShoot = true; }
-        if (semiAutoTimerDelay > 0) { semiAutoTimerDelay -= Time.deltaTime; canSemiShoot = false; } else { canSemiShoot = true; }
-        if (shotgunTimerDelay > 0) { shotgunTimerDelay -= Time.deltaTime; canShotgunShoot = false; } else { canShotgunShoot = true; }
+        //Setting the delays for each weapon after every bullet
+        if (autoTimerDelay > 0) 
+        { 
+            autoTimerDelay -= Time.deltaTime; 
+            canAutoShoot = false; 
+        } 
+        else 
+        { 
+            canAutoShoot = true; 
+        }
+        if (semiAutoTimerDelay > 0) 
+        { 
+            semiAutoTimerDelay -= Time.deltaTime; 
+            canSemiShoot = false; } 
+        else 
+        { 
+            canSemiShoot = true; 
+        }
+        if (shotgunTimerDelay > 0) 
+        { 
+            shotgunTimerDelay -= Time.deltaTime; 
+            canShotgunShoot = false; } 
+        else 
+        { 
+            canShotgunShoot = true; 
+        }
 
-        switch (currentWeapon)
+        //Checking for input depending on what weapon the player is using
+        if(usingController == false)
         {
-            case 0:
-                if (Input.GetMouseButtonDown(0) && canSemiShoot) shootCurrentWeapon[currentWeapon] = true;
-                break;
-            case 1:
-                if (Input.GetMouseButton(0)) shootCurrentWeapon[currentWeapon] = true;
-                if (Input.GetMouseButtonUp(0)) shootCurrentWeapon[currentWeapon] = false;
-                break;
-            case 2:
-                if (Input.GetMouseButtonDown(0) && canShotgunShoot) shootCurrentWeapon[currentWeapon] = true;
-                break;
+            switch (currentWeapon)
+            {
+                case 0:
+                    if (Input.GetMouseButtonDown(0) && canSemiShoot) shootCurrentWeapon[currentWeapon] = true;
+                    break;
+                case 1:
+                    if (Input.GetMouseButton(0)) shootCurrentWeapon[currentWeapon] = true;
+                    if (Input.GetMouseButtonUp(0)) shootCurrentWeapon[currentWeapon] = false;
+                    break;
+                case 2:
+                    if (Input.GetMouseButtonDown(0) && canShotgunShoot) shootCurrentWeapon[currentWeapon] = true;
+                    break;
+            }
+        }
+        else
+        {
+            switch (currentWeapon)
+            {
+                case 0:
+                    if (Input.GetAxis("Right Trigger") > 0.5 && canSemiShoot) shootCurrentWeapon[currentWeapon] = true;
+                    break;
+                case 1:
+                    if (Input.GetMouseButton(0)) shootCurrentWeapon[currentWeapon] = true;
+                    if (Input.GetMouseButtonUp(0)) shootCurrentWeapon[currentWeapon] = false;
+                    break;
+            }
         }
     }
 
     private void FixedUpdate()
     {
+        //Shooting the bullet
+        //Restarting the delay
+        //Not allowing the player shoot another bullet
         switch (currentWeapon)
         {
             case 0:
@@ -147,7 +192,6 @@ public class PlayerController : MonoBehaviour
         {
             float movementInput = Input.GetAxisRaw("Vertical");
             transform.position += transform.up * movementInput * movementSpeed * Time.deltaTime;
-            //playerCamera.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
         }
     }
 
