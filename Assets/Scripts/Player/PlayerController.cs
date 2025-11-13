@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using Unity.Jobs;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -23,7 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float shotgunDelay;
 
     [Header("Object References")]
-    [SerializeField] private GameObject turret;
+    [SerializeField] private GameObject turretWeapon;
+    [SerializeField] private Transform turretLocation;
     [SerializeField] private GameObject bulletPrefab;
 
     [Header("Weapon List and its Current Weapon")]
@@ -119,11 +121,14 @@ public class PlayerController : MonoBehaviour
             switch (currentWeapon)
             {
                 case 0:
-                    if (Input.GetAxis("Right Trigger") > 0.5 && canSemiShoot) shootCurrentWeapon[currentWeapon] = true;
+                    if (Input.GetAxis("Right Trigger") > 0 && canSemiShoot) shootCurrentWeapon[currentWeapon] = true;
                     break;
                 case 1:
-                    if (Input.GetMouseButton(0)) shootCurrentWeapon[currentWeapon] = true;
-                    if (Input.GetMouseButtonUp(0)) shootCurrentWeapon[currentWeapon] = false;
+                    if (Input.GetAxis("Right Trigger") > 0) shootCurrentWeapon[currentWeapon] = true;
+                    if (Input.GetAxis("Right Trigger") < 0) shootCurrentWeapon[currentWeapon] = false;
+                    break;
+                case 2:
+                    if (Input.GetAxis("Right Trigger") > 0 && canShotgunShoot) shootCurrentWeapon[currentWeapon] = true;
                     break;
             }
         }
@@ -189,7 +194,7 @@ public class PlayerController : MonoBehaviour
     private void PlayerMovement(bool shouldMove)
     {
         if (shouldMove)
-        {
+        {   
             float movementInput = Input.GetAxisRaw("Vertical");
             transform.position += transform.up * movementInput * movementSpeed * Time.deltaTime;
         }
@@ -209,45 +214,75 @@ public class PlayerController : MonoBehaviour
     {
         if (shouldMove)
         {
-            turret.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
+            turretWeapon.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
 
-            float angle = JoyStickAngle(RightJoyStickInput());
-            if(float.IsNaN(angle) == true)
-            {
-                angle = oldTurretRotationValue;
-            }
-            turret.transform.rotation = Quaternion.Euler(0, 0, angle);
-            oldTurretRotationValue = angle;
+            float angle = NaFNumber(JoyStickAngle(RightJoyStickInput()));
+            turretWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
+            
         }
     }
 
     //Shoots a bullet in the direction of the mouse
     private void ShootSingleBullet()
     {
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        float angle = GetRotationMouseTracker() + 90;
-        Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-        bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
+        if(usingController == false)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
+            float angle = GetRotationMouseTracker() + 90;
+            Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+            bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
+        }
+        else
+        {
+            GameObject bullet = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
+            float angle = NaFNumber(JoyStickAngle(RightJoyStickInput())) + 90;
+            Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+            bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
+        }
+        
     }
 
     private void Shoot3Bullets()
     {
-        GameObject bullet1 = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        GameObject bullet2 = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        GameObject bullet3 = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        if(usingController == false)
+        {
+            GameObject bullet1 = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
+            GameObject bullet2 = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
+            GameObject bullet3 = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
 
-        float baseAngle = GetRotationMouseTracker() + 90;
-        float angle1 = baseAngle;
-        float angle2 = baseAngle + bulletSpread;
-        float angle3 = baseAngle - bulletSpread;
+            float baseAngle = GetRotationMouseTracker() + 90;
+            float angle1 = baseAngle;
+            float angle2 = baseAngle + bulletSpread;
+            float angle3 = baseAngle - bulletSpread;
 
-        Vector2 dir1 = new Vector2(Mathf.Cos(angle1 * Mathf.Deg2Rad), Mathf.Sin(angle1 * Mathf.Deg2Rad));
-        Vector2 dir2 = new Vector2(Mathf.Cos(angle2 * Mathf.Deg2Rad), Mathf.Sin(angle2 * Mathf.Deg2Rad));
-        Vector2 dir3 = new Vector2(Mathf.Cos(angle3 * Mathf.Deg2Rad), Mathf.Sin(angle3 * Mathf.Deg2Rad));
+            Vector2 dir1 = new Vector2(Mathf.Cos(angle1 * Mathf.Deg2Rad), Mathf.Sin(angle1 * Mathf.Deg2Rad));
+            Vector2 dir2 = new Vector2(Mathf.Cos(angle2 * Mathf.Deg2Rad), Mathf.Sin(angle2 * Mathf.Deg2Rad));
+            Vector2 dir3 = new Vector2(Mathf.Cos(angle3 * Mathf.Deg2Rad), Mathf.Sin(angle3 * Mathf.Deg2Rad));
 
-        bullet1.GetComponent<Rigidbody2D>().AddForce(dir1 * bulletSpeed, ForceMode2D.Impulse);
-        bullet2.GetComponent<Rigidbody2D>().AddForce(dir2 * bulletSpeed, ForceMode2D.Impulse);
-        bullet3.GetComponent<Rigidbody2D>().AddForce(dir3 * bulletSpeed, ForceMode2D.Impulse);
+            bullet1.GetComponent<Rigidbody2D>().AddForce(dir1 * bulletSpeed, ForceMode2D.Impulse);
+            bullet2.GetComponent<Rigidbody2D>().AddForce(dir2 * bulletSpeed, ForceMode2D.Impulse);
+            bullet3.GetComponent<Rigidbody2D>().AddForce(dir3 * bulletSpeed, ForceMode2D.Impulse);
+        }
+        else
+        {
+            GameObject bullet1 = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
+            GameObject bullet2 = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
+            GameObject bullet3 = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
+
+            float baseAngle = NaFNumber(JoyStickAngle(RightJoyStickInput())) + 90;
+            float angle1 = baseAngle;
+            float angle2 = baseAngle + bulletSpread;
+            float angle3 = baseAngle - bulletSpread;
+
+            Vector2 dir1 = new Vector2(Mathf.Cos(angle1 * Mathf.Deg2Rad), Mathf.Sin(angle1 * Mathf.Deg2Rad));
+            Vector2 dir2 = new Vector2(Mathf.Cos(angle2 * Mathf.Deg2Rad), Mathf.Sin(angle2 * Mathf.Deg2Rad));
+            Vector2 dir3 = new Vector2(Mathf.Cos(angle3 * Mathf.Deg2Rad), Mathf.Sin(angle3 * Mathf.Deg2Rad));
+
+            bullet1.GetComponent<Rigidbody2D>().AddForce(dir1 * bulletSpeed, ForceMode2D.Impulse);
+            bullet2.GetComponent<Rigidbody2D>().AddForce(dir2 * bulletSpeed, ForceMode2D.Impulse);
+            bullet3.GetComponent<Rigidbody2D>().AddForce(dir3 * bulletSpeed, ForceMode2D.Impulse);
+        }
+        
     }
 
     //Gathers the rotation angle of the player when using the mouse
@@ -266,7 +301,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 MousePosition()
     {
         Vector2 centerOfScreen = new Vector2(Screen.width / 2, Screen.height / 2);
-        Vector2 playerOrigen = transform.position;
+        Vector2 playerOrigen = turretLocation.position;
         Vector2 playerScreen = Camera.main.WorldToScreenPoint(playerOrigen);
         Vector2 mousePositionInput = Input.mousePosition;
         Vector2 mousePosition = mousePositionInput - playerScreen;
@@ -301,5 +336,15 @@ public class PlayerController : MonoBehaviour
             angleDeg -= 90;
         }
         return angleDeg;
+    }
+
+    private float NaFNumber(float number)
+    {
+        if (float.IsNaN(number) == true)
+        {
+            number = oldTurretRotationValue;
+        }
+        oldTurretRotationValue = number;
+        return number;
     }
 }

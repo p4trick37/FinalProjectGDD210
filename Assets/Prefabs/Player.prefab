@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80fc8b555d5c0749b8dce0a322ee3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  usingController: 1
   movementSpeed: 5
   rotationSpeed: 5
   bulletSpeed: 8
@@ -114,7 +115,8 @@ MonoBehaviour:
   semiAutoDelay: 0.9
   autoDelay: 0.1
   shotgunDelay: 1.7
-  turret: {fileID: 8079679743552484842}
+  turretWeapon: {fileID: 6908114619500082746}
+  turretLocation: {fileID: 7178257665274558706}
   bulletPrefab: {fileID: 1965384080407287419, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
   weapons:
   - SemiAuto
@@ -292,7 +294,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -5333349321414413341, guid: 9724822472498084eb60c68b378a2258, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
