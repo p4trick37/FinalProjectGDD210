@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5203007508171315326}
   - component: {fileID: 4241469924247590645}
   - component: {fileID: 7981363622943368291}
+  - component: {fileID: 5946211098487093509}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -189,6 +190,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5946211098487093509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239319237665313567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41017d135ee08dc498d2fdd6f1835377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerUnit
 --- !u!1 &4747481897295333970
 GameObject:
   m_ObjectHideFlags: 0

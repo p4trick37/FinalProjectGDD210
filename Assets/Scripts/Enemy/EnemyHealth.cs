@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 
-
 public class EnemyHealth : MonoBehaviour
 {
     [Header("Health Settings")]
@@ -28,20 +27,23 @@ public class EnemyHealth : MonoBehaviour
         // Try to get sprite renderer
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
+        {
             originalColor = spriteRenderer.color;
+        }
         else
+        {
             Debug.LogWarning($"{name}: EnemyHealth has no SpriteRenderer!");
+        }
     }
+
     private void Update()
     {
-        //UI Updating enemy Health
-        if(uiHealth != null)
+        // UI Updating enemy Health
+        if (uiHealth != null)
         {
             uiHealth.text = currentHealth + "";
         }
-        
     }
-
 
     public void TakeDamage(float amount)
     {
@@ -64,6 +66,21 @@ public class EnemyHealth : MonoBehaviour
 
         if (spriteRenderer != null)
             spriteRenderer.color = originalColor;
+
+        // Notify LevelManager that this tower died, if both are present
+        LevelManager manager = FindFirstObjectByType<LevelManager>();
+        if (manager != null)
+        {
+            TowerUnit towerUnit = GetComponent<TowerUnit>();
+            if (towerUnit != null)
+            {
+                manager.ReportTowerDestroyed(towerUnit);
+            }
+            else
+            {
+                Debug.LogWarning($"{name}: EnemyHealth could not find TowerUnit on this object when dying.");
+            }
+        }
 
         // Disable the enemy so it can be pooled or reactivated later
         gameObject.SetActive(false);
