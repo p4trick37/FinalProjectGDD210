@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f15c75f51b1b7624785ad59665354f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  nextSceneName: EndScreen
+  nextSceneName: Test2
