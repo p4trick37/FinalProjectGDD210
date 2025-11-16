@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
+
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class EnemyHealth : MonoBehaviour
     public Color flashColor = Color.white;   // flash color when hit
     public float flashDuration = 0.12f;      // time each flash lasts
     public int flashCount = 2;               // number of flashes
+
+    [Header("UI Elements")]
+    public TMP_Text uiHealth;
 
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
@@ -27,6 +32,16 @@ public class EnemyHealth : MonoBehaviour
         else
             Debug.LogWarning($"{name}: EnemyHealth has no SpriteRenderer!");
     }
+    private void Update()
+    {
+        //UI Updating enemy Health
+        if(uiHealth != null)
+        {
+            uiHealth.text = currentHealth + "";
+        }
+        
+    }
+
 
     public void TakeDamage(float amount)
     {

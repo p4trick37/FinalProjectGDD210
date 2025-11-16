@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class PlayerHealth : MonoBehaviour
     public Color flashColor = Color.white;      // color to flash when hit
     public float flashDuration = 0.15f;         // time each flash lasts
     public int flashCount = 2;                  // number of flashes
+
+    [Header("UI Elements")]
+    [SerializeField] private TMP_Text uiHealth;
 
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
@@ -30,6 +34,12 @@ public class PlayerHealth : MonoBehaviour
         {
             Debug.LogWarning("PlayerHealth: No SpriteRenderer found on this GameObject!");
         }
+    }
+
+    private void Update()
+    {
+        //Update UI
+        uiHealth.text = "Player Health: " + currentHealth;
     }
 
     public void TakeDamage(float amount)
