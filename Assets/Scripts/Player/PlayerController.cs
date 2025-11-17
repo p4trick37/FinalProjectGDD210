@@ -7,31 +7,56 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Controller
     [Header("Controller or Mouse and Keyboard")]
     [SerializeField] private bool usingController;
+    #endregion
+    #region Current Weapon
+    [Header("Current Weapon")]
+    [SerializeField] private bool usingSemi;
+    [SerializeField] private bool usingAuto;
+    [SerializeField] private bool usingShotgun;
+    private int currentWeapon;
+    private bool[] shootCurrentWeapon = new bool[3];
+    #endregion
+    #region Weapon OverHeating
+    [Header("Weapons Overheating")]
+    [SerializeField] private float maxSemiUse;
+    [SerializeField] private float maxAutoUse;
+    [SerializeField] private float maxShotgunUse;
+    [SerializeField] private float heatSpeedSemi;
+    [SerializeField] private float heatSpeedAuto;
+    [SerializeField] private float heatSpeedShotgun;
 
+    private float heatSemi = 0;
+    private float heatAuto = 0;
+    private float heatShotgun = 0;
+
+    private bool isOverHeated = false; 
+    #endregion
+    #region Player Movement and Rotation
     [Header("Player Movement and Rotation")]
     [SerializeField] private float movementSpeed;
     [SerializeField] private float rotationSpeed;
-
+    #endregion
+    #region Bullet Speed and Spread
     [Header("Bullet Speed and Spread")]
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float bulletSpread;
-
+    #endregion
+    #region Firing Delays
     [Header("Delays for Firing Weapons")]
     [SerializeField] private float semiAutoDelay;
     [SerializeField] private float autoDelay;
     [SerializeField] private float shotgunDelay;
-
+    #endregion
+    #region Object References
     [Header("Object References")]
     [SerializeField] private GameObject turretWeapon;
     [SerializeField] private Transform turretLocation;
     [SerializeField] private GameObject bulletPrefab;
-
-    [Header("Weapon List and its Current Weapon")]
-    [SerializeField] private string[] weapons = new string[] { "SemiAuto", "FullAuto", "3RoundShot" };
-    [SerializeField] private int currentWeapon;
-
+    #endregion
+    #region Hit Recovery
     // --- NEW: hit-recovery + speed cap ---
     [Header("Hit Recovery & Physics Limits")]
     [SerializeField] private float normalDrag = 0.5f;     // your usual drag
@@ -41,15 +66,15 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private Coroutine hitRecoverCR;
-
-    private bool[] shootCurrentWeapon = new bool[3];
-
+    #endregion
+    #region Current Weapon Delays and ability to shoot
     private float semiAutoTimerDelay;
     private float autoTimerDelay;
     private float shotgunTimerDelay;
     private bool canSemiShoot;
     private bool canAutoShoot;
     private bool canShotgunShoot;
+    #endregion
 
     private float oldTurretRotationValue;
 
@@ -71,6 +96,8 @@ public class PlayerController : MonoBehaviour
         PlayerMovement(true);
         PlayerRotation(true);
         TurretMovement(true);
+        ControlWeapon();
+
 
         //Setting the delays for each weapon after every bullet
         if (autoTimerDelay > 0) 
@@ -102,34 +129,59 @@ public class PlayerController : MonoBehaviour
         //Checking for input depending on what weapon the player is using
         if(usingController == false)
         {
-            switch (currentWeapon)
+            
+            if(usingSemi)
             {
-                case 0:
-                    if (Input.GetMouseButtonDown(0) && canSemiShoot) shootCurrentWeapon[currentWeapon] = true;
-                    break;
-                case 1:
-                    if (Input.GetMouseButton(0)) shootCurrentWeapon[currentWeapon] = true;
-                    if (Input.GetMouseButtonUp(0)) shootCurrentWeapon[currentWeapon] = false;
-                    break;
-                case 2:
-                    if (Input.GetMouseButtonDown(0) && canShotgunShoot) shootCurrentWeapon[currentWeapon] = true;
-                    break;
+                if (Input.GetMouseButtonDown(0) && canSemiShoot)
+                {
+                    shootCurrentWeapon[currentWeapon] = true;
+                }
+            }
+            else if(usingAuto)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    shootCurrentWeapon[currentWeapon] = true;
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    shootCurrentWeapon[currentWeapon] = false;
+                }
+            }
+            else
+            {
+                if (Input.GetMouseButtonDown(0) && canShotgunShoot)
+                {
+                    shootCurrentWeapon[currentWeapon] = true;
+                }
             }
         }
         else
         {
-            switch (currentWeapon)
+            if(usingSemi)
             {
-                case 0:
-                    if (Input.GetAxis("Right Trigger") > 0 && canSemiShoot) shootCurrentWeapon[currentWeapon] = true;
-                    break;
-                case 1:
-                    if (Input.GetAxis("Right Trigger") > 0) shootCurrentWeapon[currentWeapon] = true;
-                    if (Input.GetAxis("Right Trigger") < 0) shootCurrentWeapon[currentWeapon] = false;
-                    break;
-                case 2:
-                    if (Input.GetAxis("Right Trigger") > 0 && canShotgunShoot) shootCurrentWeapon[currentWeapon] = true;
-                    break;
+                if (Input.GetAxis("Right Trigger") > 0 && canSemiShoot)
+                {
+                    shootCurrentWeapon[currentWeapon] = true;
+                }
+            }
+            else if(usingAuto)
+            {
+                if (Input.GetAxis("Right Trigger") > 0)
+                {
+                    shootCurrentWeapon[currentWeapon] = true;
+                }
+                if (Input.GetAxis("Right Trigger") < 0)
+                {
+                    shootCurrentWeapon[currentWeapon] = false;
+                }
+            }
+            else
+            {
+                if (Input.GetAxis("Right Trigger") > 0 && canShotgunShoot)
+                {
+                    shootCurrentWeapon[currentWeapon] = true;
+                }
             }
         }
     }
@@ -139,31 +191,34 @@ public class PlayerController : MonoBehaviour
         //Shooting the bullet
         //Restarting the delay
         //Not allowing the player shoot another bullet
-        switch (currentWeapon)
+
+
+        if (usingSemi)
         {
-            case 0:
-                if (shootCurrentWeapon[currentWeapon])
-                {
-                    ShootSingleBullet();
-                    semiAutoTimerDelay = semiAutoDelay;
-                    shootCurrentWeapon[currentWeapon] = false;
-                }
-                break;
-            case 1:
-                if (shootCurrentWeapon[currentWeapon] && canAutoShoot)
-                {
-                    ShootSingleBullet();
-                    autoTimerDelay = autoDelay;
-                }
-                break;
-            case 2:
-                if (shootCurrentWeapon[currentWeapon])
-                {
-                    Shoot3Bullets();
-                    shotgunTimerDelay = shotgunDelay;
-                    shootCurrentWeapon[currentWeapon] = false;
-                }
-                break;
+            if (shootCurrentWeapon[currentWeapon])
+            {
+                ShootSingleBullet();
+                semiAutoTimerDelay = semiAutoDelay;
+                shootCurrentWeapon[currentWeapon] = false;
+            }
+        }
+
+        else if (usingAuto)
+        {
+            if (shootCurrentWeapon[currentWeapon] && canAutoShoot)
+            {
+                ShootSingleBullet();
+                autoTimerDelay = autoDelay;
+            }
+        }
+        else
+        {
+            if (shootCurrentWeapon[currentWeapon])
+            {
+                Shoot3Bullets();
+                shotgunTimerDelay = shotgunDelay;
+                shootCurrentWeapon[currentWeapon] = false;
+            }
         }
 
         // --- NEW: absolute speed clamp so pushes never drift forever ---
@@ -214,11 +269,15 @@ public class PlayerController : MonoBehaviour
     {
         if (shouldMove)
         {
-            turretWeapon.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
-
-            float angle = NaFNumber(JoyStickAngle(RightJoyStickInput()));
-            turretWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
-            
+            if(usingController == false)
+            {
+                turretWeapon.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
+            }
+            else
+            {
+                float angle = NaFNumber(JoyStickAngle(RightJoyStickInput()));
+                turretWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
+            }
         }
     }
 
@@ -346,5 +405,48 @@ public class PlayerController : MonoBehaviour
         }
         oldTurretRotationValue = number;
         return number;
+    }
+    private void ControlHeating(float currentHeat, float heatSpeed, float maxHeat)
+    {
+        currentHeat -= heatSpeed * Time.deltaTime;
+        if(currentHeat > maxHeat)
+        {
+            isOverHeated = true;
+        }
+    }
+    private bool DoneHeating(float heatTime)
+    {
+        float number = 0;
+        number += Time.deltaTime;
+        if(number >= heatTime)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void ControlWeapon()
+    {
+        if(usingSemi)
+        {
+            currentWeapon = 0;
+            usingAuto = false;
+            usingShotgun = false;
+        }
+        else if(usingAuto)
+        {
+            currentWeapon = 1;
+            usingSemi = false;
+            usingShotgun = false;
+        }
+        else
+        {
+            currentWeapon = 2;
+            usingSemi = false;
+            usingShotgun = false;
+        }
     }
 }
