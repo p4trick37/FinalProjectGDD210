@@ -1331,6 +1331,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3614437249896410277, guid: c80c0f4baa2f70e46911287c47fce997, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 8756531412915311197, guid: c80c0f4baa2f70e46911287c47fce997, type: 3}
       propertyPath: m_Name
       value: Island
