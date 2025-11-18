@@ -49,7 +49,13 @@ public class PlayerController : MonoBehaviour
     private float heatAuto = 0;
     private float heatShotgun = 0;
 
-    private bool isOverHeated = false; 
+    //Is the weapon over heated
+    private bool isSemiHeated = false;
+    private bool isAutoHeated = false;
+    private bool isShotgunHeated = false;
+
+    private float semiCount;
+
     #endregion
     #region Player Movement and Rotation
     [Header("Player Movement and Rotation")]
@@ -123,6 +129,35 @@ public class PlayerController : MonoBehaviour
         ControlWeapon();
         Debug.Log(heatSemi);
 
+        if(isSemiHeated == true)
+        {
+            semiCount += Time.deltaTime;
+            if(semiCount >= heatDelaySemi)
+            {
+                isSemiHeated = false;
+                heatSemi = 0;
+                semiCount = 0;
+            }
+        }
+        else
+        {
+            heatSemi -= heatDrainSemi * Time.deltaTime;
+        }
+        
+        if(heatSemi < 0)
+        {
+            heatSemi = 0;
+        }
+        if(heatSemi > maxSemiUse)
+        {
+            isSemiHeated = true;
+        }
+        
+
+
+
+
+
         //Setting the delays for each weapon after every bullet
         if (autoTimerDelay > 0) 
         { 
@@ -156,8 +191,8 @@ public class PlayerController : MonoBehaviour
             
             if(usingSemi)
             {
-                heatSemi = Heating(heatSemi, maxSemiUse, heatDrainSemi, heatDelaySemi);
-                if (Input.GetMouseButtonDown(0) && canSemiShoot)
+                //heatSemi = Heating(heatSemi, maxSemiUse, heatDrainSemi, heatDelaySemi);
+                if (Input.GetMouseButtonDown(0) && canSemiShoot && isSemiHeated == false)
                 {
                     shootCurrentWeapon[currentWeapon] = true;
                     heatSemi += heatAddSemi;
@@ -186,7 +221,7 @@ public class PlayerController : MonoBehaviour
         {
             if(usingSemi)
             {
-                if (Input.GetAxis("Right Trigger") > 0 && canSemiShoot)
+                if (Input.GetAxis("Right Trigger") > 0 && canSemiShoot && isSemiHeated == false)
                 {
                     shootCurrentWeapon[currentWeapon] = true;
                 }
@@ -478,10 +513,6 @@ public class PlayerController : MonoBehaviour
         }
         Debug.Log("Run");
         return currentHeat;
-    }
-    private void OverTimeHeating(float currentHeat, float heatSpeed)
-    {
-        currentHeat -= heatSpeed * Time.deltaTime;
     }
         
 
