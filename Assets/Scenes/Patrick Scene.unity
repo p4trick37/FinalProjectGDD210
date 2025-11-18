@@ -183,9 +183,15 @@ MonoBehaviour:
   maxSemiUse: 0
   maxAutoUse: 0
   maxShotgunUse: 0
-  heatSpeedSemi: 0
-  heatSpeedAuto: 0
-  heatSpeedShotgun: 0
+  heatDrainSemi: 0
+  heatDrainAuto: 0
+  heatDrainShotgun: 0
+  heatAddSemi: 0
+  heatAddAuto: 0
+  heatAddShotgun: 0
+  heatDelaySemi: 0
+  heatDelayAuto: 0
+  heatDelayShotgun: 0
   movementSpeed: 5
   rotationSpeed: 5
   bulletSpeed: 700
@@ -643,8 +649,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: usingController
+      propertyPath: maxSemiUse
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: heatAddSemi
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: heatDelaySemi
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: heatDrainSemi
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: usingController
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.x

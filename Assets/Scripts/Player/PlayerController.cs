@@ -21,13 +21,30 @@ public class PlayerController : MonoBehaviour
     #endregion
     #region Weapon OverHeating
     [Header("Weapons Overheating")]
+    //The max that the gun can be heated to before it is considered overheated
     [SerializeField] private float maxSemiUse;
     [SerializeField] private float maxAutoUse;
     [SerializeField] private float maxShotgunUse;
-    [SerializeField] private float heatSpeedSemi;
-    [SerializeField] private float heatSpeedAuto;
-    [SerializeField] private float heatSpeedShotgun;
+    [Space(15)]
 
+    //The time that it takes for the heat to lower before over heated
+    [SerializeField] private float heatDrainSemi;
+    [SerializeField] private float heatDrainAuto;
+    [SerializeField] private float heatDrainShotgun;
+    [Space(15)]
+
+    //The heat that gets added when taking a shot
+    [SerializeField] private float heatAddSemi;
+    [SerializeField] private float heatAddAuto;
+    [SerializeField] private float heatAddShotgun;
+
+    [Space(15)]
+    //The time that it takes for the weapon to be done heating
+    [SerializeField] private float heatDelaySemi;
+    [SerializeField] private float heatDelayAuto;
+    [SerializeField] private float heatDelayShotgun;
+
+    //The current heat of the weapon
     private float heatSemi = 0;
     private float heatAuto = 0;
     private float heatShotgun = 0;
@@ -104,7 +121,7 @@ public class PlayerController : MonoBehaviour
         }
         TurretMovement(true);
         ControlWeapon();
-
+        Debug.Log(heatSemi);
 
         //Setting the delays for each weapon after every bullet
         if (autoTimerDelay > 0) 
@@ -139,9 +156,11 @@ public class PlayerController : MonoBehaviour
             
             if(usingSemi)
             {
+                heatSemi = Heating(heatSemi, maxSemiUse, heatDrainSemi, heatDelaySemi);
                 if (Input.GetMouseButtonDown(0) && canSemiShoot)
                 {
                     shootCurrentWeapon[currentWeapon] = true;
+                    heatSemi += heatAddSemi;
                 }
             }
             else if(usingAuto)
@@ -441,14 +460,31 @@ public class PlayerController : MonoBehaviour
         oldTurretRotationValue = number;
         return number;
     }
-    private void ControlHeating(float currentHeat, float heatSpeed, float maxHeat)
+    private float Heating(float currentHeat, float maxHeat, float heatDrain, float timeDelay)
     {
-        currentHeat -= heatSpeed * Time.deltaTime;
+        currentHeat -= heatDrain * Time.deltaTime;
+        if (currentHeat < 0)
+        {
+            currentHeat = 0;
+        }
+
         if(currentHeat > maxHeat)
         {
-            isOverHeated = true;
+            DoneHeating(timeDelay);
         }
+        if(DoneHeating(timeDelay) == true)
+        {
+            currentHeat = 0;
+        }
+        Debug.Log("Run");
+        return currentHeat;
     }
+    private void OverTimeHeating(float currentHeat, float heatSpeed)
+    {
+        currentHeat -= heatSpeed * Time.deltaTime;
+    }
+        
+
     private bool DoneHeating(float heatTime)
     {
         float number = 0;
