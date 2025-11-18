@@ -93,8 +93,15 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        PlayerMovement(true);
-        PlayerRotation(true);
+        if(usingController == false)
+        {
+            PlayerKeyboardMovement(true);
+            PlayerKeyboardRotation(true);
+        }
+        else
+        {
+            PlayerControllerMovement(true);
+        }
         TurretMovement(true);
         ControlWeapon();
 
@@ -246,7 +253,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //Player Movement
-    private void PlayerMovement(bool shouldMove)
+    private void PlayerKeyboardMovement(bool shouldMove)
     {
         if (shouldMove)
         {   
@@ -254,9 +261,37 @@ public class PlayerController : MonoBehaviour
             transform.position += transform.up * movementInput * movementSpeed * Time.deltaTime;
         }
     }
-
+    private void PlayerControllerMovement(bool shouldMove)
+    {
+        if (shouldMove)
+        {
+            float inputX = Input.GetAxisRaw("Horizontal");
+            float inputY = Input.GetAxisRaw("Vertical");
+            float angle = Mathf.Atan(inputY / inputX) * Mathf.Rad2Deg;
+            if(float.IsNaN(angle))
+            {
+                angle = 0;
+                transform.position += new Vector3(0, 0, 0);
+            }
+            else
+            {
+                if(inputX < 0)
+                {
+                    angle += 90;
+                }
+                else
+                {
+                    angle -= 90;
+                }
+                transform.rotation = Quaternion.Euler(0, 0, angle);
+                Vector3 moveToward = new Vector3(Mathf.Cos((angle + 90) * Mathf.Deg2Rad), Mathf.Sin((angle + 90) * Mathf.Deg2Rad), 0);
+                transform.position += moveToward * movementSpeed * Time.deltaTime;
+            }
+            Debug.Log(angle);
+        }
+    }
     //Player Rotation
-    private void PlayerRotation(bool shouldRotate)
+    private void PlayerKeyboardRotation(bool shouldRotate)
     {
         if (shouldRotate)
         {

@@ -177,6 +177,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   usingController: 0
+  usingSemi: 0
+  usingAuto: 0
+  usingShotgun: 0
+  maxSemiUse: 0
+  maxAutoUse: 0
+  maxShotgunUse: 0
+  heatSpeedSemi: 0
+  heatSpeedAuto: 0
+  heatSpeedShotgun: 0
   movementSpeed: 5
   rotationSpeed: 5
   bulletSpeed: 700
@@ -187,11 +196,6 @@ MonoBehaviour:
   turretWeapon: {fileID: 0}
   turretLocation: {fileID: 0}
   bulletPrefab: {fileID: 1965384080407287419, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
-  weapons:
-  - SemiAuto
-  - FullAuto
-  - 3RoundShot
-  currentWeapon: 2
   normalDrag: 0.5
   hitSlowdown: 4
   hitSlowdownTime: 0.4
@@ -633,6 +637,14 @@ PrefabInstance:
     - target: {fileID: 473378636629930842, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_Name
       value: Player (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870477337572516785, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: usingController
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.x
