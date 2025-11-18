@@ -26,12 +26,12 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _BPM: 80
+    - _BPM: 65
     - _QueueControl: 0
-    - _Scale: 1
+    - _Scale: 7.13
     m_Colors:
     - _Color1: {r: 0.26729542, g: 0.59779143, b: 1, a: 0.23137255}
-    - _Color2: {r: 0.61065614, g: 0.715505, b: 0.7798742, a: 1}
+    - _Color2: {r: 0.35303184, g: 0.6490947, b: 0.9433962, a: 1}
     - _Color3: {r: 0, g: 0.97690105, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
