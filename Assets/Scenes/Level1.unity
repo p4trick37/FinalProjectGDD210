@@ -546,19 +546,51 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: usingAuto
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: usingSemi
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: maxAutoUse
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: maxSemiUse
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: heatAddAuto
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: heatAddSemi
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: usingShotgun
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: heatDelayAuto
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: heatDelaySemi
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: heatDrainAuto
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: heatDrainSemi
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: usingController
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}

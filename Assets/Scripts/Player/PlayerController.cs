@@ -207,7 +207,12 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
-
+        float inputTrigger = Input.GetAxis("Right Trigger");
+        if(isAutoHeated)
+        {
+            inputTrigger = -1;
+        }
+        Debug.Log(heatAuto);
         #region Shoot Delay
         //Setting the delays for each weapon after every bullet
         if (autoTimerDelay > 0) 
@@ -244,10 +249,9 @@ public class PlayerController : MonoBehaviour
             if(usingSemi)
             {
                 //heatSemi = Heating(heatSemi, maxSemiUse, heatDrainSemi, heatDelaySemi);
-                if (Input.GetMouseButtonDown(0) && canSemiShoot && isSemiHeated == false)
+                if (Input.GetMouseButtonDown(0) && canSemiShoot)
                 {
                     shootCurrentWeapon[currentWeapon] = true;
-                    heatSemi += heatAddSemi;
                 }
             }
             else if(usingAuto)
@@ -273,7 +277,7 @@ public class PlayerController : MonoBehaviour
         {
             if(usingSemi)
             {
-                if (Input.GetAxis("Right Trigger") > 0 && canSemiShoot && isSemiHeated == false)
+                if (Input.GetAxis("Right Trigger") > 0 && canSemiShoot)
                 {
                     shootCurrentWeapon[currentWeapon] = true;
                 }
@@ -298,6 +302,8 @@ public class PlayerController : MonoBehaviour
             }
         }
         #endregion
+
+
     }
 
     private void FixedUpdate()
@@ -309,7 +315,7 @@ public class PlayerController : MonoBehaviour
 
         if (usingSemi)
         {
-            if (shootCurrentWeapon[currentWeapon])
+            if (shootCurrentWeapon[currentWeapon] && isSemiHeated == false)
             {
                 ShootSingleBullet();
                 semiAutoTimerDelay = semiAutoDelay;
@@ -319,7 +325,7 @@ public class PlayerController : MonoBehaviour
 
         else if (usingAuto)
         {
-            if (shootCurrentWeapon[currentWeapon] && canAutoShoot)
+            if (shootCurrentWeapon[currentWeapon] && canAutoShoot && isAutoHeated == false)
             {
                 ShootSingleBullet();
                 autoTimerDelay = autoDelay;
@@ -327,7 +333,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (shootCurrentWeapon[currentWeapon])
+            if (shootCurrentWeapon[currentWeapon] && isShotgunHeated == false)
             {
                 Shoot3Bullets();
                 shotgunTimerDelay = shotgunDelay;
@@ -394,7 +400,6 @@ public class PlayerController : MonoBehaviour
                 Vector3 moveToward = new Vector3(Mathf.Cos((angle + 90) * Mathf.Deg2Rad), Mathf.Sin((angle + 90) * Mathf.Deg2Rad), 0);
                 transform.position += moveToward * movementSpeed * Time.deltaTime;
             }
-            Debug.Log(angle);
         }
     }
     //Player Rotation
@@ -441,6 +446,14 @@ public class PlayerController : MonoBehaviour
             bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
         }
         
+        if(usingSemi)
+        {
+            heatSemi += heatAddSemi;
+        }
+        else
+        {
+            heatAuto += heatAddAuto;
+        }
     }
 
     private void Shoot3Bullets()
@@ -483,6 +496,8 @@ public class PlayerController : MonoBehaviour
             bullet2.GetComponent<Rigidbody2D>().AddForce(dir2 * bulletSpeed, ForceMode2D.Impulse);
             bullet3.GetComponent<Rigidbody2D>().AddForce(dir3 * bulletSpeed, ForceMode2D.Impulse);
         }
+
+        heatShotgun += heatAddShotgun;
         
     }
 
