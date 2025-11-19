@@ -57,9 +57,15 @@ MonoBehaviour:
   maxSemiUse: 0
   maxAutoUse: 0
   maxShotgunUse: 0
-  heatSpeedSemi: 0
-  heatSpeedAuto: 0
-  heatSpeedShotgun: 0
+  heatDrainSemi: 0
+  heatDrainAuto: 0
+  heatDrainShotgun: 0
+  heatAddSemi: 0
+  heatAddAuto: 0
+  heatAddShotgun: 0
+  heatDelaySemi: 0
+  heatDelayAuto: 0
+  heatDelayShotgun: 0
   movementSpeed: 5
   rotationSpeed: 5
   bulletSpeed: 12.52
@@ -190,13 +196,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3043087836040121044}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.92118555, w: -0.38912383}
+  m_LocalRotation: {x: 0, y: -0, z: 0.89100665, w: -0.45399022}
   m_LocalPosition: {x: 0, y: 0.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9208556840798873809}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 225.8}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 234}
 --- !u!199 &821793690251677651
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -249,7 +255,7 @@ ParticleSystemRenderer:
   m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 0.29
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -360,7 +366,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.5
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -413,7 +419,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -531,7 +537,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -848,7 +854,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 2000
+    maxNumParticles: 544
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
@@ -983,7 +989,7 @@ ParticleSystem:
     m_SpriteRenderer: {fileID: 0}
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
-    alignToDirection: 0
+    alignToDirection: 1
     m_Texture: {fileID: 0}
     m_TextureClipChannel: 3
     m_TextureClipThreshold: 0
@@ -1054,7 +1060,7 @@ ParticleSystem:
     arc:
       value: 90
       mode: 2
-      spread: 0.5
+      spread: 0.4
       speed:
         serializedVersion: 2
         minMaxState: 0
@@ -1114,7 +1120,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 0
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1166,8 +1172,8 @@ ParticleSystem:
         m_RotationOrder: 4
     rateOverDistance:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
+      minMaxState: 1
+      scalar: 1000
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1175,21 +1181,21 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
+          inWeight: 0
+          outWeight: 0
         - serializedVersion: 3
           time: 1
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
+          value: 1
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
