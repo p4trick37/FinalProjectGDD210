@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
     private bool isShotgunHeated = false;
 
     private float semiCount;
+    private float autoCount;
+    private float shotgunCount;
 
     #endregion
     #region Player Movement and Rotation
@@ -116,7 +118,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(usingController == false)
+        #region Movement and controlling Weapon
+        if (usingController == false)
         {
             PlayerKeyboardMovement(true);
             PlayerKeyboardRotation(true);
@@ -127,9 +130,10 @@ public class PlayerController : MonoBehaviour
         }
         TurretMovement(true);
         ControlWeapon();
-        Debug.Log(heatSemi);
-
-        if(isSemiHeated == true)
+        #endregion
+        #region Overheating
+        //Semi overheating
+        if (isSemiHeated == true)
         {
             semiCount += Time.deltaTime;
             if(semiCount >= heatDelaySemi)
@@ -153,11 +157,58 @@ public class PlayerController : MonoBehaviour
             isSemiHeated = true;
         }
         
+        //Auto overheating
+        if(isAutoHeated == true)
+        {
+            autoCount += Time.deltaTime;
+            if(autoCount >= heatDelayAuto)
+            {
+                isAutoHeated = false;
+                heatAuto = 0;
+                autoCount = 0;
+            }
+        }
+        else
+        {
+            heatAuto -= heatDrainAuto * Time.deltaTime;
+        }
+
+        if(heatAuto < 0)
+        {
+            heatAuto = 0;
+        }
+        if (heatAuto > maxAutoUse)
+        {
+            isAutoHeated = true;
+        }
+        //shotgun overheating
+        if (isShotgunHeated == true)
+        {
+            shotgunCount += Time.deltaTime;
+            if (shotgunCount >= heatDelayShotgun)
+            {
+                isShotgunHeated = false;
+                heatShotgun = 0;
+                shotgunCount = 0;
+            }
+        }
+        else
+        {
+            heatShotgun -= heatDrainShotgun * Time.deltaTime;
+        }
+
+        if (heatShotgun < 0)
+        {
+            heatShotgun = 0;
+        }
+        if (heatShotgun > maxShotgunUse)
+        {
+            isShotgunHeated = true;
+        }
+        #endregion
 
 
-
-
-
+        #region Shoot Delay
         //Setting the delays for each weapon after every bullet
         if (autoTimerDelay > 0) 
         { 
@@ -184,9 +235,10 @@ public class PlayerController : MonoBehaviour
         { 
             canShotgunShoot = true; 
         }
-
+        #endregion
+        #region Checking for shooting input on different input systems
         //Checking for input depending on what weapon the player is using
-        if(usingController == false)
+        if (usingController == false)
         {
             
             if(usingSemi)
@@ -245,6 +297,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        #endregion
     }
 
     private void FixedUpdate()
@@ -494,40 +547,6 @@ public class PlayerController : MonoBehaviour
         }
         oldTurretRotationValue = number;
         return number;
-    }
-    private float Heating(float currentHeat, float maxHeat, float heatDrain, float timeDelay)
-    {
-        currentHeat -= heatDrain * Time.deltaTime;
-        if (currentHeat < 0)
-        {
-            currentHeat = 0;
-        }
-
-        if(currentHeat > maxHeat)
-        {
-            DoneHeating(timeDelay);
-        }
-        if(DoneHeating(timeDelay) == true)
-        {
-            currentHeat = 0;
-        }
-        Debug.Log("Run");
-        return currentHeat;
-    }
-        
-
-    private bool DoneHeating(float heatTime)
-    {
-        float number = 0;
-        number += Time.deltaTime;
-        if(number >= heatTime)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 
     private void ControlWeapon()
