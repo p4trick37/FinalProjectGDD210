@@ -22,27 +22,27 @@ public class PlayerController : MonoBehaviour
     #region Weapon OverHeating
     [Header("Weapons Overheating")]
     //The max that the gun can be heated to before it is considered overheated
-    [SerializeField] private float maxSemiUse;
-    [SerializeField] private float maxAutoUse;
-    [SerializeField] private float maxShotgunUse;
+    public static float maxSemiUse;
+    public static float maxAutoUse;
+    public static float maxShotgunUse;
     [Space(15)]
 
     //The time that it takes for the heat to lower before over heated
-    [SerializeField] private float heatDrainSemi;
-    [SerializeField] private float heatDrainAuto;
-    [SerializeField] private float heatDrainShotgun;
+    public static float heatDrainSemi;
+    public static float heatDrainAuto;
+    public static float heatDrainShotgun;
     [Space(15)]
 
     //The heat that gets added when taking a shot
-    [SerializeField] private float heatAddSemi;
-    [SerializeField] private float heatAddAuto;
-    [SerializeField] private float heatAddShotgun;
+    public static float heatAddSemi;
+    public static float heatAddAuto;
+    public static float heatAddShotgun;
 
     [Space(15)]
     //The time that it takes for the weapon to be done heating
-    [SerializeField] private float heatDelaySemi;
-    [SerializeField] private float heatDelayAuto;
-    [SerializeField] private float heatDelayShotgun;
+    public static float heatDelaySemi;
+    public static float heatDelayAuto;
+    public static float heatDelayShotgun;
 
     //The current heat of the weapon
     private float heatSemi = 0;
@@ -54,15 +54,15 @@ public class PlayerController : MonoBehaviour
     private bool isAutoHeated = false;
     private bool isShotgunHeated = false;
 
-    private float semiCount;
-    private float autoCount;
-    private float shotgunCount;
+    private float semiCount = 0;
+    private float autoCount = 0;
+    private float shotgunCount = 0;
 
     #endregion
     #region Player Movement and Rotation
     [Header("Player Movement and Rotation")]
-    [SerializeField] private float movementSpeed;
-    [SerializeField] private float rotationSpeed;
+    public static float movementSpeed;
+    public static float rotationSpeed;
     #endregion
     #region Bullet Speed and Spread
     [Header("Bullet Speed and Spread")]
@@ -71,9 +71,9 @@ public class PlayerController : MonoBehaviour
     #endregion
     #region Firing Delays
     [Header("Delays for Firing Weapons")]
-    [SerializeField] private float semiAutoDelay;
-    [SerializeField] private float autoDelay;
-    [SerializeField] private float shotgunDelay;
+    public static float semiAutoDelay;
+    public static float autoDelay;
+    public static float shotgunDelay;
     #endregion
     #region Object References
     [Header("Object References")]
