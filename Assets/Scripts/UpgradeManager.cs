@@ -55,8 +55,8 @@ public class UpgradeManager : MonoBehaviour
 
     [Header("Uprage 3 Attributes")]
     [SerializeField] private float upMaxSemiUse;
-    [SerialzieField] private float upMaxAutoUse;
-    []
+    [SerializeField] private float upMaxAutoUse;
+    
 
 
     private void Awake()
