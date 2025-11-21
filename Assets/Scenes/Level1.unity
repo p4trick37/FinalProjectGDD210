@@ -950,6 +950,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa8b6dbd5474e1c41b0add4bbc61aff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
+  bulletSPR: {fileID: 0}
+  maxHealth: 0
+  bulletDamage: 0
+  bulletSize: 0
   maxSemiUse: 0
   maxAutoUse: 0
   maxShotgunUse: 0
@@ -969,6 +973,17 @@ MonoBehaviour:
   semiAutoDelay: 0
   autoDelay: 0
   shotgunDelay: 0
+  upMovementSpeed: 0
+  upPlayerHealth: 0
+  upBulletDamage: 0
+  upBulletColor: {r: 0.8679245, g: 0.22653371, b: 0.22653371, a: 0}
+  upMaxSemiUse: 0
+  upMaxAutoUse: 0
+  upMaxShotgunUse: 0
+  downHeatDelaySemi: 0
+  downHeatDelayAuto: 0
+  downHeatDelayShotgun: 0
+  upBulletSpeed: 0
 --- !u!4 &1186723342 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4195121663761632240, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}

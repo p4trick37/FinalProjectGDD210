@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject turretWeapon;
     [SerializeField] private Transform turretLocation;
     [SerializeField] private GameObject bulletPrefab;
-    #endregion
+    #endregion,
     #region Hit Recovery
     // --- NEW: hit-recovery + speed cap ---
     [Header("Hit Recovery & Physics Limits")]

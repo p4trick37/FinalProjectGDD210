@@ -45,17 +45,24 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private float autoDelay;
     [SerializeField] private float shotgunDelay;
 
-    [Header("Upgrade 1 Attributes")]
+    [Header("Defense Attributes")]
     [SerializeField] private float upMovementSpeed;
     [SerializeField] private float upPlayerHealth;
 
-    [Header("Upgrade 2 Attributes")]
+    [Header("Damage Attributes")]
     [SerializeField] private float upBulletDamage;
     [SerializeField] private Color upBulletColor;
 
-    [Header("Uprage 3 Attributes")]
+    [Header("Attack Speed Attributes")]
     [SerializeField] private float upMaxSemiUse;
     [SerializeField] private float upMaxAutoUse;
+    [SerializeField] private float upMaxShotgunUse;
+    [SerializeField] private float downHeatDelaySemi;
+    [SerializeField] private float downHeatDelayAuto;
+    [SerializeField] private float downHeatDelayShotgun;
+    [SerializeField] private float upBulletSpeed;
+
+    
     
 
 
@@ -106,6 +113,12 @@ public class UpgradeManager : MonoBehaviour
     }
     public void AttackSpeedUpgrade()
     {
-
+        PlayerController.maxSemiUse += upMaxSemiUse;
+        PlayerController.maxAutoUse += upMaxAutoUse;
+        PlayerController.maxShotgunUse += upMaxShotgunUse;
+        PlayerController.heatDelaySemi -= downHeatDelaySemi;
+        PlayerController.heatDelayAuto -= downHeatDelayAuto;
+        PlayerController.heatDelayShotgun -= downHeatDelayShotgun;
+        PlayerController.bulletSpeed += upBulletSpeed;
     }
 }
