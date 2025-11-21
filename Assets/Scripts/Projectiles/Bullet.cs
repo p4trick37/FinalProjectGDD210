@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
     [Header("Bullet Settings")]
     public float bulletDecay = 3f;
-    public float damage = 10f;
+    public static float damage = 10f;
     public string targetTag = "Player"; // set to "Enemy" for player bullets
 
     private float timer;

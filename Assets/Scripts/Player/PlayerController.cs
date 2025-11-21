@@ -66,8 +66,8 @@ public class PlayerController : MonoBehaviour
     #endregion
     #region Bullet Speed and Spread
     [Header("Bullet Speed and Spread")]
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private float bulletSpread;
+    public static float bulletSpeed;
+    public static float bulletSpread;
     #endregion
     #region Firing Delays
     [Header("Delays for Firing Weapons")]

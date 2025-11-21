@@ -1,8 +1,15 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class UpgradeManager : MonoBehaviour
 {
+    [Header("Bullet Reference")]
+    [SerializeField] private SpriteRenderer bulletSPR;
     [Header("Values of the player when game starts")]
+    [SerializeField] private float maxHealth;
+    [SerializeField] private float bulletDamage;
+    [SerializeField] private float bulletSize;
+    [Space(15)]
     [SerializeField] private float maxSemiUse;
     [SerializeField] private float maxAutoUse;
     [SerializeField] private float maxShotgunUse;
@@ -38,6 +45,20 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private float autoDelay;
     [SerializeField] private float shotgunDelay;
 
+    [Header("Upgrade 1 Attributes")]
+    [SerializeField] private float upMovementSpeed;
+    [SerializeField] private float upPlayerHealth;
+
+    [Header("Upgrade 2 Attributes")]
+    [SerializeField] private float upBulletDamage;
+    [SerializeField] private Color upBulletColor;
+
+    [Header("Uprage 3 Attributes")]
+    [SerializeField] private float upMaxSemiUse;
+    [SerialzieField] private float upMaxAutoUse;
+    []
+
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -45,10 +66,46 @@ public class UpgradeManager : MonoBehaviour
 
     public void StartValue()
     {
+        PlayerHealth.maxHealth = maxHealth;
+
         PlayerController.maxSemiUse = maxSemiUse;
         PlayerController.maxAutoUse = maxAutoUse;
         PlayerController.maxShotgunUse = maxShotgunUse;
 
-        
+        PlayerController.heatDrainSemi = heatDrainSemi;
+        PlayerController.heatDrainAuto = heatDrainAuto;
+        PlayerController.heatDrainShotgun = heatDrainShotgun; 
+
+        PlayerController.heatAddSemi = heatAddSemi;
+        PlayerController.heatAddAuto = heatAddSemi;
+        PlayerController.heatAddShotgun = heatAddShotgun;
+
+        PlayerController.heatDelaySemi = heatDelaySemi;
+        PlayerController.heatDelayAuto = heatDelayAuto;
+        PlayerController.heatDelayShotgun = heatDelayShotgun;
+
+        PlayerController.movementSpeed = movementSpeed;
+        PlayerController.rotationSpeed = rotationSpeed;
+
+        PlayerController.bulletSpeed = bulletSpeed;
+        PlayerController.bulletSpread = bulletSpread;
+
+        PlayerController.semiAutoDelay = semiAutoDelay;
+        PlayerController.autoDelay = autoDelay;
+        PlayerController.shotgunDelay = shotgunDelay;
+    }
+    public void DefenseUpgrade()
+    {
+        PlayerController.movementSpeed += upMovementSpeed;
+        PlayerHealth.maxHealth += upPlayerHealth;
+    }
+    public void DamageUpgrade()
+    {
+        Bullet.damage = upBulletDamage;
+        bulletSPR.color = upBulletColor;
+    }
+    public void AttackSpeedUpgrade()
+    {
+
     }
 }

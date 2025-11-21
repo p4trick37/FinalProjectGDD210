@@ -133,7 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   bulletDecay: 5
-  damage: 10
   targetTag: Enemy
 --- !u!58 &-3643264703470358890
 CircleCollider2D:
