@@ -8,7 +8,6 @@ public class UpgradeManager : MonoBehaviour
     [Header("Values of the player when game starts")]
     [SerializeField] private float maxHealth;
     [SerializeField] private float bulletDamage;
-    [SerializeField] private float bulletSize;
     [Space(15)]
     [SerializeField] private float maxSemiUse;
     [SerializeField] private float maxAutoUse;

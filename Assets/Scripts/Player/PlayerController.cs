@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject turretWeapon;
     [SerializeField] private Transform turretLocation;
     [SerializeField] private GameObject bulletPrefab;
+    public UpgradeManager upgradeManager;
     #endregion,
     #region Hit Recovery
     // --- NEW: hit-recovery + speed cap ---
@@ -111,6 +112,11 @@ public class PlayerController : MonoBehaviour
             rb.linearDamping = normalDrag;
             // Ensure we don't spin from impacts unless you want that:
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+        upgradeManager = FindFirstObjectByType<UpgradeManager>();
+        if (upgradeManager != null)
+        {
+            upgradeManager.StartValue();
         }
 
         oldTurretRotationValue = 0;
