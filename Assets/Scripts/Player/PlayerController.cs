@@ -424,12 +424,12 @@ public class PlayerController : MonoBehaviour
         {
             if(usingController == false)
             {
-                turretWeapon.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
+                turretLocation.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
             }
             else
             {
                 float angle = NaFNumber(JoyStickAngle(RightJoyStickInput()));
-                turretWeapon.transform.rotation = Quaternion.Euler(0, 0, angle);
+                turretLocation.transform.rotation = Quaternion.Euler(0, 0, angle);
             }
         }
     }
