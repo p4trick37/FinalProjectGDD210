@@ -13,9 +13,9 @@ public class PlayerController : MonoBehaviour
     #endregion
     #region Current Weapon
     [Header("Current Weapon")]
-    [SerializeField] private bool usingSemi;
-    [SerializeField] private bool usingAuto;
-    [SerializeField] private bool usingShotgun;
+    public bool usingSemi;
+    public bool usingAuto;
+    public bool usingShotgun;
     private int currentWeapon;
     private bool[] shootCurrentWeapon = new bool[3];
     #endregion
@@ -45,9 +45,9 @@ public class PlayerController : MonoBehaviour
     public static float heatDelayShotgun;
 
     //The current heat of the weapon
-    private float heatSemi = 0;
-    private float heatAuto = 0;
-    private float heatShotgun = 0;
+    public float heatSemi = 0;
+    public float heatAuto = 0;
+    public float heatShotgun = 0;
 
     //Is the weapon over heated
     private bool isSemiHeated = false;
