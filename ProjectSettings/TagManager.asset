@@ -49,5 +49,11 @@ TagManager:
   - name: Enemies
     uniqueID: 124563215
     locked: 0
+  - name: UI
+    uniqueID: 3782255785
+    locked: 0
+  - name: W
+    uniqueID: 2012493251
+    locked: 0
   m_RenderingLayers:
   - Default

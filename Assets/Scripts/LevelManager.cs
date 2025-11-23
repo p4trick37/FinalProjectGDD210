@@ -30,8 +30,10 @@ public class LevelManager : MonoBehaviour
 
         if (towers.Count <= 0)
         {
-            Debug.Log("All towers defeated! Loading next scene...");
-            SceneManager.LoadScene(nextSceneName);
+            //Debug.Log("All towers defeated! Loading next scene...");
+            //SceneManager.LoadScene(nextSceneName);
+
+
         }
     }
 }
