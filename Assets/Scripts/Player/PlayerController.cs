@@ -103,14 +103,18 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     private float oldTurretRotationValue;
-
+    private static bool firstSceneLoaded = false;
     private void Awake()
     {
         upgradeManager = FindFirstObjectByType<UpgradeManager>();
         if (upgradeManager != null)
         {
-            upgradeManager.StartValue();
+            if(firstSceneLoaded == false)
+            {
+                upgradeManager.StartValue();
+            }
         }
+        firstSceneLoaded = true;
     }
     private void Start()
     {

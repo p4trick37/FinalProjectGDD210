@@ -5,10 +5,15 @@ public class SceneSwitcher : MonoBehaviour
 {
     [SerializeField] private GameObject upgradeButtons;
     [SerializeField] private GameObject nextLevelButtons;
+    [SerializeField] private GameObject upgradeManagerInstance;
     private UpgradeManager upgradeManager;
     private void Start()
     {
         upgradeManager = FindAnyObjectByType<UpgradeManager>();
+        if(upgradeManager == null)
+        {
+            upgradeManager = Instantiate(upgradeManagerInstance).GetComponent<UpgradeManager>();
+        }
     }
     //Functions for calling upgrades
     public void DefenseUpgrade()
