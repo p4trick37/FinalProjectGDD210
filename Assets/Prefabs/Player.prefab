@@ -50,32 +50,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80fc8b555d5c0749b8dce0a322ee3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  usingController: 0
-  usingSemi: 1
-  usingAuto: 0
+  usingController: 1
+  usingSemi: 0
+  usingAuto: 1
   usingShotgun: 0
-  maxSemiUse: 0
-  maxAutoUse: 0
-  maxShotgunUse: 0
-  heatDrainSemi: 0
-  heatDrainAuto: 0
-  heatDrainShotgun: 0
-  heatAddSemi: 0
-  heatAddAuto: 0
-  heatAddShotgun: 0
-  heatDelaySemi: 0
-  heatDelayAuto: 0
-  heatDelayShotgun: 0
-  movementSpeed: 5
-  rotationSpeed: 5
-  bulletSpeed: 12.52
-  bulletSpread: 5
-  semiAutoDelay: 0.9
-  autoDelay: 0.1
-  shotgunDelay: 1.7
+  heatSemi: 0
+  heatAuto: 0
+  heatShotgun: 0
   turretWeapon: {fileID: 6908114619500082746}
   turretLocation: {fileID: 7178257665274558706}
   bulletPrefab: {fileID: 1965384080407287419, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
+  upgradeManager: {fileID: 0}
   normalDrag: 2
   hitSlowdown: 4
   hitSlowdownTime: 0.4
@@ -165,7 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c901623ed61344ea6af68d8d09c672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 100
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashDuration: 0.03
   flashCount: 1
@@ -5032,9 +5016,9 @@ Transform:
   m_GameObject: {fileID: 6908114619500082746}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.292, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.04}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0.374, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.06666667}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7178257665274558706}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5121,7 +5105,7 @@ Transform:
   m_GameObject: {fileID: 8079679743552484842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.852, z: 0}
+  m_LocalPosition: {x: 0, y: -0.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

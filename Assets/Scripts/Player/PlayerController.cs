@@ -104,6 +104,14 @@ public class PlayerController : MonoBehaviour
 
     private float oldTurretRotationValue;
 
+    private void Awake()
+    {
+        upgradeManager = FindFirstObjectByType<UpgradeManager>();
+        if (upgradeManager != null)
+        {
+            upgradeManager.StartValue();
+        }
+    }
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -113,11 +121,7 @@ public class PlayerController : MonoBehaviour
             // Ensure we don't spin from impacts unless you want that:
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
-        upgradeManager = FindFirstObjectByType<UpgradeManager>();
-        if (upgradeManager != null)
-        {
-            upgradeManager.StartValue();
-        }
+        
 
         oldTurretRotationValue = 0;
     }

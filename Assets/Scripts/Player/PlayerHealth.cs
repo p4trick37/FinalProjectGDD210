@@ -5,7 +5,7 @@ using TMPro;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Settings")]
-    public static float maxHealth = 100f;
+    public static float maxHealth;
     private float currentHealth;
 
     [Header("Damage Flash Settings")]

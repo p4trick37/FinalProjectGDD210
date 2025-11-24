@@ -12,7 +12,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float scaleFactor;
 
     private float distance;
-    private Camera camera;
+    private new Camera camera;
 
     private void Start()
     {

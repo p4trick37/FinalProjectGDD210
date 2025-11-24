@@ -3,6 +3,35 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
+    [SerializeField] private GameObject upgradeButtons;
+    [SerializeField] private GameObject nextLevelButtons;
+    private UpgradeManager upgradeManager;
+    private void Start()
+    {
+        upgradeManager = FindAnyObjectByType<UpgradeManager>();
+    }
+    //Functions for calling upgrades
+    public void DefenseUpgrade()
+    {
+        upgradeManager.DefenseUpgrade();
+    }
+    public void DamageUpgrade()
+    {
+        upgradeManager.DamageUpgrade();
+    }
+    public void AttackSpeedUpgrade()
+    {
+        upgradeManager.AttackSpeedUpgrade();
+    }
+    public void LoadNextButtons()
+    {
+        upgradeButtons.SetActive(false);
+        nextLevelButtons.SetActive(true);
+    }
+
+
+
+    //Loading and Reloading Scenes
     public void LoadSceneByName(string sceneName)
     {
         SceneManager.LoadScene(sceneName);

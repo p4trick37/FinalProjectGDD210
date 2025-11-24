@@ -307,6 +307,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4241469924247590645, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5203007508171315326, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
       propertyPath: target
       value: 
@@ -440,78 +444,6 @@ PrefabInstance:
       propertyPath: uiHealth
       value: 
       objectReference: {fileID: 158495892}
-    - target: {fileID: 6500913477477616615, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.374
-      objectReference: {fileID: 0}
-    - target: {fileID: 7178257665274558706, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.934
-      objectReference: {fileID: 0}
-    - target: {fileID: 7178257665274558706, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7178257665274558706, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7178257665274558706, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7178257665274558706, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7178257665274558706, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: usingAuto
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: usingSemi
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: maxAutoUse
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: maxSemiUse
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: heatAddAuto
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: heatAddSemi
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: usingShotgun
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: heatDelayAuto
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: heatDelaySemi
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: heatDrainAuto
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
-      propertyPath: heatDrainSemi
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: usingController
       value: 0
@@ -647,6 +579,10 @@ PrefabInstance:
     - target: {fileID: 4195121663761632240, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241469924247590645, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
+      propertyPath: maxHealth
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5203007508171315326, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
       propertyPath: target
@@ -924,7 +860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
   bulletSPR: {fileID: 2997695564665929469, guid: 86da37adc9c807740b0b86b65f3006cf, type: 3}
-  maxHealth: 100
+  maxHealth: 150
   bulletDamage: 10
   maxSemiUse: 20
   maxAutoUse: 40
@@ -943,7 +879,7 @@ MonoBehaviour:
   bulletSpeed: 85
   bulletSpread: 25
   semiAutoDelay: 0.4
-  autoDelay: 0.4
+  autoDelay: 0.1
   shotgunDelay: 0
   upMovementSpeed: 0
   upPlayerHealth: 0
@@ -1290,6 +1226,10 @@ PrefabInstance:
     - target: {fileID: 4195121663761632240, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241469924247590645, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
+      propertyPath: maxHealth
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5203007508171315326, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
       propertyPath: target
@@ -1690,6 +1630,10 @@ PrefabInstance:
     - target: {fileID: 4195121663761632240, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241469924247590645, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
+      propertyPath: maxHealth
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5203007508171315326, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
       propertyPath: target
