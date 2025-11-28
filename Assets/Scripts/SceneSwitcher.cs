@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    [SerializeField] private GameObject upgradeButtons;
-    [SerializeField] private GameObject nextLevelButtons;
+    public GameObject upgradeButtons;
+    public GameObject nextLevelButtons;
     [SerializeField] private GameObject upgradeManagerInstance;
     private UpgradeManager upgradeManager;
     private void Start()

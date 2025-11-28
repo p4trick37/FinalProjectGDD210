@@ -545,6 +545,7 @@ GameObject:
   - component: {fileID: 330161975}
   - component: {fileID: 330161974}
   - component: {fileID: 330161973}
+  - component: {fileID: 330161977}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -637,6 +638,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &330161977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330161972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7abd8229cde8604ab180e1d9402a6b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControllerMenu
+  upgradeFirstButton: {fileID: 1675488253}
+  nextLevelFirstButton: {fileID: 1233103318}
+  sceneSwitcher: {fileID: 1740107190}
+  onVictoryScreen: 1
 --- !u!1 &373218935
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,8 +999,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439794986}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.000061035156, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2162,5 +2179,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 412584267}
   - {fileID: 330161976}
-  - {fileID: 439794989}
   - {fileID: 1740107191}
+  - {fileID: 439794989}
