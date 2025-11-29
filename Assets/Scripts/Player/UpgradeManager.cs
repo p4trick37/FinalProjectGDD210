@@ -61,18 +61,27 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private float downHeatDelayShotgun;
     [SerializeField] private float upBulletSpeed;
 
-    
+    private static bool needBulletSprite;
     
 
 
     private void Awake()
     {
         DontDestroyOnLoad(this);
+        if(bulletSPR == null)
+        {
+            needBulletSprite = false;
+        }
+        else
+        {
+            needBulletSprite = true;
+        }
     }
 
     public void StartValue()
     {
         PlayerHealth.maxHealth = maxHealth;
+        Bullet.damage = bulletDamage;
 
         PlayerController.maxSemiUse = maxSemiUse;
         PlayerController.maxAutoUse = maxAutoUse;
@@ -107,8 +116,12 @@ public class UpgradeManager : MonoBehaviour
     }
     public void DamageUpgrade()
     {
-        Bullet.damage = upBulletDamage;
-        bulletSPR.color = upBulletColor;
+        Bullet.damage += upBulletDamage;
+        if(needBulletSprite == true)
+        {
+            bulletSPR.color = upBulletColor;
+        }
+        Debug.Log(Bullet.damage);
     }
     public void AttackSpeedUpgrade()
     {

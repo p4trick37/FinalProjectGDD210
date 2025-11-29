@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 320839431}
   - component: {fileID: 320839430}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -650,10 +650,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7abd8229cde8604ab180e1d9402a6b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControllerMenu
-  upgradeFirstButton: {fileID: 1675488253}
-  nextLevelFirstButton: {fileID: 1233103318}
+  upgradeFirstButton: {fileID: 1090691282}
+  nextLevelFirstButton: {fileID: 1629115885}
   sceneSwitcher: {fileID: 1740107190}
-  onVictoryScreen: 1
 --- !u!1 &373218935
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,7 +987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1090691282}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &439794989
@@ -1694,7 +1693,7 @@ GameObject:
   - component: {fileID: 1629115888}
   - component: {fileID: 1629115887}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Next Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

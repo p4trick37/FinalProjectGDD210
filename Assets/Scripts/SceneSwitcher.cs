@@ -7,7 +7,9 @@ public class SceneSwitcher : MonoBehaviour
     public GameObject nextLevelButtons;
     [SerializeField] private GameObject upgradeManagerInstance;
     private UpgradeManager upgradeManager;
-    private void Start()
+
+    //Functions for calling upgrades
+    private void Awake()
     {
         upgradeManager = FindAnyObjectByType<UpgradeManager>();
         if(upgradeManager == null)
@@ -15,7 +17,6 @@ public class SceneSwitcher : MonoBehaviour
             upgradeManager = Instantiate(upgradeManagerInstance).GetComponent<UpgradeManager>();
         }
     }
-    //Functions for calling upgrades
     public void DefenseUpgrade()
     {
         upgradeManager.DefenseUpgrade();

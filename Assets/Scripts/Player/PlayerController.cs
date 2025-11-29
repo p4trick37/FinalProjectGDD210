@@ -226,7 +226,6 @@ public class PlayerController : MonoBehaviour
         {
             inputTrigger = -1;
         }
-        Debug.Log(heatAuto);
         #region Shoot Delay
         //Setting the delays for each weapon after every bullet
         if (autoTimerDelay > 0) 
