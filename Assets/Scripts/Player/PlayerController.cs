@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform turretLocation;
     [SerializeField] private GameObject bulletPrefab;
     public UpgradeManager upgradeManager;
+    [SerializeField] private GameObject upgradeManagerInstance;
     #endregion,
     #region Hit Recovery
     // --- NEW: hit-recovery + speed cap ---
@@ -113,6 +114,11 @@ public class PlayerController : MonoBehaviour
             {
                 upgradeManager.StartValue();
             }
+        }
+        else
+        {
+            upgradeManager = Instantiate(upgradeManagerInstance).GetComponent<UpgradeManager>();
+            upgradeManager.StartValue();
         }
         firstSceneLoaded = true;
     }

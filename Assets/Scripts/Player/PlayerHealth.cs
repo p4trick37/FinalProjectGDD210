@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Settings")]
     public static float maxHealth;
-    private float currentHealth;
+    public float currentHealth;
 
     [Header("Damage Flash Settings")]
     public Color flashColor = Color.white;      // color to flash when hit
@@ -36,11 +36,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        //Update UI
-        uiHealth.text = "Player Health: " + currentHealth;
-    }
 
     public void TakeDamage(float amount)
     {
