@@ -128,22 +128,33 @@ public class EnemyController : MonoBehaviour
 
     // ========= Shooting helpers (same style as your PlayerController) =========
 
-    private void ShootSingleBullet()
+private void ShootSingleBullet()
+{
+    Vector2 dir = DirToTargetNormalized();
+    if (dir == Vector2.zero) dir = transform.up;
+
+    if (AudioManager.Instance != null)
     {
-        Vector2 dir = DirToTargetNormalized();
-        if (dir == Vector2.zero) dir = transform.up;
-
-        GameObject bullet = Instantiate(bulletPrefab ? bulletPrefab : MakeFallbackBullet(),
-                                        muzzle ? muzzle.position : transform.position,
-                                        Quaternion.identity);
-
-        var rb = bullet.GetComponent<Rigidbody2D>();
-        if (!rb) rb = bullet.AddComponent<Rigidbody2D>();
-        rb.gravityScale = 0f;
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-
-        rb.AddForce(dir * bulletSpeed, ForceMode2D.Impulse);
+        AudioManager.Instance.PlayEnemyShoot();
     }
+
+    // Calculate rotation so bullet faces its direction
+    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+
+    GameObject bullet = Instantiate(
+        bulletPrefab ? bulletPrefab : MakeFallbackBullet(),
+        muzzle ? muzzle.position : transform.position,
+        Quaternion.Euler(0, 0, angle)
+    );
+
+    var rb = bullet.GetComponent<Rigidbody2D>();
+    if (!rb) rb = bullet.AddComponent<Rigidbody2D>();
+    rb.gravityScale = 0f;
+    rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+    rb.AddForce(dir * bulletSpeed, ForceMode2D.Impulse);
+}
+
 
     private IEnumerator CoShoot3Bullets()
     {
@@ -159,23 +170,29 @@ public class EnemyController : MonoBehaviour
         ShootWithAngleOffset(-bulletSpread);
     }
 
-    private void ShootWithAngleOffset(float offsetDegrees)
-    {
-        Vector2 dir = DirToTargetNormalized();
-        if (dir == Vector2.zero) dir = transform.up;
-        dir = Rotate(dir, offsetDegrees);
+private void ShootWithAngleOffset(float offsetDegrees)
+{
+    Vector2 dir = DirToTargetNormalized();
+    if (dir == Vector2.zero) dir = transform.up;
+    dir = Rotate(dir, offsetDegrees);
 
-        GameObject bullet = Instantiate(bulletPrefab ? bulletPrefab : MakeFallbackBullet(),
-                                        muzzle ? muzzle.position : transform.position,
-                                        Quaternion.identity);
+    // Rotation to match final dir
+    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
 
-        var rb = bullet.GetComponent<Rigidbody2D>();
-        if (!rb) rb = bullet.AddComponent<Rigidbody2D>();
-        rb.gravityScale = 0f;
-        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+    GameObject bullet = Instantiate(
+        bulletPrefab ? bulletPrefab : MakeFallbackBullet(),
+        muzzle ? muzzle.position : transform.position,
+        Quaternion.Euler(0, 0, angle)
+    );
 
-        rb.AddForce(dir * bulletSpeed, ForceMode2D.Impulse);
-    }
+    var rb = bullet.GetComponent<Rigidbody2D>();
+    if (!rb) rb = bullet.AddComponent<Rigidbody2D>();
+    rb.gravityScale = 0f;
+    rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+    rb.AddForce(dir * bulletSpeed, ForceMode2D.Impulse);
+}
+
 
     // ========= Aiming convenience =========
 

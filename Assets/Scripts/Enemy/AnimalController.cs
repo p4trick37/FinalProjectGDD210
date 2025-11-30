@@ -62,6 +62,10 @@ public class AnimalController : MonoBehaviour
         else if (distance <= detectionRange)
         {
             // Move toward player
+            //  if (AudioManager.Instance != null)
+            //     {
+            //     AudioManager.Instance.PlayAnimalLockedOn();
+            //     }
             Vector2 dir = (player.position - transform.position).normalized;
             rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
 
@@ -84,6 +88,10 @@ public class AnimalController : MonoBehaviour
             Vector2 dir = (player.position - transform.position).normalized;
             rb.linearDamping = 0f; // no drag while lunging
             rb.AddForce(dir * lungeForce, ForceMode2D.Impulse);
+             if (AudioManager.Instance != null)
+        {
+        AudioManager.Instance.PlayAnimalLunge();
+        }
         }
 
         // Let lunge happen for a short duration (we can apply damage during collisions)
@@ -123,6 +131,7 @@ public class AnimalController : MonoBehaviour
         if (ph != null)
         {
             ph.TakeDamage(contactDamage);
+            Destroy(gameObject);
         }
         else
         {

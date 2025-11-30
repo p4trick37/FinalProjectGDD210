@@ -49,6 +49,10 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth -= amount;
         Debug.Log($"{name} took {amount} damage! Current health: {currentHealth}");
+        if (AudioManager.Instance != null)
+        {
+        AudioManager.Instance.PlayEnemyHit();
+        }
 
         if (!isFlashing && spriteRenderer != null)
             StartCoroutine(FlashEffect());
@@ -56,6 +60,10 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+            if (AudioManager.Instance != null)
+        {
+        AudioManager.Instance.PlayEnemyDie();
+        }
         }
     }
 
@@ -102,3 +110,4 @@ public class EnemyHealth : MonoBehaviour
         isFlashing = false;
     }
 }
+    

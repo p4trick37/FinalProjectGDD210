@@ -43,6 +43,10 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth -= amount;
         Debug.Log($"Player took {amount} damage! Current health: {currentHealth}");
+        if (AudioManager.Instance != null)
+        {
+        AudioManager.Instance.PlayPlayerHit();
+        }
 
         // Trigger flash
         if (!isFlashing && spriteRenderer != null)
