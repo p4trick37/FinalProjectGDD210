@@ -271,6 +271,7 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && canSemiShoot)
                 {
                     shootCurrentWeapon[currentWeapon] = true;
+                    
                 }
             }
             else if(usingAuto)
@@ -278,6 +279,7 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetMouseButton(0))
                 {
                     shootCurrentWeapon[currentWeapon] = true;
+                    
                 }
                 if (Input.GetMouseButtonUp(0))
                 {
@@ -456,6 +458,10 @@ public class PlayerController : MonoBehaviour
             float angle = GetRotationMouseTracker() + 90;
             Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
+            if (AudioManager.Instance != null)
+                    {
+                    AudioManager.Instance.PlayPlayerShoot();
+                    }
         }
         else
         {
@@ -463,6 +469,10 @@ public class PlayerController : MonoBehaviour
             float angle = NaFNumber(JoyStickAngle(RightJoyStickInput())) + 90;
             Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
+            if (AudioManager.Instance != null)
+                    {
+                    AudioManager.Instance.PlayPlayerShoot();
+                    }
         }
         
         if(usingSemi)
