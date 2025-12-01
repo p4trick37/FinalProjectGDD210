@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641914366263183816}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.4, y: -0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -49,31 +49,31 @@ MonoBehaviour:
   bulletDamage: 10
   maxSemiUse: 20
   maxAutoUse: 40
-  maxShotgunUse: 0
-  heatDrainSemi: 0.4
-  heatDrainAuto: 1
-  heatDrainShotgun: 0
+  maxShotgunUse: 20
+  heatDrainSemi: 1
+  heatDrainAuto: 2
+  heatDrainShotgun: 2
   heatAddSemi: 3
   heatAddAuto: 3
-  heatAddShotgun: 0
-  heatDelaySemi: 5
-  heatDelayAuto: 7
-  heatDelayShotgun: 0
+  heatAddShotgun: 3
+  heatDelaySemi: 3
+  heatDelayAuto: 5
+  heatDelayShotgun: 3
   movementSpeed: 7
   rotationSpeed: 4
   bulletSpeed: 85
   bulletSpread: 25
   semiAutoDelay: 0.4
   autoDelay: 0.1
-  shotgunDelay: 0
-  upMovementSpeed: 0
-  upPlayerHealth: 0
-  upBulletDamage: 0
+  shotgunDelay: 0.6
+  upMovementSpeed: 5
+  upPlayerHealth: 25
+  upBulletDamage: 5
   upBulletColor: {r: 0.8679245, g: 0.22653371, b: 0.22653371, a: 0}
-  upMaxSemiUse: 0
-  upMaxAutoUse: 0
-  upMaxShotgunUse: 0
-  downHeatDelaySemi: 0
-  downHeatDelayAuto: 0
-  downHeatDelayShotgun: 0
-  upBulletSpeed: 0
+  upMaxSemiUse: 5
+  upMaxAutoUse: 5
+  upMaxShotgunUse: 5
+  downHeatDelaySemi: 1.5
+  downHeatDelayAuto: 1.5
+  downHeatDelayShotgun: 1.5
+  upBulletSpeed: 2
