@@ -2193,6 +2193,82 @@ PrefabInstance:
       propertyPath: bulletDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: shotgunDelay
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: upMaxAutoUse
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: upMaxSemiUse
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: heatDelayAuto
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: heatDelaySemi
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: heatDrainAuto
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: heatDrainSemi
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: maxShotgunUse
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: upBulletSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: heatAddShotgun
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: upBulletDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: upPlayerHealth
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: upMaxShotgunUse
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: upMovementSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: heatDelayShotgun
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: heatDrainShotgun
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: downHeatDelayAuto
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: downHeatDelaySemi
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: downHeatDelayShotgun
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5687039497069305125, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.4
