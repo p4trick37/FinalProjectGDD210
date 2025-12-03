@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,9 +6,19 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [Header("Scene Settings")]
-    public string nextSceneName;     // Set this in the inspector
+    public string nextSceneName;
+
+    [Header("Gate Settings")]
+    public Transform leftGate;
+    public Transform rightGate;
+    public float gateOpenAngle = 90f;
+    public float gateOpenDuration = 1.0f;
+
+    [Header("Treasure Chest")]
+    public GameObject treasureChest; // always visible, no enabling/disabling
 
     private List<TowerUnit> towers = new List<TowerUnit>();
+    private bool gatesOpened = false;
 
     void Start()
     {
@@ -16,9 +27,6 @@ public class LevelManager : MonoBehaviour
         Debug.Log($"LevelManager: Found {towers.Count} towers in this level.");
     }
 
-    /// <summary>
-    /// Called from EnemyHealth / TowerUnit when a tower dies.
-    /// </summary>
     public void ReportTowerDestroyed(TowerUnit deadTower)
     {
         if (deadTower != null && towers.Contains(deadTower))
@@ -28,12 +36,52 @@ public class LevelManager : MonoBehaviour
 
         Debug.Log($"Tower destroyed. Towers left: {towers.Count}");
 
-        if (towers.Count <= 0)
+        if (!gatesOpened && towers.Count <= 0)
         {
-            Debug.Log("All towers defeated! Loading next scene...");
-            SceneManager.LoadScene(nextSceneName);
-
-
+            Debug.Log("All towers defeated. Opening gates.");
+            StartCoroutine(OpenGates());
         }
+    }
+
+    private IEnumerator OpenGates()
+    {
+        gatesOpened = true;
+
+        Quaternion leftStart = leftGate ? leftGate.rotation : Quaternion.identity;
+        Quaternion rightStart = rightGate ? rightGate.rotation : Quaternion.identity;
+
+        Quaternion leftTarget = leftStart * Quaternion.Euler(0f, 0f, gateOpenAngle);
+        Quaternion rightTarget = rightStart * Quaternion.Euler(0f, 0f, -gateOpenAngle);
+
+        float elapsed = 0f;
+
+        while (elapsed < gateOpenDuration)
+        {
+            float t = elapsed / gateOpenDuration;
+
+            if (leftGate != null)
+                leftGate.rotation = Quaternion.Slerp(leftStart, leftTarget, t);
+
+            if (rightGate != null)
+                rightGate.rotation = Quaternion.Slerp(rightStart, rightTarget, t);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // Snap to final rotation
+        if (leftGate != null)  leftGate.rotation = leftTarget;
+        if (rightGate != null) rightGate.rotation = rightTarget;
+    }
+
+    public void LoadNextScene()
+    {
+        if (string.IsNullOrEmpty(nextSceneName))
+        {
+            Debug.LogWarning("LevelManager: nextSceneName not set.");
+            return;
+        }
+
+        SceneManager.LoadScene(nextSceneName);
     }
 }
