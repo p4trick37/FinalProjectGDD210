@@ -1952,9 +1952,9 @@ MonoBehaviour:
   player: {fileID: 917079458}
   island: {fileID: 1051409881}
   minCameraSize: 5
-  maxCameraSize: 20
+  maxCameraSize: 15
   sizeScaleFactor: 0.4
-  posScaleFactor: -0.6
+  islandCircleRadius: 7
   playerInFog: 0
 --- !u!1 &1548170016
 GameObject:
