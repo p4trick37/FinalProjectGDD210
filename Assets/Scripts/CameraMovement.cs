@@ -7,12 +7,13 @@ public class CameraMovement : MonoBehaviour
 
     [SerializeField] private float minCameraSize;
     [SerializeField] private float maxCameraSize;
-    [SerializeField] private float maxDistance;
 
-    [SerializeField] private float scaleFactor;
+    [SerializeField] private float sizeScaleFactor;
+    [SerializeField] private float posScaleFactor;
 
     private float distance;
     private new Camera camera;
+    public bool playerInFog;
 
     private void Start()
     {
@@ -21,14 +22,14 @@ public class CameraMovement : MonoBehaviour
     private void Update()
     {
         distance = Vector2.Distance(island.position, player.position);
-        if(distance > maxDistance)
+        if(playerInFog == true)
         {
             FocusOnPlayer();
         }
         else
         {
             transform.position = new Vector3(MidPoint(player.position, island.position).x, MidPoint(player.position, island.position).y, transform.position.z);
-            camera.orthographicSize = CameraSize(distance, scaleFactor, minCameraSize, maxCameraSize);
+            camera.orthographicSize = CameraSize(distance, sizeScaleFactor, minCameraSize, maxCameraSize);
         }
        
     }
@@ -37,7 +38,9 @@ public class CameraMovement : MonoBehaviour
     {
        
         float midpointX = (obj1.x + obj2.x) / 2;
+        
         float midpointY = (obj1.y + obj2.y) / 2;
+        
         Vector2 midpoint = new Vector2(midpointX, midpointY);
 
         return midpoint;
@@ -46,7 +49,7 @@ public class CameraMovement : MonoBehaviour
     private void FocusOnPlayer()
     {
         transform.position = new Vector3(player.position.x, player.position.y, transform.position.z);
-        camera.orthographicSize = 5;
+        camera.orthographicSize = 10;
     }
 
     private float CameraSize(float distance, float scaleFactor, float minSize, float maxSize)

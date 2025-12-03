@@ -10,6 +10,7 @@ public class Water : MonoBehaviour
     [SerializeField] private SpriteRenderer turret;
     [SerializeField] private float inFogOpacity;
     [SerializeField] private float outFogOpacity;
+    [SerializeField] private CameraMovement camMove;
     public bool playerInFog = false;
 
     private void Start()
@@ -25,16 +26,14 @@ public class Water : MonoBehaviour
             {
                 playerHealth.TakeDamage(fogDamage);
                 timer = fogRate;
-            }
-            Debug.Log("Player in fog");
-            //Debug.Log(timer);
-            
+            }        
             Color boatColor = boat.color;
             Color turretColor = turret.color;
             boatColor.a = inFogOpacity;
             turretColor.a = inFogOpacity;
             boat.color = boatColor;
             turret.color = turretColor;
+            camMove.playerInFog = true;
         }
         else
         {
@@ -45,8 +44,7 @@ public class Water : MonoBehaviour
             turretColor.a = outFogOpacity;
             boat.color = boatColor;
             turret.color = turretColor;
-
-            Debug.Log("Player not in fog");
+            camMove.playerInFog = false;
         }
     }
 }

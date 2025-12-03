@@ -391,6 +391,7 @@ MonoBehaviour:
   turret: {fileID: 2139780799}
   inFogOpacity: 0.4
   outFogOpacity: 1
+  camMove: {fileID: 1447264201}
   playerInFog: 0
 --- !u!4 &660178541 stripped
 Transform:
@@ -1613,9 +1614,10 @@ MonoBehaviour:
   player: {fileID: 917079458}
   island: {fileID: 1051409881}
   minCameraSize: 5
-  maxCameraSize: 13
-  maxDistance: 29.3
-  scaleFactor: 0.43
+  maxCameraSize: 20
+  sizeScaleFactor: 0.4
+  posScaleFactor: -0.6
+  playerInFog: 0
 --- !u!1 &1548170016
 GameObject:
   m_ObjectHideFlags: 0
