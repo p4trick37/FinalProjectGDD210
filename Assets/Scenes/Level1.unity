@@ -207,6 +207,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4195121663761632240, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
   m_PrefabInstance: {fileID: 1755625675}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &576223485 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1580077166603521667, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+  m_PrefabInstance: {fileID: 783838143}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &652329450
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,9 +222,11 @@ GameObject:
   m_Component:
   - component: {fileID: 652329452}
   - component: {fileID: 652329451}
+  - component: {fileID: 652329453}
+  - component: {fileID: 652329454}
   m_Layer: 4
-  m_Name: BackgroundTest
-  m_TagString: Untagged
+  m_Name: Water
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,6 +304,94 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &652329453
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652329450}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.5}
+      - {x: -0.13510767, y: 0.50138307}
+      - {x: -0.26654008, y: 0.4276233}
+      - {x: -0.36902064, y: 0.37225476}
+      - {x: -0.50138307, y: 0.13051139}
+      - {x: -0.5, y: 0}
+      - {x: -0.50138307, y: -0.1339586}
+      - {x: -0.41613263, y: -0.29411772}
+      - {x: -0.3734038, y: -0.37821323}
+      - {x: -0.13280952, y: -0.501383}
+      - {x: 0, y: -0.5}
+      - {x: 0.12821323, y: -0.5036812}
+      - {x: 0.29526678, y: -0.41498354}
+      - {x: 0.3701699, y: -0.36880752}
+      - {x: 0.50138295, y: -0.13395865}
+      - {x: 0.5, y: 0}
+      - {x: 0.50138295, y: 0.13280946}
+      - {x: 0.41613266, y: 0.29641593}
+      - {x: 0.3747857, y: 0.37047538}
+      - {x: 0.30445945, y: 0.41383448}
+      - {x: 0.13166046, y: 0.4990849}
+  m_UseDelaunayMesh: 0
+--- !u!114 &652329454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652329450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b48c5157874ff046904bee199323957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Water
+  fogDamage: 5
+  fogRate: 1.25
+  playerHealth: {fileID: 2019595040}
+  boat: {fileID: 576223485}
+  turret: {fileID: 2139780799}
+  inFogOpacity: 0.4
+  outFogOpacity: 1
+  playerInFog: 0
 --- !u!4 &660178541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4195121663761632240, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
@@ -364,21 +459,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1580077166603521667, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1580077166603521667, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 3870477337572516785, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: uiHealth
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3870477337572516785, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 576223485}
+    - target: {fileID: 7458616791353582424, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7458616791353582424, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: water
+      value: 
+      objectReference: {fileID: 652329454}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: usingController
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.18
+      value: -12.51
       objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -8.43
+      value: -7.42
       objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2202,6 +2321,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
+--- !u!212 &2139780799 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7458616791353582424, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+  m_PrefabInstance: {fileID: 783838143}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5036848630597399486
 PrefabInstance:
   m_ObjectHideFlags: 0

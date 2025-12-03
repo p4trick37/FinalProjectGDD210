@@ -105,6 +105,10 @@ public class PlayerController : MonoBehaviour
 
     private float oldTurretRotationValue;
     private static bool firstSceneLoaded = false;
+    [SerializeField] private Water water;
+    private bool playerInFog;
+
+
     private void Awake()
     {
         upgradeManager = FindFirstObjectByType<UpgradeManager>();
@@ -324,6 +328,7 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
+        isPlayerInFog();
 
     }
 
@@ -612,6 +617,34 @@ public class PlayerController : MonoBehaviour
             currentWeapon = 2;
             usingSemi = false;
             usingShotgun = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Water water = collision.GetComponent<Water>();
+        if(water != null)
+        {
+            playerInFog = true;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Water water = collision.GetComponent<Water>();
+        if(water != null)
+        {
+            playerInFog = false;
+        }
+    }
+    private void isPlayerInFog()
+    {
+        if(playerInFog == true)
+        {
+            water.playerInFog = true;
+        }
+        else
+        {
+            water.playerInFog = false;
         }
     }
 }
