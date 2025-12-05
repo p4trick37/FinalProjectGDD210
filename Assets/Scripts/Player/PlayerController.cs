@@ -8,8 +8,11 @@ using UnityEngine.UIElements;
 public class PlayerController : MonoBehaviour
 {
     #region Controller
-    [Header("Controller or Mouse and Keyboard")]
+    [Header("Controller")]
     [SerializeField] private bool usingController;
+    [SerializeField] private float controllerSensitivity;
+    [SerializeField] private RectTransform cursorImageTransform;
+    private Vector2 controllerCursorLocation;
     #endregion
     #region Current Weapon
     [Header("Current Weapon")]
@@ -102,6 +105,7 @@ public class PlayerController : MonoBehaviour
     private bool canAutoShoot;
     private bool canShotgunShoot;
     #endregion
+
 
     private float oldTurretRotationValue;
     private static bool firstSceneLoaded = false;
@@ -329,6 +333,14 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         isPlayerInFog();
+        //controllerCursorLocation = ControllerCursor(controllerCursorLocation);
+        if (Input.GetAxis("RightStickX") < -0.05 || Input.GetAxis("RightStickX") > 0.05 || Input.GetAxis("RightStickY") < -0.05 || Input.GetAxis("RightStickY") > 0.05)
+        {
+            cursorImageTransform.position += new Vector3(Input.GetAxis("RightStickX") * controllerSensitivity, Input.GetAxis("RightStickY") * controllerSensitivity, 0);
+            Debug.Log("Is being ran shit head");
+            Debug.Log(Input.GetAxis("RightStickX") + ", " + Input.GetAxis("RightStickY"));
+        }
+        
 
     }
 
@@ -464,9 +476,9 @@ public class PlayerController : MonoBehaviour
             Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
             if (AudioManager.Instance != null)
-                    {
-                    AudioManager.Instance.PlayPlayerShoot();
-                    }
+            {
+                AudioManager.Instance.PlayPlayerShoot();
+            }
         }
         else
         {
@@ -475,9 +487,9 @@ public class PlayerController : MonoBehaviour
             Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
             if (AudioManager.Instance != null)
-                    {
-                    AudioManager.Instance.PlayPlayerShoot();
-                    }
+            {
+                AudioManager.Instance.PlayPlayerShoot();
+            }
         }
         
         if(usingSemi)
@@ -646,5 +658,31 @@ public class PlayerController : MonoBehaviour
         {
             water.playerInFog = false;
         }
+    }
+
+    private Vector2 ControllerCursor(Vector2 location)
+    {
+        Vector2 cursorLocation = location;
+        if (Input.GetAxis("RightStickX") < -0.05 || Input.GetAxis("RightStickX") > 0.05 || Input.GetAxis("RightStickY") < -0.05 || Input.GetAxis("RightStickY") < 0.05)
+        {
+            if (Input.GetAxis("RightStickX") > 0.01)
+            {
+                cursorLocation.x += controllerSensitivity;
+            }
+            if (Input.GetAxis("RightStickX") < 0.01)
+            {
+                cursorLocation.x -= controllerSensitivity;
+            }
+            if (Input.GetAxis("RightStickY") > 0.01)
+            {
+                cursorLocation.y += controllerSensitivity;
+            }
+            if (Input.GetAxis("RightStickY") < 0.01)
+            {
+                cursorLocation.y -= controllerSensitivity;
+            }
+        }
+        Debug.Log(Input.GetAxis("RightStickX") + ", " + Input.GetAxis("RightStickY"));
+        return cursorLocation;
     }
 }
