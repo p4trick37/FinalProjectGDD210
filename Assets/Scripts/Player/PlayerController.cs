@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool usingController;
     [SerializeField] private float controllerSensitivity;
     [SerializeField] private RectTransform cursorImageTransform;
-    private Vector2 controllerCursorLocation;
     #endregion
     #region Current Weapon
     [Header("Current Weapon")]
@@ -333,15 +332,10 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         isPlayerInFog();
-        //controllerCursorLocation = ControllerCursor(controllerCursorLocation);
         if (Input.GetAxis("RightStickX") < -0.05 || Input.GetAxis("RightStickX") > 0.05 || Input.GetAxis("RightStickY") < -0.05 || Input.GetAxis("RightStickY") > 0.05)
         {
-            cursorImageTransform.position += new Vector3(Input.GetAxis("RightStickX") * controllerSensitivity, Input.GetAxis("RightStickY") * controllerSensitivity, 0);
-            Debug.Log("Is being ran shit head");
-            Debug.Log(Input.GetAxis("RightStickX") + ", " + Input.GetAxis("RightStickY"));
+            cursorImageTransform.position += new Vector3(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"), 0) * controllerSensitivity * Time.deltaTime;
         }
-        
-
     }
 
     private void FixedUpdate()
@@ -454,44 +448,22 @@ public class PlayerController : MonoBehaviour
     {
         if (shouldMove)
         {
-            if(usingController == false)
-            {
-                turretLocation.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
-            }
-            else
-            {
-                float angle = NaFNumber(JoyStickAngle(RightJoyStickInput()));
-                turretLocation.transform.rotation = Quaternion.Euler(0, 0, angle);
-            }
+            turretLocation.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
         }
     }
 
     //Shoots a bullet in the direction of the mouse
     private void ShootSingleBullet()
-    {
-        if(usingController == false)
+    {       
+        GameObject bullet = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
+        float angle = GetRotationMouseTracker() + 90;
+        Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+        bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
+        if (AudioManager.Instance != null)
         {
-            GameObject bullet = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
-            float angle = GetRotationMouseTracker() + 90;
-            Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-            bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.PlayPlayerShoot();
-            }
+            AudioManager.Instance.PlayPlayerShoot();
         }
-        else
-        {
-            GameObject bullet = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
-            float angle = NaFNumber(JoyStickAngle(RightJoyStickInput())) + 90;
-            Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-            bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.PlayPlayerShoot();
-            }
-        }
-        
+
         if(usingSemi)
         {
             heatSemi += heatAddSemi;
@@ -550,11 +522,25 @@ public class PlayerController : MonoBehaviour
     //Gathers the rotation angle of the player when using the mouse
     private float GetRotationMouseTracker()
     {
-        float rotationAngleRad = Mathf.Atan(MousePosition().y / MousePosition().x);
-        float rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
+        float rotationAngleRad;
+        float rotationAngleDeg;
+        if(usingController == false)
+        {
+            rotationAngleRad = Mathf.Atan(MousePosition().y / MousePosition().x);
+            rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
 
-        if (MousePosition().x < 0) rotationAngleDeg += 90;
-        else rotationAngleDeg -= 90;
+            if (MousePosition().x < 0 || CursorPositionController(cursorImageTransform).x < 0) rotationAngleDeg += 90;
+            else rotationAngleDeg -= 90;
+        }
+        else
+        {
+            rotationAngleRad = Mathf.Atan(CursorPositionController(cursorImageTransform).y / CursorPositionController(cursorImageTransform).x);
+            rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
+            Debug.Log(rotationAngleDeg);
+
+            if (MousePosition().x < 0 || CursorPositionController(cursorImageTransform).x < 0) rotationAngleDeg += 90;
+            else rotationAngleDeg -= 90;
+        }
 
         return rotationAngleDeg;
     }
@@ -660,29 +646,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private Vector2 ControllerCursor(Vector2 location)
+    private Vector2 CursorPositionController(RectTransform image)
     {
-        Vector2 cursorLocation = location;
-        if (Input.GetAxis("RightStickX") < -0.05 || Input.GetAxis("RightStickX") > 0.05 || Input.GetAxis("RightStickY") < -0.05 || Input.GetAxis("RightStickY") < 0.05)
-        {
-            if (Input.GetAxis("RightStickX") > 0.01)
-            {
-                cursorLocation.x += controllerSensitivity;
-            }
-            if (Input.GetAxis("RightStickX") < 0.01)
-            {
-                cursorLocation.x -= controllerSensitivity;
-            }
-            if (Input.GetAxis("RightStickY") > 0.01)
-            {
-                cursorLocation.y += controllerSensitivity;
-            }
-            if (Input.GetAxis("RightStickY") < 0.01)
-            {
-                cursorLocation.y -= controllerSensitivity;
-            }
-        }
-        Debug.Log(Input.GetAxis("RightStickX") + ", " + Input.GetAxis("RightStickY"));
-        return cursorLocation;
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(Camera.main, image.position);
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        float positionX = worldPos.x - turretLocation.position.x;
+        float positionY = worldPos.y - turretLocation.position.y;
+        Vector2 position = new Vector2(positionX, positionY);
+        Debug.Log(position);
+        return position;
     }
 }
