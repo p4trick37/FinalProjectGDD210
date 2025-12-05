@@ -16,6 +16,8 @@ public class LevelManager : MonoBehaviour
 
     [Header("Treasure Chest")]
     public GameObject treasureChest; // always visible, no enabling/disabling
+    [SerializeField] private Sprite chestClosed;
+    [SerializeField] private Sprite chestOpen;
 
     private List<TowerUnit> towers = new List<TowerUnit>();
     private bool gatesOpened = false;
@@ -40,6 +42,11 @@ public class LevelManager : MonoBehaviour
         {
             Debug.Log("All towers defeated. Opening gates.");
             StartCoroutine(OpenGates());
+            treasureChest.GetComponent<SpriteRenderer>().sprite = chestOpen;
+        }
+        else 
+        {
+            treasureChest.GetComponent<SpriteRenderer>().sprite = chestClosed;
         }
     }
 
