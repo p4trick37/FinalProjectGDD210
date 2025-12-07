@@ -28,12 +28,12 @@ public class CameraMovement : MonoBehaviour
         }
         else
         {
-            /*
+            ///*
             float midPointForX = MidPoint(player.position, IslandCircleLocation(AngleOfPlayerRelIsland(player.position, island.position))).x;
             float midpointForY = MidPoint(player.position, IslandCircleLocation(AngleOfPlayerRelIsland(player.position, island.position))).y;
             transform.position = new Vector3(midPointForX, midpointForY, transform.position.z);
-            */
-            transform.position = new Vector3(MidPoint(player.position, island.position).x, MidPoint(player.position, island.position).y, transform.position.z);
+            //*/
+            //transform.position = new Vector3(MidPoint(player.position, island.position).x, MidPoint(player.position, island.position).y, transform.position.z);
             camera.orthographicSize = CameraSize(distance, sizeScaleFactor, minCameraSize, maxCameraSize);
         }
     }
@@ -74,8 +74,10 @@ public class CameraMovement : MonoBehaviour
  
     private Vector2 IslandCircleLocation(float angle)
     {
+
         float x = islandCircleRadius * Mathf.Cos(angle);
         float y = islandCircleRadius * Mathf.Sin(angle);
+        
         Vector2 circlePos = new Vector2(x, y);
         return circlePos;
     }
@@ -83,8 +85,13 @@ public class CameraMovement : MonoBehaviour
     private float AngleOfPlayerRelIsland(Vector2 player, Vector2 island)
     {
         Vector2 playerPosRelIsland = player - island;
-        island -= island;
         float angle = Mathf.Atan(playerPosRelIsland.y / playerPosRelIsland.x);
+        if(playerPosRelIsland.x < 0)
+        {
+            angle += 180 * Mathf.Deg2Rad;
+        }
+
+        Debug.Log(angle * Mathf.Rad2Deg);
         return angle;
     }
 }

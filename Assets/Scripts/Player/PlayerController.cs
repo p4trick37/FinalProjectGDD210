@@ -536,7 +536,6 @@ public class PlayerController : MonoBehaviour
         {
             rotationAngleRad = Mathf.Atan(CursorPositionController(cursorImageTransform).y / CursorPositionController(cursorImageTransform).x);
             rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
-            Debug.Log(rotationAngleDeg);
 
             if (MousePosition().x < 0 || CursorPositionController(cursorImageTransform).x < 0) rotationAngleDeg += 90;
             else rotationAngleDeg -= 90;
@@ -653,7 +652,6 @@ public class PlayerController : MonoBehaviour
         float positionX = worldPos.x - turretLocation.position.x;
         float positionY = worldPos.y - turretLocation.position.y;
         Vector2 position = new Vector2(positionX, positionY);
-        Debug.Log(position);
         return position;
     }
 }
