@@ -50,7 +50,8 @@ public class UpgradeManager : MonoBehaviour
 
     [Header("Damage Attributes")]
     [SerializeField] private float upBulletDamage;
-    [SerializeField] private Color upBulletColor;
+    public Color upBulletColor;
+    public static bool shouldBulletColorChange = false;
 
     [Header("Attack Speed Attributes")]
     [SerializeField] private float upMaxSemiUse;
@@ -61,21 +62,13 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private float downHeatDelayShotgun;
     [SerializeField] private float upBulletSpeed;
 
-    private static bool needBulletSprite;
     
 
 
     private void Awake()
     {
         DontDestroyOnLoad(this);
-        if(bulletSPR == null)
-        {
-            needBulletSprite = false;
-        }
-        else
-        {
-            needBulletSprite = true;
-        }
+
     }
 
     public void StartValue()
@@ -117,11 +110,7 @@ public class UpgradeManager : MonoBehaviour
     public void DamageUpgrade()
     {
         Bullet.damage += upBulletDamage;
-        if(needBulletSprite == true)
-        {
-            bulletSPR.color = upBulletColor;
-        }
-        Debug.Log(Bullet.damage);
+        shouldBulletColorChange = true;
     }
     public void AttackSpeedUpgrade()
     {

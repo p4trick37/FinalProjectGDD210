@@ -2565,7 +2565,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
       propertyPath: bulletDamage
-      value: 50
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: movementSpeed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5366133042117517596, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
+      propertyPath: upBulletColor.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5687039497069305125, guid: 2ef96c64f5964fb4196696935cda8c8c, type: 3}
       propertyPath: m_LocalPosition.x

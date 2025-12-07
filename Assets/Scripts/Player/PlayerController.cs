@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject turretWeapon;
     [SerializeField] private Transform turretLocation;
     [SerializeField] private GameObject bulletPrefab;
+
     public UpgradeManager upgradeManager;
     [SerializeField] private GameObject upgradeManagerInstance;
     #endregion,
@@ -334,6 +335,8 @@ public class PlayerController : MonoBehaviour
         isPlayerInFog();
 
         ControllerCursorPos();
+
+        Debug.Log(movementSpeed);
         
     }
 
@@ -455,6 +458,11 @@ public class PlayerController : MonoBehaviour
     private void ShootSingleBullet()
     {       
         GameObject bullet = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
+        SpriteRenderer bulletSprite = bullet.GetComponentInChildren<SpriteRenderer>();
+        if(UpgradeManager.shouldBulletColorChange == true)
+        {
+            bulletSprite.color = upgradeManager.upBulletColor;
+        }
         float angle = GetRotationMouseTracker() + 90;
         Vector2 bulletDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
         bullet.GetComponent<Rigidbody2D>().AddForce(bulletDirection * bulletSpeed, ForceMode2D.Impulse);
