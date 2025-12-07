@@ -50,7 +50,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80fc8b555d5c0749b8dce0a322ee3ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  usingController: 0
+  usingController: 1
+  controllerSensitivity: 10
+  cursorImageTransform: {fileID: 0}
   usingSemi: 1
   usingAuto: 0
   usingShotgun: 0
@@ -66,6 +68,7 @@ MonoBehaviour:
   hitSlowdown: 4
   hitSlowdownTime: 0.4
   maxSpeed: 10
+  water: {fileID: 0}
 --- !u!50 &7200823413016895861
 Rigidbody2D:
   serializedVersion: 5
@@ -152,10 +155,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   currentHealth: 0
+  fogDamage: 0
+  fogDamageSpeed: 0
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashDuration: 0.03
   flashCount: 1
   uiHealth: {fileID: 0}
+  spriteRenderer: {fileID: 1580077166603521667}
 --- !u!1 &3043087836040121044
 GameObject:
   m_ObjectHideFlags: 0
@@ -5049,7 +5055,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5171,7 +5177,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

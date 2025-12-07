@@ -332,10 +332,9 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         isPlayerInFog();
-        if (Input.GetAxis("RightStickX") < -0.05 || Input.GetAxis("RightStickX") > 0.05 || Input.GetAxis("RightStickY") < -0.05 || Input.GetAxis("RightStickY") > 0.05)
-        {
-            cursorImageTransform.position += new Vector3(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"), 0) * controllerSensitivity * Time.deltaTime;
-        }
+
+        ControllerCursorPos();
+        
     }
 
     private void FixedUpdate()
@@ -529,7 +528,7 @@ public class PlayerController : MonoBehaviour
             rotationAngleRad = Mathf.Atan(MousePosition().y / MousePosition().x);
             rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
 
-            if (MousePosition().x < 0 || CursorPositionController(cursorImageTransform).x < 0) rotationAngleDeg += 90;
+            if (MousePosition().x < 0) rotationAngleDeg += 90;
             else rotationAngleDeg -= 90;
         }
         else
@@ -537,7 +536,7 @@ public class PlayerController : MonoBehaviour
             rotationAngleRad = Mathf.Atan(CursorPositionController(cursorImageTransform).y / CursorPositionController(cursorImageTransform).x);
             rotationAngleDeg = Mathf.Rad2Deg * rotationAngleRad;
 
-            if (MousePosition().x < 0 || CursorPositionController(cursorImageTransform).x < 0) rotationAngleDeg += 90;
+            if (CursorPositionController(cursorImageTransform).x < 0) rotationAngleDeg += 90;
             else rotationAngleDeg -= 90;
         }
 
@@ -554,7 +553,30 @@ public class PlayerController : MonoBehaviour
         Vector2 mousePosition = mousePositionInput - playerScreen;
         return mousePosition;
     }
-
+    private void ControllerCursorPos()
+    {
+        if (Input.GetAxis("RightStickX") < -0.05 || Input.GetAxis("RightStickX") > 0.05 || Input.GetAxis("RightStickY") < -0.05 || Input.GetAxis("RightStickY") > 0.05)
+        {
+            cursorImageTransform.position += new Vector3(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"), 0) * controllerSensitivity * Time.deltaTime;
+        }
+        Debug.Log(cursorImageTransform.position);
+        if (cursorImageTransform.anchoredPosition.x > 935)
+        {
+            cursorImageTransform.anchoredPosition = new Vector3(935, cursorImageTransform.anchoredPosition.y, cursorImageTransform.position.z);
+        }
+        if (cursorImageTransform.anchoredPosition.x < -935)
+        {
+            cursorImageTransform.anchoredPosition = new Vector3(-935, cursorImageTransform.anchoredPosition.y, cursorImageTransform.position.z);
+        }
+        if (cursorImageTransform.anchoredPosition.y > 515)
+        {
+            cursorImageTransform.anchoredPosition = new Vector3(cursorImageTransform.anchoredPosition.x, 515, cursorImageTransform.position.z);
+        }
+        if (cursorImageTransform.anchoredPosition.y < -515)
+        {
+            cursorImageTransform.anchoredPosition = new Vector3(cursorImageTransform.anchoredPosition.x, -515, cursorImageTransform.position.z);
+        }
+    }
     private Vector2 RightJoyStickInput()
     {
         float x = Input.GetAxis("RightStickX");

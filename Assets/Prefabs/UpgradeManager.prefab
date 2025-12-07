@@ -61,7 +61,7 @@ MonoBehaviour:
   heatDelayShotgun: 3
   movementSpeed: 7
   rotationSpeed: 4
-  bulletSpeed: 85
+  bulletSpeed: 70
   bulletSpread: 25
   semiAutoDelay: 0.4
   autoDelay: 0.1

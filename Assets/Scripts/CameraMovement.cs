@@ -22,12 +22,18 @@ public class CameraMovement : MonoBehaviour
     private void Update()
     {
         distance = Vector2.Distance(island.position, player.position);
-        if(playerInFog == true)
+        if (playerInFog == true)
         {
             FocusOnPlayer();
         }
+        else if (player.position.x < islandCircleRadius || player.position.y < islandCircleRadius)
+        {
+            transform.position = new Vector3(MidPoint(player.position, island.position).x, MidPoint(player.position, island.position).y, transform.position.z);
+            camera.orthographicSize = CameraSize(distance, sizeScaleFactor, minCameraSize, maxCameraSize);
+        }
         else
         {
+            
             ///*
             float midPointForX = MidPoint(player.position, IslandCircleLocation(AngleOfPlayerRelIsland(player.position, island.position))).x;
             float midpointForY = MidPoint(player.position, IslandCircleLocation(AngleOfPlayerRelIsland(player.position, island.position))).y;
@@ -91,7 +97,6 @@ public class CameraMovement : MonoBehaviour
             angle += 180 * Mathf.Deg2Rad;
         }
 
-        Debug.Log(angle * Mathf.Rad2Deg);
         return angle;
     }
 }
