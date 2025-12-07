@@ -26,11 +26,6 @@ public class CameraMovement : MonoBehaviour
         {
             FocusOnPlayer();
         }
-        else if (player.position.x < islandCircleRadius || player.position.y < islandCircleRadius)
-        {
-            transform.position = new Vector3(MidPoint(player.position, island.position).x, MidPoint(player.position, island.position).y, transform.position.z);
-            camera.orthographicSize = CameraSize(distance, sizeScaleFactor, minCameraSize, maxCameraSize);
-        }
         else
         {
             
