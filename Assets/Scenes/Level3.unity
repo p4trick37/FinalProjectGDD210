@@ -476,7 +476,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6498879181611858407, guid: 80a0bc54898a0af45a8db03cceb06025, type: 3}
+  m_Sprite: {fileID: -6142374563283994760, guid: 7f97f7ed8c4e6f8408af6deda087383d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2862,7 +2862,9 @@ MonoBehaviour:
   minCameraSize: 5
   maxCameraSize: 15
   sizeScaleFactor: 0.4
-  islandCircleRadius: 7
+  islandCircleRadMin: 0
+  islandCircleRadMax: 7
+  islandCircleScaleFactor: 0.3
   playerInFog: 0
 --- !u!1 &1476595124
 GameObject:

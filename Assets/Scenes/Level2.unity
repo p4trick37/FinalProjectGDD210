@@ -644,7 +644,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2205789484469622798, guid: c037debee5796094689d1d5a83254f8b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2271296396851889513, guid: c037debee5796094689d1d5a83254f8b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -724,7 +724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8367751477995131265, guid: c037debee5796094689d1d5a83254f8b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8404348441759186321, guid: c037debee5796094689d1d5a83254f8b, type: 3}
       propertyPath: m_Size.x
@@ -2063,7 +2063,9 @@ MonoBehaviour:
   minCameraSize: 5
   maxCameraSize: 15
   sizeScaleFactor: 0.4
-  islandCircleRadius: 7
+  islandCircleRadMin: 0
+  islandCircleRadMax: 7
+  islandCircleScaleFactor: 0.3
   playerInFog: 0
 --- !u!212 &1453092541 stripped
 SpriteRenderer:
@@ -2466,7 +2468,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1899348265
 MonoBehaviour:
@@ -2488,7 +2490,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6498879181611858407, guid: 80a0bc54898a0af45a8db03cceb06025, type: 3}
+  m_Sprite: {fileID: -6142374563283994760, guid: 7f97f7ed8c4e6f8408af6deda087383d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

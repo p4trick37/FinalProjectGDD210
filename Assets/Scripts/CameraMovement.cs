@@ -7,9 +7,12 @@ public class CameraMovement : MonoBehaviour
 
     [SerializeField] private float minCameraSize;
     [SerializeField] private float maxCameraSize;
-
     [SerializeField] private float sizeScaleFactor;
-    [SerializeField] private float islandCircleRadius;
+
+    [SerializeField] private float islandCircleRadMin;
+    [SerializeField] private float islandCircleRadMax;
+    [SerializeField] private float islandCircleScaleFactor;
+    private float islandCircleRadius;
 
     private float distance;
     private new Camera camera;
@@ -76,8 +79,8 @@ public class CameraMovement : MonoBehaviour
     private Vector2 IslandCircleLocation(float angle)
     {
 
-        float x = islandCircleRadius * Mathf.Cos(angle);
-        float y = islandCircleRadius * Mathf.Sin(angle);
+        float x = ChangingRadius(distance) * Mathf.Cos(angle);
+        float y = ChangingRadius(distance) * Mathf.Sin(angle);
         
         Vector2 circlePos = new Vector2(x, y);
         return circlePos;
@@ -93,5 +96,18 @@ public class CameraMovement : MonoBehaviour
         }
 
         return angle;
+    }
+    private float ChangingRadius(float distance)
+    {
+        float radius = distance * islandCircleScaleFactor;
+        if(radius >= islandCircleRadMax)
+        {
+            radius = islandCircleRadMax;
+        }
+        if(radius <= islandCircleRadMin)
+        {
+            radius = islandCircleRadMin;
+        }
+        return radius;
     }
 }
