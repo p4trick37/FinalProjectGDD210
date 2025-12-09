@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &36398156 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8450583738510540145, guid: c037debee5796094689d1d5a83254f8b, type: 3}
-  m_PrefabInstance: {fileID: 4760220138014769581}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &86896149 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8756531412915311197, guid: c80c0f4baa2f70e46911287c47fce997, type: 3}
@@ -205,6 +200,14 @@ PrefabInstance:
     - target: {fileID: 5203007508171315326, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
       propertyPath: currentWeapon
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203007508171315326, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
+      propertyPath: weapons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5203007508171315326, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
+      propertyPath: 'weapons.Array.data[2]'
+      value: Burst
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -483,11 +486,11 @@ PrefabInstance:
       objectReference: {fileID: 1571510569}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.51
+      value: -6.7
       objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.42
+      value: -20.7
       objectReference: {fileID: 0}
     - target: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -642,6 +645,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 9208556840798873809, guid: 682165561cd68334db40c6b988220a6b, type: 3}
   m_PrefabInstance: {fileID: 783838143}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &937078577 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2999551174297523816, guid: c037debee5796094689d1d5a83254f8b, type: 3}
+  m_PrefabInstance: {fileID: 4760220138014769581}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &966458992
 GameObject:
@@ -1519,11 +1527,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!4 &1415803534 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3280234299889960154, guid: c037debee5796094689d1d5a83254f8b, type: 3}
-  m_PrefabInstance: {fileID: 4760220138014769581}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1447264196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,6 +1838,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4195121663761632240, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
   m_PrefabInstance: {fileID: 337720679}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1788549117 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6686414653015119745, guid: c037debee5796094689d1d5a83254f8b, type: 3}
+  m_PrefabInstance: {fileID: 4760220138014769581}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1819386759
 GameObject:
@@ -2299,6 +2307,10 @@ PrefabInstance:
       propertyPath: bulletSpeed
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 5203007508171315326, guid: 29ae93aa5f63d724e9bb2ca7e2dcf079, type: 3}
+      propertyPath: currentWeapon
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2491,7 +2503,7 @@ PrefabInstance:
     - target: {fileID: 1216312328372961433, guid: 44e3638218b29d1458e25ca4e9d52fc0, type: 3}
       propertyPath: leftGate
       value: 
-      objectReference: {fileID: 36398156}
+      objectReference: {fileID: 937078577}
     - target: {fileID: 1216312328372961433, guid: 44e3638218b29d1458e25ca4e9d52fc0, type: 3}
       propertyPath: chestOpen
       value: 
@@ -2499,7 +2511,7 @@ PrefabInstance:
     - target: {fileID: 1216312328372961433, guid: 44e3638218b29d1458e25ca4e9d52fc0, type: 3}
       propertyPath: rightGate
       value: 
-      objectReference: {fileID: 1415803534}
+      objectReference: {fileID: 1788549117}
     - target: {fileID: 1216312328372961433, guid: 44e3638218b29d1458e25ca4e9d52fc0, type: 3}
       propertyPath: chestClosed
       value: 
