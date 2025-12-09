@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using static System.TimeZoneInfo;
 
 public class SceneSwitcher : MonoBehaviour
 {
@@ -8,11 +10,13 @@ public class SceneSwitcher : MonoBehaviour
     [SerializeField] private GameObject upgradeManagerInstance;
     private UpgradeManager upgradeManager;
 
+    [SerializeField] private SceneTransition sceneTransition;
+
     //Functions for calling upgrades
     private void Awake()
     {
         upgradeManager = FindAnyObjectByType<UpgradeManager>();
-        if(upgradeManager == null)
+        if (upgradeManager == null)
         {
             upgradeManager = Instantiate(upgradeManagerInstance).GetComponent<UpgradeManager>();
         }
@@ -40,10 +44,20 @@ public class SceneSwitcher : MonoBehaviour
     //Loading and Reloading Scenes
     public void LoadSceneByName(string sceneName)
     {
+        StartCoroutine(sceneTransition.LoadTransition(sceneName, -1));
+    }
+
+    public void TransitionToSceneName(string sceneName)
+    {
         SceneManager.LoadScene(sceneName);
     }
 
+
     public void LoadSceneByIndex(int index)
+    {
+        StartCoroutine(sceneTransition.LoadTransition("null", index));
+    }
+    public void TransitionToSceneIndex(int index)
     {
         SceneManager.LoadScene(index);
     }

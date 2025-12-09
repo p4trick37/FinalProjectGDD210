@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour
 
     private List<TowerUnit> towers = new List<TowerUnit>();
     private bool gatesOpened = false;
+    [SerializeField] private SceneTransition sceneTransition;
 
     void Start()
     {
@@ -82,6 +83,11 @@ public class LevelManager : MonoBehaviour
     }
 
     public void LoadNextScene()
+    {
+        StartCoroutine(sceneTransition.LoadTransition("null", -1));
+    }
+
+    public void TransitionToScene()
     {
         if (string.IsNullOrEmpty(nextSceneName))
         {
