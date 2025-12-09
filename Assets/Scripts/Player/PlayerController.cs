@@ -112,6 +112,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Water water;
     private bool playerInFog;
 
+    public bool playerDead = false;
+
 
     private void Awake()
     {
@@ -146,19 +148,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        #region Movement and controlling Weapon
-        if (usingController == false)
-        {
-            PlayerKeyboardMovement(true);
-            PlayerKeyboardRotation(true);
-        }
-        else
-        {
-            PlayerControllerMovement(true);
-        }
-        TurretMovement(true);
+        
         ControlWeapon();
-        #endregion
+       
         #region Overheating
         //Semi overheating
         if (isSemiHeated == true)
@@ -270,71 +262,45 @@ public class PlayerController : MonoBehaviour
         #endregion
         #region Checking for shooting input on different input systems
         //Checking for input depending on what weapon the player is using
-        if (usingController == false)
+        
+        #endregion
+
+        if(playerDead == true)
         {
-            
-            if(usingSemi)
+            ControllerCursorPos(false);
+            if (usingController == false)
             {
-                //heatSemi = Heating(heatSemi, maxSemiUse, heatDrainSemi, heatDelaySemi);
-                if (Input.GetMouseButtonDown(0) && canSemiShoot)
-                {
-                    shootCurrentWeapon[currentWeapon] = true;
-                    
-                }
-            }
-            else if(usingAuto)
-            {
-                if (Input.GetMouseButton(0))
-                {
-                    shootCurrentWeapon[currentWeapon] = true;
-                    
-                }
-                if (Input.GetMouseButtonUp(0))
-                {
-                    shootCurrentWeapon[currentWeapon] = false;
-                }
+                PlayerKeyboardMovement(false);
+                PlayerKeyboardRotation(false);
             }
             else
             {
-                if (Input.GetMouseButtonDown(0) && canShotgunShoot)
-                {
-                    shootCurrentWeapon[currentWeapon] = true;
-                }
+                PlayerControllerMovement(false);
             }
+            TurretMovement(false);
+            InputForShooting(false);
         }
         else
         {
-            if(usingSemi)
+            ControllerCursorPos(true);
+            if (usingController == false)
             {
-                if (Input.GetAxis("Right Trigger") > 0 && canSemiShoot)
-                {
-                    shootCurrentWeapon[currentWeapon] = true;
-                }
-            }
-            else if(usingAuto)
-            {
-                if (Input.GetAxis("Right Trigger") > 0)
-                {
-                    shootCurrentWeapon[currentWeapon] = true;
-                }
-                if (Input.GetAxis("Right Trigger") < 0)
-                {
-                    shootCurrentWeapon[currentWeapon] = false;
-                }
+                PlayerKeyboardMovement(true);
+                PlayerKeyboardRotation(true);
             }
             else
             {
-                if (Input.GetAxis("Right Trigger") > 0 && canShotgunShoot)
-                {
-                    shootCurrentWeapon[currentWeapon] = true;
-                }
+                PlayerControllerMovement(true);
             }
+            TurretMovement(true);
+            InputForShooting(true);
         }
-        #endregion
+
+
 
         isPlayerInFog();
 
-        ControllerCursorPos();
+        
 
         Debug.Log(movementSpeed);
         
@@ -453,6 +419,72 @@ public class PlayerController : MonoBehaviour
             turretLocation.transform.rotation = Quaternion.Euler(0, 0, GetRotationMouseTracker());
         }
     }
+    private void InputForShooting(bool shouldShoot)
+    {
+        if(shouldShoot == true)
+        {
+            if (usingController == false)
+            {
+
+                if (usingSemi)
+                {
+                    //heatSemi = Heating(heatSemi, maxSemiUse, heatDrainSemi, heatDelaySemi);
+                    if (Input.GetMouseButtonDown(0) && canSemiShoot)
+                    {
+                        shootCurrentWeapon[currentWeapon] = true;
+
+                    }
+                }
+                else if (usingAuto)
+                {
+                    if (Input.GetMouseButton(0))
+                    {
+                        shootCurrentWeapon[currentWeapon] = true;
+
+                    }
+                    if (Input.GetMouseButtonUp(0))
+                    {
+                        shootCurrentWeapon[currentWeapon] = false;
+                    }
+                }
+                else
+                {
+                    if (Input.GetMouseButtonDown(0) && canShotgunShoot)
+                    {
+                        shootCurrentWeapon[currentWeapon] = true;
+                    }
+                }
+            }
+            else
+            {
+                if (usingSemi)
+                {
+                    if (Input.GetAxis("Right Trigger") > 0 && canSemiShoot)
+                    {
+                        shootCurrentWeapon[currentWeapon] = true;
+                    }
+                }
+                else if (usingAuto)
+                {
+                    if (Input.GetAxis("Right Trigger") > 0)
+                    {
+                        shootCurrentWeapon[currentWeapon] = true;
+                    }
+                    if (Input.GetAxis("Right Trigger") < 0)
+                    {
+                        shootCurrentWeapon[currentWeapon] = false;
+                    }
+                }
+                else
+                {
+                    if (Input.GetAxis("Right Trigger") > 0 && canShotgunShoot)
+                    {
+                        shootCurrentWeapon[currentWeapon] = true;
+                    }
+                }
+            }
+        }       
+    }
 
     //Shoots a bullet in the direction of the mouse
     private void ShootSingleBullet()
@@ -561,29 +593,32 @@ public class PlayerController : MonoBehaviour
         Vector2 mousePosition = mousePositionInput - playerScreen;
         return mousePosition;
     }
-    private void ControllerCursorPos()
+    private void ControllerCursorPos(bool shouldMove)
     {
-        if (Input.GetAxis("RightStickX") < -0.05 || Input.GetAxis("RightStickX") > 0.05 || Input.GetAxis("RightStickY") < -0.05 || Input.GetAxis("RightStickY") > 0.05)
+        if(shouldMove == true)
         {
-            cursorImageTransform.position += new Vector3(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"), 0) * controllerSensitivity * Time.deltaTime;
+            if (Input.GetAxis("RightStickX") < -0.05 || Input.GetAxis("RightStickX") > 0.05 || Input.GetAxis("RightStickY") < -0.05 || Input.GetAxis("RightStickY") > 0.05)
+            {
+                cursorImageTransform.position += new Vector3(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"), 0) * controllerSensitivity * Time.deltaTime;
+            }
+            if (cursorImageTransform.anchoredPosition.x > 935)
+            {
+                cursorImageTransform.anchoredPosition = new Vector3(935, cursorImageTransform.anchoredPosition.y, cursorImageTransform.position.z);
+            }
+            if (cursorImageTransform.anchoredPosition.x < -935)
+            {
+                cursorImageTransform.anchoredPosition = new Vector3(-935, cursorImageTransform.anchoredPosition.y, cursorImageTransform.position.z);
+            }
+            if (cursorImageTransform.anchoredPosition.y > 515)
+            {
+                cursorImageTransform.anchoredPosition = new Vector3(cursorImageTransform.anchoredPosition.x, 515, cursorImageTransform.position.z);
+            }
+            if (cursorImageTransform.anchoredPosition.y < -515)
+            {
+                cursorImageTransform.anchoredPosition = new Vector3(cursorImageTransform.anchoredPosition.x, -515, cursorImageTransform.position.z);
+            }
         }
-        Debug.Log(cursorImageTransform.position);
-        if (cursorImageTransform.anchoredPosition.x > 935)
-        {
-            cursorImageTransform.anchoredPosition = new Vector3(935, cursorImageTransform.anchoredPosition.y, cursorImageTransform.position.z);
-        }
-        if (cursorImageTransform.anchoredPosition.x < -935)
-        {
-            cursorImageTransform.anchoredPosition = new Vector3(-935, cursorImageTransform.anchoredPosition.y, cursorImageTransform.position.z);
-        }
-        if (cursorImageTransform.anchoredPosition.y > 515)
-        {
-            cursorImageTransform.anchoredPosition = new Vector3(cursorImageTransform.anchoredPosition.x, 515, cursorImageTransform.position.z);
-        }
-        if (cursorImageTransform.anchoredPosition.y < -515)
-        {
-            cursorImageTransform.anchoredPosition = new Vector3(cursorImageTransform.anchoredPosition.x, -515, cursorImageTransform.position.z);
-        }
+        
     }
     private Vector2 RightJoyStickInput()
     {

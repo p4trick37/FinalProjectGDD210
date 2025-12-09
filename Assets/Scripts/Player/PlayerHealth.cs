@@ -23,11 +23,20 @@ public class PlayerHealth : MonoBehaviour
     private Color originalColor;
     private bool isFlashing = false;
 
+    [SerializeField] private DeathTransition deathTransition;
+
     private void Start()
     {
         currentHealth = maxHealth;
     }
-
+    private void Update()
+    {
+        if (currentHealth <= 0)
+        {
+            Debug.Log("Dead! The player is dead!");
+            OnDie();
+        }
+    }
 
     public void TakeDamage(float amount)
     {
@@ -44,16 +53,13 @@ public class PlayerHealth : MonoBehaviour
         if (!isFlashing && spriteRenderer != null)
             StartCoroutine(FlashEffect());
 
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        
     }
 
-    private void Die()
+    private void OnDie()
     {
-        Debug.Log("Player has died!");
-        // Add your death logic here (respawn, game over, etc.)
+        gameObject.GetComponent<PlayerController>().playerDead = true;
+        StartCoroutine(deathTransition.Transition());
     }
 
     private IEnumerator FlashEffect()

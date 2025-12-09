@@ -390,8 +390,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Restart
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 22c3315eec03f5741ba7520435e1edd6, type: 2}
+  m_sharedMaterial: {fileID: -5462032840416476691, guid: 22c3315eec03f5741ba7520435e1edd6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -467,6 +467,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 253418116}
   m_CullTransparentMesh: 1
+--- !u!114 &464042133 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2979467244287448036, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+  m_PrefabInstance: {fileID: 1742715298}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50cf5a71182932747bf59f6ab32486e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneTransition
 --- !u!1001 &530866027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -691,8 +702,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Quit
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 22c3315eec03f5741ba7520435e1edd6, type: 2}
+  m_sharedMaterial: {fileID: -5462032840416476691, guid: 22c3315eec03f5741ba7520435e1edd6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -980,6 +991,63 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1001 &1742715298
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2204132902953179041, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 882.0864
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204132902953179041, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 569.0208
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204132902953179041, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204132902953179041, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204132902953179041, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204132902953179041, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204132902953179041, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204132902953179041, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204132902953179041, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204132902953179041, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5290820954842129538, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
+      propertyPath: m_Name
+      value: Scene Transition
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0ba9a898db46bce43be81af17b0f39de, type: 3}
 --- !u!1 &1905703110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,6 +1225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a401cc3cc77c8ac4eb3b9e2ce6266337, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneSwitcherForMenus
+  sceneTransition: {fileID: 464042133}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1166,3 +1235,4 @@ SceneRoots:
   - {fileID: 9027932}
   - {fileID: 530866027}
   - {fileID: 2106697951}
+  - {fileID: 1742715298}

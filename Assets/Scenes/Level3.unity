@@ -1433,6 +1433,10 @@ PrefabInstance:
       propertyPath: uiHealth
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3870477337572516785, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: deathTransition
+      value: 
+      objectReference: {fileID: 1453213307}
     - target: {fileID: 7458616791353582424, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -2866,6 +2870,74 @@ MonoBehaviour:
   islandCircleRadMax: 7
   islandCircleScaleFactor: 0.3
   playerInFog: 0
+--- !u!1001 &1453213306
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3761269224091929438, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 998.11395
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761269224091929438, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 573.1388
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761269224091929438, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761269224091929438, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761269224091929438, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761269224091929438, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761269224091929438, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761269224091929438, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761269224091929438, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761269224091929438, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8034105723809778014, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+      propertyPath: m_Name
+      value: Death Transition
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+--- !u!114 &1453213307 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9113576230822583395, guid: 7dc0b504245d3d342ab7a5955e44e9f2, type: 3}
+  m_PrefabInstance: {fileID: 1453213306}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f5b2434d1ee9d408a7f9f2293399d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeathTransition
 --- !u!1 &1476595124
 GameObject:
   m_ObjectHideFlags: 0
@@ -5167,3 +5239,4 @@ SceneRoots:
   - {fileID: 1558625468}
   - {fileID: 1625409418}
   - {fileID: 2134229985}
+  - {fileID: 1453213306}
