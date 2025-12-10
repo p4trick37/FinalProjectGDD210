@@ -54,6 +54,7 @@ public class UpgradeManager : MonoBehaviour
     public static bool shouldBulletColorChange = false;
 
     [Header("Attack Speed Attributes")]
+    [SerializeField] private float downBulletDamage;
     [SerializeField] private float upMaxSemiUse;
     [SerializeField] private float upMaxAutoUse;
     [SerializeField] private float upMaxShotgunUse;
@@ -114,6 +115,9 @@ public class UpgradeManager : MonoBehaviour
     }
     public void AttackSpeedUpgrade()
     {
+        PlayerController.upgradedToAuto = true;
+        Bullet.damage -= downBulletDamage;
+
         PlayerController.maxSemiUse += upMaxSemiUse;
         PlayerController.maxAutoUse += upMaxAutoUse;
         PlayerController.maxShotgunUse += upMaxShotgunUse;

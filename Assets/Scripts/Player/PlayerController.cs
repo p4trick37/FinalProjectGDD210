@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public bool usingShotgun;
     private int currentWeapon;
     private bool[] shootCurrentWeapon = new bool[3];
+    public static bool upgradedToAuto = false;
     #endregion
     #region Weapon OverHeating
     [Header("Weapons Overheating")]
@@ -148,9 +149,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
+
         ControlWeapon();
-       
         #region Overheating
         //Semi overheating
         if (isSemiHeated == true)
@@ -486,6 +486,24 @@ public class PlayerController : MonoBehaviour
         }       
     }
 
+    private void ControlWeapon()
+    {
+        if(upgradedToAuto == true)
+        {
+            usingAuto = true;
+            usingSemi = false;
+            usingShotgun = false;
+        }
+        else
+        {
+            usingAuto = false;
+            usingSemi = true;
+            usingShotgun = false;
+        }
+    }
+
+
+
     //Shoots a bullet in the direction of the mouse
     private void ShootSingleBullet()
     {       
@@ -660,27 +678,6 @@ public class PlayerController : MonoBehaviour
         return number;
     }
 
-    private void ControlWeapon()
-    {
-        if(usingSemi)
-        {
-            currentWeapon = 0;
-            usingAuto = false;
-            usingShotgun = false;
-        }
-        else if(usingAuto)
-        {
-            currentWeapon = 1;
-            usingSemi = false;
-            usingShotgun = false;
-        }
-        else
-        {
-            currentWeapon = 2;
-            usingSemi = false;
-            usingShotgun = false;
-        }
-    }
 
     private void OnTriggerExit2D(Collider2D collision)
     {

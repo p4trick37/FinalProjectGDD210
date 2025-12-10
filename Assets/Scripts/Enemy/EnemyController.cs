@@ -28,6 +28,7 @@ public class EnemyController : MonoBehaviour
     [Header("Weapon List and its Current Weapon")]
     public string[] weapons = new string[] { "SemiAuto", "FullAuto", "3RoundShot" };
     public int currentWeapon = 0;
+    [SerializeField] private float startDelay;
 
     private bool[] shootCurrentWeapon = new bool[3];
     private float semiAutoTimerDelay;
@@ -36,6 +37,8 @@ public class EnemyController : MonoBehaviour
     private bool canSemiShoot = true;
     private bool canAutoShoot = true;
     private bool canShotgunShoot = true;
+
+    private bool canFire;
 
     // NEW: cached player health so we can stop shooting when dead
     private PlayerHealth playerHealth;
@@ -54,6 +57,10 @@ public class EnemyController : MonoBehaviour
             playerHealth = target.GetComponent<PlayerHealth>();
         }
     }
+    private void Start()
+    {
+        StartCoroutine(StartDelay());
+    }
 
     void Update()
     {
@@ -63,6 +70,7 @@ public class EnemyController : MonoBehaviour
             shootCurrentWeapon[0] = shootCurrentWeapon[1] = shootCurrentWeapon[2] = false;
             return;
         }
+
 
         if (movementSpeed > 0f)
         {
@@ -110,7 +118,7 @@ public class EnemyController : MonoBehaviour
         switch (currentWeapon)
         {
             case 0:
-                if (shootCurrentWeapon[currentWeapon] && canSemiShoot)
+                if (shootCurrentWeapon[currentWeapon] && canSemiShoot && canFire == true)
                 {
                     ShootSingleBullet();
                     semiAutoTimerDelay = semiAutoDelay;
@@ -119,7 +127,7 @@ public class EnemyController : MonoBehaviour
                 break;
 
             case 1:
-                if (shootCurrentWeapon[currentWeapon] && canAutoShoot)
+                if (shootCurrentWeapon[currentWeapon] && canAutoShoot && canFire == true)
                 {
                     ShootSingleBullet();
                     autoTimerDelay = autoDelay;
@@ -127,7 +135,7 @@ public class EnemyController : MonoBehaviour
                 break;
 
             case 2:
-                if (shootCurrentWeapon[currentWeapon] && canShotgunShoot)
+                if (shootCurrentWeapon[currentWeapon] && canShotgunShoot && canFire == true)
                 {
                     StartCoroutine(CoShoot3Bullets());
                     shotgunTimerDelay = shotgunDelay;
@@ -247,5 +255,12 @@ public class EnemyController : MonoBehaviour
         tex.SetPixels32(px);
         tex.Apply();
         return Sprite.Create(tex, new Rect(0, 0, s, s), new Vector2(0.5f, 0.5f), 100f);
+    }
+
+    private IEnumerator StartDelay()
+    {
+        canFire = false;
+        yield return new WaitForSeconds(startDelay);
+        canFire = true;
     }
 }

@@ -23,12 +23,38 @@ public class LevelManager : MonoBehaviour
     private bool gatesOpened = false;
     [SerializeField] private SceneTransition sceneTransition;
 
+    public static bool onLevel1;
+    public static bool onLevel2;
+    public static bool onLevel3;
+    private int sceneIndex;
+
     void Start()
     {
         // Find all towers in the scene
         towers.AddRange(FindObjectsByType<TowerUnit>(FindObjectsSortMode.None));
         Debug.Log($"LevelManager: Found {towers.Count} towers in this level.");
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if(sceneIndex == 1)
+        {
+            onLevel1 = true;
+            onLevel2 = false;
+            onLevel3 = false;
+        }
+        else if(sceneIndex == 3)
+        {
+            onLevel1 = false;
+            onLevel2 = true;
+            onLevel3 = false;
+        }
+        else if(sceneIndex == 5)
+        {
+            onLevel1 = false;
+            onLevel2 = false;
+            onLevel3 = true;
+        }
     }
+
 
     public void ReportTowerDestroyed(TowerUnit deadTower)
     {

@@ -1133,8 +1133,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2106697952}
         m_TargetAssemblyTypeName: SceneSwitcherForMenus, Assembly-CSharp
-        m_MethodName: LoadSceneByIndex
-        m_Mode: 3
+        m_MethodName: ReturnToCurrentLevel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

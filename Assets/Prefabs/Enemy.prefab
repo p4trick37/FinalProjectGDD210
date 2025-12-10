@@ -69,6 +69,7 @@ MonoBehaviour:
   - FullAuto
   - 3RoundShot
   currentWeapon: 2
+  startDelay: 2
 --- !u!114 &4241469924247590645
 MonoBehaviour:
   m_ObjectHideFlags: 0

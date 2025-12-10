@@ -54,8 +54,5 @@ public class SceneTransition : MonoBehaviour
                 sceneSwitcherForMenus.TransitionToSceneByIndex(index);
             }
         }
-        
-        
-
     }
 }

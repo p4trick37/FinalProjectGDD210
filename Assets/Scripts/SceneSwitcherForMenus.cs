@@ -20,6 +20,7 @@ public class SceneSwitcherForMenus : MonoBehaviour
     }
     public void TransitionToSceneByIndex(int index)
     {
+        
         SceneManager.LoadScene(index);
     }
 
@@ -32,5 +33,27 @@ public class SceneSwitcherForMenus : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void ReturnToCurrentLevel()
+    {
+        int index;
+        if(LevelManager.onLevel1)
+        {
+            index = 1;
+        }
+        else if(LevelManager.onLevel2)
+        {
+            index = 3;
+        }
+        else if(LevelManager.onLevel3)
+        {
+            index = 5;
+        }
+        else
+        {
+            index = 1;
+        }
+        StartCoroutine(sceneTransition.LoadTransition("null", index));
     }
 }
