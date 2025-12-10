@@ -7,6 +7,16 @@ using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
+    private ControllerInput controls;
+    private Vector2 move;
+    private Vector2 cursorMove;
+    private bool triggerPressed;
+    private bool triggerHeld;
+
+
+
+
+
     #region Controller
     [Header("Controller")]
     [SerializeField] private bool usingController;
@@ -108,7 +118,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
 
-    private float oldTurretRotationValue;
+    //private float oldTurretRotationValue;
     private static bool firstSceneLoaded = false;
     [SerializeField] private Water water;
     private bool playerInFog;
@@ -132,6 +142,27 @@ public class PlayerController : MonoBehaviour
             upgradeManager.StartValue();
         }
         firstSceneLoaded = true;
+
+        controls = new ControllerInput();
+
+        controls.Player.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
+        controls.Player.Move.canceled += ctx => move = Vector2.zero;
+
+        controls.Player.Look.performed += ctx => cursorMove = ctx.ReadValue<Vector2>();
+        controls.Player.Look.canceled += ctx => cursorMove = Vector2.zero;
+
+        controls.Player.Shoot.started += ctx =>
+        {
+            triggerPressed = true;
+        };
+        controls.Player.Shoot.performed += ctx =>
+        {
+            triggerHeld = true;
+        };
+        controls.Player.Shoot.canceled += ctx =>
+        {
+            triggerHeld = false;
+        };
     }
     private void Start()
     {
@@ -144,12 +175,11 @@ public class PlayerController : MonoBehaviour
         }
         
 
-        oldTurretRotationValue = 0;
+        //oldTurretRotationValue = 0;
     }
 
     private void Update()
     {
-
         ControlWeapon();
         #region Overheating
         //Semi overheating
@@ -227,11 +257,7 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
-        float inputTrigger = Input.GetAxis("Right Trigger");
-        if(isAutoHeated)
-        {
-            inputTrigger = -1;
-        }
+
         #region Shoot Delay
         //Setting the delays for each weapon after every bullet
         if (autoTimerDelay > 0) 
@@ -260,10 +286,7 @@ public class PlayerController : MonoBehaviour
             canShotgunShoot = true; 
         }
         #endregion
-        #region Checking for shooting input on different input systems
-        //Checking for input depending on what weapon the player is using
-        
-        #endregion
+
 
         if(playerDead == true)
         {
@@ -335,7 +358,7 @@ public class PlayerController : MonoBehaviour
         {
             if (shootCurrentWeapon[currentWeapon] && isShotgunHeated == false)
             {
-                Shoot3Bullets();
+                //Shoot3Bullets();
                 shotgunTimerDelay = shotgunDelay;
                 shootCurrentWeapon[currentWeapon] = false;
             }
@@ -378,9 +401,9 @@ public class PlayerController : MonoBehaviour
     {
         if (shouldMove)
         {
-            float inputX = Input.GetAxisRaw("Horizontal");
-            float inputY = Input.GetAxisRaw("Vertical");
-            float angle = Mathf.Atan(inputY / inputX) * Mathf.Rad2Deg;
+            Vector2 m = new Vector2(move.x, move.y);
+            
+            float angle = Mathf.Atan(m.y / m.x) * Mathf.Rad2Deg;
             if(float.IsNaN(angle))
             {
                 angle = 0;
@@ -388,7 +411,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if(inputX < 0)
+                if(m.x < 0)
                 {
                     angle += 90;
                 }
@@ -459,27 +482,29 @@ public class PlayerController : MonoBehaviour
             {
                 if (usingSemi)
                 {
-                    if (Input.GetAxis("Right Trigger") > 0 && canSemiShoot)
+                    if (triggerPressed == true && canSemiShoot)
                     {
                         shootCurrentWeapon[currentWeapon] = true;
+                        triggerPressed = false;
                     }
                 }
                 else if (usingAuto)
                 {
-                    if (Input.GetAxis("Right Trigger") > 0)
+                    if (triggerHeld == true)
                     {
                         shootCurrentWeapon[currentWeapon] = true;
                     }
-                    if (Input.GetAxis("Right Trigger") < 0)
+                    if (triggerHeld == false)
                     {
                         shootCurrentWeapon[currentWeapon] = false;
                     }
                 }
                 else
                 {
-                    if (Input.GetAxis("Right Trigger") > 0 && canShotgunShoot)
+                    if (triggerPressed == true && canShotgunShoot)
                     {
                         shootCurrentWeapon[currentWeapon] = true;
+                        triggerPressed = false;
                     }
                 }
             }
@@ -530,7 +555,7 @@ public class PlayerController : MonoBehaviour
             heatAuto += heatAddAuto;
         }
     }
-
+    /*
     private void Shoot3Bullets()
     {
         if(usingController == false)
@@ -558,23 +583,24 @@ public class PlayerController : MonoBehaviour
             GameObject bullet2 = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
             GameObject bullet3 = Instantiate(bulletPrefab, turretLocation.position, Quaternion.identity);
 
-            float baseAngle = NaFNumber(JoyStickAngle(RightJoyStickInput())) + 90;
-            float angle1 = baseAngle;
-            float angle2 = baseAngle + bulletSpread;
-            float angle3 = baseAngle - bulletSpread;
+            //float baseAngle = NaFNumber(JoyStickAngle(RightJoyStickInput())) + 90;
+            //float angle1 = baseAngle;
+            //float angle2 = baseAngle + bulletSpread;
+            //float angle3 = baseAngle - bulletSpread;
 
-            Vector2 dir1 = new Vector2(Mathf.Cos(angle1 * Mathf.Deg2Rad), Mathf.Sin(angle1 * Mathf.Deg2Rad));
-            Vector2 dir2 = new Vector2(Mathf.Cos(angle2 * Mathf.Deg2Rad), Mathf.Sin(angle2 * Mathf.Deg2Rad));
-            Vector2 dir3 = new Vector2(Mathf.Cos(angle3 * Mathf.Deg2Rad), Mathf.Sin(angle3 * Mathf.Deg2Rad));
+            //Vector2 dir1 = new Vector2(Mathf.Cos(angle1 * Mathf.Deg2Rad), Mathf.Sin(angle1 * Mathf.Deg2Rad));
+            //Vector2 dir2 = new Vector2(Mathf.Cos(angle2 * Mathf.Deg2Rad), Mathf.Sin(angle2 * Mathf.Deg2Rad));
+           //Vector2 dir3 = new Vector2(Mathf.Cos(angle3 * Mathf.Deg2Rad), Mathf.Sin(angle3 * Mathf.Deg2Rad));
 
-            bullet1.GetComponent<Rigidbody2D>().AddForce(dir1 * bulletSpeed, ForceMode2D.Impulse);
-            bullet2.GetComponent<Rigidbody2D>().AddForce(dir2 * bulletSpeed, ForceMode2D.Impulse);
-            bullet3.GetComponent<Rigidbody2D>().AddForce(dir3 * bulletSpeed, ForceMode2D.Impulse);
+            //bullet1.GetComponent<Rigidbody2D>().AddForce(dir1 * bulletSpeed, ForceMode2D.Impulse);
+            //bullet2.GetComponent<Rigidbody2D>().AddForce(dir2 * bulletSpeed, ForceMode2D.Impulse);
+            //bullet3.GetComponent<Rigidbody2D>().AddForce(dir3 * bulletSpeed, ForceMode2D.Impulse);
         }
 
         heatShotgun += heatAddShotgun;
         
     }
+    */
 
     //Gathers the rotation angle of the player when using the mouse
     private float GetRotationMouseTracker()
@@ -615,10 +641,8 @@ public class PlayerController : MonoBehaviour
     {
         if(shouldMove == true)
         {
-            if (Input.GetAxis("RightStickX") < -0.05 || Input.GetAxis("RightStickX") > 0.05 || Input.GetAxis("RightStickY") < -0.05 || Input.GetAxis("RightStickY") > 0.05)
-            {
-                cursorImageTransform.position += new Vector3(Input.GetAxis("RightStickX"), Input.GetAxis("RightStickY"), 0) * controllerSensitivity * Time.deltaTime;
-            }
+            cursorImageTransform.position += new Vector3(cursorMove.x, cursorMove.y, 0) * controllerSensitivity * Time.deltaTime;
+
             if (cursorImageTransform.anchoredPosition.x > 935)
             {
                 cursorImageTransform.anchoredPosition = new Vector3(935, cursorImageTransform.anchoredPosition.y, cursorImageTransform.position.z);
@@ -638,6 +662,7 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+    /*
     private Vector2 RightJoyStickInput()
     {
         float x = Input.GetAxis("RightStickX");
@@ -678,7 +703,7 @@ public class PlayerController : MonoBehaviour
         return number;
     }
 
-
+    */
     private void OnTriggerExit2D(Collider2D collision)
     {
         Water water = collision.GetComponent<Water>();
@@ -715,5 +740,14 @@ public class PlayerController : MonoBehaviour
         float positionY = worldPos.y - turretLocation.position.y;
         Vector2 position = new Vector2(positionX, positionY);
         return position;
+    }
+
+    private void OnEnable()
+    {
+        controls.Player.Enable();
+    }
+    private void OnDisable()
+    {
+        controls.Disable();
     }
 }

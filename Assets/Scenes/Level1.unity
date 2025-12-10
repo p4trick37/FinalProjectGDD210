@@ -512,6 +512,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 652329454}
     - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: usingAuto
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
+      propertyPath: usingSemi
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604118559658385379, guid: 682165561cd68334db40c6b988220a6b, type: 3}
       propertyPath: usingController
       value: 1
       objectReference: {fileID: 0}
