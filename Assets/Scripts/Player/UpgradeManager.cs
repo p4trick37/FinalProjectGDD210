@@ -63,7 +63,7 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private float downHeatDelayShotgun;
     [SerializeField] private float upBulletSpeed;
 
-    
+    private static int count = 0;
 
 
     private void Awake()
@@ -115,8 +115,13 @@ public class UpgradeManager : MonoBehaviour
     }
     public void AttackSpeedUpgrade()
     {
+        count++;
         PlayerController.upgradedToAuto = true;
-        Bullet.damage -= downBulletDamage;
+        if(count == 1)
+        {
+            Bullet.damage -= downBulletDamage;
+        }
+        
 
         PlayerController.maxSemiUse += upMaxSemiUse;
         PlayerController.maxAutoUse += upMaxAutoUse;
