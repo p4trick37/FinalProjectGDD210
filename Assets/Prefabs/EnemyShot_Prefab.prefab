@@ -141,8 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df023ed15b3edcf408833833712eaa75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  bulletDecay: 3
-  damage: 10
+  bulletDecay: 5
   targetTag: Player
 --- !u!50 &-2942568852018011165
 Rigidbody2D:

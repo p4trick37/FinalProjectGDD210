@@ -69,6 +69,7 @@ MonoBehaviour:
   hitSlowdownTime: 0.4
   maxSpeed: 10
   water: {fileID: 0}
+  playerDead: 0
 --- !u!50 &7200823413016895861
 Rigidbody2D:
   serializedVersion: 5
@@ -155,13 +156,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   currentHealth: 0
-  fogDamage: 0
-  fogDamageSpeed: 0
+  fogDamage: 30
+  fogDamageSpeed: 1
   flashColor: {r: 1, g: 1, b: 1, a: 1}
   flashDuration: 0.03
   flashCount: 1
   uiHealth: {fileID: 0}
   spriteRenderer: {fileID: 1580077166603521667}
+  deathTransition: {fileID: 0}
 --- !u!1 &3043087836040121044
 GameObject:
   m_ObjectHideFlags: 0

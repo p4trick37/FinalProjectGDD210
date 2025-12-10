@@ -53,7 +53,7 @@ MonoBehaviour:
   movementSpeed: 0
   rotationSpeed: 180
   faceTarget: 1
-  bulletSpeed: 8
+  bulletSpeed: 9
   bulletSpread: 8
   semiAutoDelay: 3
   autoDelay: 0.7
