@@ -865,7 +865,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PIRATE ATTACK GAME
+  m_text: Ship Wrekt
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 22c3315eec03f5741ba7520435e1edd6, type: 2}
   m_sharedMaterial: {fileID: -5462032840416476691, guid: 22c3315eec03f5741ba7520435e1edd6, type: 2}
