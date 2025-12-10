@@ -4,32 +4,31 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [Header("Enemy Movement and Rotation")]
-    public float movementSpeed = 0f;          // optional, set >0 if you want drift/move
-    public float rotationSpeed = 180f;        // deg/sec for body rotate-to-target
-    public bool faceTarget = true;            // rotate the body to face target
+    public float movementSpeed = 0f;
+    public float rotationSpeed = 180f;
+    public bool faceTarget = true;
 
     [Header("Bullet Speed and Spread")]
     public float bulletSpeed = 8f;
-    public float bulletSpread = 8f;           // degrees for left/right spread on 3RoundShot
+    public float bulletSpread = 8f;
 
     [Header("Delays for Firing Weapons")]
-    public float semiAutoDelay = 0.35f;       // cooldown per single shot
-    public float autoDelay = 0.08f;           // cadence for full auto
-    public float shotgunDelay = 0.8f;         // re-arm delay for 3Shot burst
-    public float burstShotSpacing = 0.06f;    // time between the 3 shots in burst
+    public float semiAutoDelay = 0.35f;
+    public float autoDelay = 0.08f;
+    public float shotgunDelay = 0.8f;
+    public float burstShotSpacing = 0.06f;
 
     [Header("Object References")]
-    public Transform turret;                  // optional pivot for visual rotate
-    public Transform muzzle;                  // optional spawn point; falls back to transform
-    public GameObject bulletPrefab;           // assign your bullet prefab (with or without RB2D)
-    public Transform target;                  // usually the player; auto-found by tag if null
-    public string playerTag = "Player";       // tag used to auto-find target
+    public Transform turret;
+    public Transform muzzle;
+    public GameObject bulletPrefab;
+    public Transform target;
+    public string playerTag = "Player";
 
     [Header("Weapon List and its Current Weapon")]
     public string[] weapons = new string[] { "SemiAuto", "FullAuto", "3RoundShot" };
     public int currentWeapon = 0;
 
-    // internal “input-style” flags to mirror your PlayerController pattern
     private bool[] shootCurrentWeapon = new bool[3];
     private float semiAutoTimerDelay;
     private float autoTimerDelay;
@@ -37,6 +36,9 @@ public class EnemyController : MonoBehaviour
     private bool canSemiShoot = true;
     private bool canAutoShoot = true;
     private bool canShotgunShoot = true;
+
+    // NEW: cached player health so we can stop shooting when dead
+    private PlayerHealth playerHealth;
 
     void Awake()
     {
@@ -46,49 +48,52 @@ public class EnemyController : MonoBehaviour
             if (p) target = p.transform;
         }
         if (!muzzle) muzzle = transform;
+
+        if (target != null)
+        {
+            playerHealth = target.GetComponent<PlayerHealth>();
+        }
     }
 
     void Update()
     {
-        // Optional very simple movement (straight forward)
+        // NEW: if player is dead, stop everything and do not shoot
+        if (playerHealth != null && playerHealth.IsDead)
+        {
+            shootCurrentWeapon[0] = shootCurrentWeapon[1] = shootCurrentWeapon[2] = false;
+            return;
+        }
+
         if (movementSpeed > 0f)
         {
             transform.position += transform.up * (movementSpeed * Time.deltaTime);
         }
 
-        // Timers
         if (autoTimerDelay > 0f) { autoTimerDelay -= Time.deltaTime; canAutoShoot = false; } else canAutoShoot = true;
         if (semiAutoTimerDelay > 0f) { semiAutoTimerDelay -= Time.deltaTime; canSemiShoot = false; } else canSemiShoot = true;
         if (shotgunTimerDelay > 0f) { shotgunTimerDelay -= Time.deltaTime; canShotgunShoot = false; } else canShotgunShoot = true;
 
-        // Aim at target
-        float aimAngle = GetAngleToTarget(); // degrees
+        float aimAngle = GetAngleToTarget();
         if (faceTarget)
         {
-            // rotate enemy body toward target
             float currentZ = transform.eulerAngles.z;
             float newZ = Mathf.MoveTowardsAngle(currentZ, aimAngle - 90f, rotationSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Euler(0, 0, newZ);
         }
         if (turret)
         {
-            // rotate turret exactly toward target (snaps)
             turret.rotation = Quaternion.Euler(0, 0, aimAngle);
         }
 
-        // Simple AI trigger, mirroring your “input → flags” flow:
         switch (currentWeapon)
         {
-            case 0: // SemiAuto
+            case 0:
                 if (canSemiShoot) shootCurrentWeapon[currentWeapon] = true;
                 break;
-
-            case 1: // FullAuto
-                // hold the trigger; cadence gated by autoTimerDelay in FixedUpdate
+            case 1:
                 shootCurrentWeapon[currentWeapon] = true;
                 break;
-
-            case 2: // 3RoundShot
+            case 2:
                 if (canShotgunShoot) shootCurrentWeapon[currentWeapon] = true;
                 break;
         }
@@ -96,9 +101,15 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // NEW: also bail out of FixedUpdate if player is dead
+        if (playerHealth != null && playerHealth.IsDead)
+        {
+            return;
+        }
+
         switch (currentWeapon)
         {
-            case 0: // SemiAuto
+            case 0:
                 if (shootCurrentWeapon[currentWeapon] && canSemiShoot)
                 {
                     ShootSingleBullet();
@@ -107,7 +118,7 @@ public class EnemyController : MonoBehaviour
                 }
                 break;
 
-            case 1: // FullAuto
+            case 1:
                 if (shootCurrentWeapon[currentWeapon] && canAutoShoot)
                 {
                     ShootSingleBullet();
@@ -115,7 +126,7 @@ public class EnemyController : MonoBehaviour
                 }
                 break;
 
-            case 2: // 3RoundShot
+            case 2:
                 if (shootCurrentWeapon[currentWeapon] && canShotgunShoot)
                 {
                     StartCoroutine(CoShoot3Bullets());
@@ -126,75 +137,64 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    // ========= Shooting helpers (same style as your PlayerController) =========
+    // ======= shooting helpers (unchanged except for rotation already added) =======
 
-private void ShootSingleBullet()
-{
-    Vector2 dir = DirToTargetNormalized();
-    if (dir == Vector2.zero) dir = transform.up;
-
-    if (AudioManager.Instance != null)
+    private void ShootSingleBullet()
     {
-        AudioManager.Instance.PlayEnemyShoot();
+        Vector2 dir = DirToTargetNormalized();
+        if (dir == Vector2.zero) dir = transform.up;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayEnemyShoot();
+        }
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+
+        GameObject bullet = Instantiate(
+            bulletPrefab ? bulletPrefab : MakeFallbackBullet(),
+            muzzle ? muzzle.position : transform.position,
+            Quaternion.Euler(0, 0, angle)
+        );
+
+        var rb = bullet.GetComponent<Rigidbody2D>();
+        if (!rb) rb = bullet.AddComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+        rb.AddForce(dir * bulletSpeed, ForceMode2D.Impulse);
     }
-
-    // Calculate rotation so bullet faces its direction
-    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-
-    GameObject bullet = Instantiate(
-        bulletPrefab ? bulletPrefab : MakeFallbackBullet(),
-        muzzle ? muzzle.position : transform.position,
-        Quaternion.Euler(0, 0, angle)
-    );
-
-    var rb = bullet.GetComponent<Rigidbody2D>();
-    if (!rb) rb = bullet.AddComponent<Rigidbody2D>();
-    rb.gravityScale = 0f;
-    rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-
-    rb.AddForce(dir * bulletSpeed, ForceMode2D.Impulse);
-}
-
 
     private IEnumerator CoShoot3Bullets()
     {
-        // center
         ShootSingleBullet();
-
-        // +spread
         yield return new WaitForSeconds(burstShotSpacing);
         ShootWithAngleOffset(+bulletSpread);
-
-        // -spread
         yield return new WaitForSeconds(burstShotSpacing);
         ShootWithAngleOffset(-bulletSpread);
     }
 
-private void ShootWithAngleOffset(float offsetDegrees)
-{
-    Vector2 dir = DirToTargetNormalized();
-    if (dir == Vector2.zero) dir = transform.up;
-    dir = Rotate(dir, offsetDegrees);
+    private void ShootWithAngleOffset(float offsetDegrees)
+    {
+        Vector2 dir = DirToTargetNormalized();
+        if (dir == Vector2.zero) dir = transform.up;
+        dir = Rotate(dir, offsetDegrees);
 
-    // Rotation to match final dir
-    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
 
-    GameObject bullet = Instantiate(
-        bulletPrefab ? bulletPrefab : MakeFallbackBullet(),
-        muzzle ? muzzle.position : transform.position,
-        Quaternion.Euler(0, 0, angle)
-    );
+        GameObject bullet = Instantiate(
+            bulletPrefab ? bulletPrefab : MakeFallbackBullet(),
+            muzzle ? muzzle.position : transform.position,
+            Quaternion.Euler(0, 0, angle)
+        );
 
-    var rb = bullet.GetComponent<Rigidbody2D>();
-    if (!rb) rb = bullet.AddComponent<Rigidbody2D>();
-    rb.gravityScale = 0f;
-    rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        var rb = bullet.GetComponent<Rigidbody2D>();
+        if (!rb) rb = bullet.AddComponent<Rigidbody2D>();
+        rb.gravityScale = 0f;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
-    rb.AddForce(dir * bulletSpeed, ForceMode2D.Impulse);
-}
-
-
-    // ========= Aiming convenience =========
+        rb.AddForce(dir * bulletSpeed, ForceMode2D.Impulse);
+    }
 
     private Vector2 DirToTargetNormalized()
     {
@@ -208,7 +208,6 @@ private void ShootWithAngleOffset(float offsetDegrees)
     {
         Vector2 dir = DirToTargetNormalized();
         if (dir == Vector2.zero) dir = transform.up;
-        // our sprites face +Y; return an angle compatible with your PlayerController
         return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
     }
 
@@ -219,7 +218,6 @@ private void ShootWithAngleOffset(float offsetDegrees)
         return new Vector2(v.x * cs - v.y * sn, v.x * sn + v.y * cs);
     }
 
-    // ========= tiny fallback bullet so you can test instantly =========
     private GameObject MakeFallbackBullet()
     {
         var go = new GameObject("EnemyBullet_Fallback");
@@ -227,7 +225,7 @@ private void ShootWithAngleOffset(float offsetDegrees)
         sr.sprite = MakeDotSprite();
         sr.sortingOrder = 50;
         var col = go.AddComponent<CircleCollider2D>();
-        col.isTrigger = false; // use physics if you want collisions to bounce; set true if triggers
+        col.isTrigger = false;
         return go;
     }
 
@@ -242,9 +240,12 @@ private void ShootWithAngleOffset(float offsetDegrees)
         for (int x = 0; x < s; x++)
         {
             float d2 = ((new Vector2(x, y) - c).sqrMagnitude);
-            px[y * s + x] = d2 <= r2 ? new Color32(240, 100, 40, 255) : new Color32(0, 0, 0, 0);
+            px[y * s + x] = d2 <= r2
+                ? new Color32(240, 100, 40, 255)
+                : new Color32(0, 0, 0, 0);
         }
-        tex.SetPixels32(px); tex.Apply();
+        tex.SetPixels32(px);
+        tex.Apply();
         return Sprite.Create(tex, new Rect(0, 0, s, s), new Vector2(0.5f, 0.5f), 100f);
     }
 }

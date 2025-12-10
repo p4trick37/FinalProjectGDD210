@@ -1250,6 +1250,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2409067120844702232, guid: 82032246ad0200f4881500b58e987a83, type: 3}
+      propertyPath: playerDie
+      value: 
+      objectReference: {fileID: 8300000, guid: 9fd44e0c223d17543b303d11b86529bb, type: 3}
     - target: {fileID: 6110784146495160274, guid: 82032246ad0200f4881500b58e987a83, type: 3}
       propertyPath: m_Name
       value: AudioManager

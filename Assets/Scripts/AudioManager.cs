@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Player SFX")]
     public AudioClip playerShoot;
-    //public AudioClip playerDie;
+    public AudioClip playerDie;
     public AudioClip playerHit;
     //public AudioClip playerWin;
 
@@ -62,7 +62,7 @@ public class AudioManager : MonoBehaviour
 
     // Player
     public void PlayPlayerShoot()   { PlaySFXClip(playerShoot); }
-    //public void PlayPlayerDie()     { PlaySFXClip(playerDie); }
+    public void PlayPlayerDie()     { PlaySFXClip(playerDie); }
     public void PlayPlayerHit()     { PlaySFXClip(playerHit); }
     //public void PlayPlayerWin()     { PlaySFXClip(playerWin); }
 

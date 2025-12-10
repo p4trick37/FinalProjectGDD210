@@ -178,6 +178,7 @@ MonoBehaviour:
   sfxSource: {fileID: 1639420556731918341}
   musicSource: {fileID: 7713369231198283481}
   playerShoot: {fileID: 8300000, guid: 07889f395ed20824f933f7aac8dd0146, type: 3}
+  playerDie: {fileID: 8300000, guid: 9fd44e0c223d17543b303d11b86529bb, type: 3}
   playerHit: {fileID: 8300000, guid: 830e4fdd3d6197c4ba69c297c6613370, type: 3}
   enemyShoot: {fileID: 8300000, guid: 6f010cedb56e0a94dbd0653fa1b4e3a5, type: 3}
   enemyDie: {fileID: 8300000, guid: 69c7502c375908243ba0fb4ab6b36143, type: 3}
