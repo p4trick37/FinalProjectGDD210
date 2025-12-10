@@ -2399,11 +2399,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5338495746658711921, guid: 9800aba882bf635428b3d46be9a37485, type: 3}
       propertyPath: includeAreaSize.x
-      value: 35.6
+      value: 39.9
       objectReference: {fileID: 0}
     - target: {fileID: 5338495746658711921, guid: 9800aba882bf635428b3d46be9a37485, type: 3}
       propertyPath: includeAreaSize.y
-      value: 22
+      value: 27.1
       objectReference: {fileID: 0}
     - target: {fileID: 5338495746658711921, guid: 9800aba882bf635428b3d46be9a37485, type: 3}
       propertyPath: exclusions.Array.size
@@ -2411,11 +2411,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5338495746658711921, guid: 9800aba882bf635428b3d46be9a37485, type: 3}
       propertyPath: exclusions.Array.data[0].size.x
-      value: 13.4
+      value: 23.9
       objectReference: {fileID: 0}
     - target: {fileID: 5338495746658711921, guid: 9800aba882bf635428b3d46be9a37485, type: 3}
       propertyPath: exclusions.Array.data[0].size.y
-      value: 10.6
+      value: 18.41
       objectReference: {fileID: 0}
     - target: {fileID: 5338495746658711921, guid: 9800aba882bf635428b3d46be9a37485, type: 3}
       propertyPath: exclusions.Array.data[1].center

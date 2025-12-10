@@ -2163,7 +2163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5338495746658711921, guid: 9800aba882bf635428b3d46be9a37485, type: 3}
       propertyPath: exclusions.Array.data[0].size.y
-      value: 20
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 5338495746658711921, guid: 9800aba882bf635428b3d46be9a37485, type: 3}
       propertyPath: exclusions.Array.data[1].center
