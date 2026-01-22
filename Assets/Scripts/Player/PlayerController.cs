@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     #region Controller
     [Header("Controller")]
-    [SerializeField] private bool usingController;
+    public static bool usingController;
     [SerializeField] private float controllerSensitivity;
     [SerializeField] private RectTransform cursorImageTransform;
     #endregion
@@ -174,7 +174,14 @@ public class PlayerController : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         
-
+        if(usingController == false)
+        {
+            cursorImageTransform.gameObject.SetActive(false);
+        }
+        else
+        {
+            cursorImageTransform.gameObject.SetActive(true);
+        }
         //oldTurretRotationValue = 0;
     }
 
