@@ -13,7 +13,9 @@ public class UsersInputChoice : MonoBehaviour
     private ControllerInput controls;
     private Vector2 move;
 
-    private Vector2 lastMousePosition; 
+    private Vector2 lastMousePosition;
+
+    private bool mouseUsed = true;
 
     private void Awake()
     {
@@ -28,6 +30,7 @@ public class UsersInputChoice : MonoBehaviour
         if(chosenInput == true)
         {
             LoadStart();
+            Debug.Log("True");
         }
         else
         {
@@ -40,9 +43,10 @@ public class UsersInputChoice : MonoBehaviour
 
     private void Update()
     {
+        
         AllowController();
         AllowMouse();
-        
+        Debug.Log(mouseUsed);
     }
 
     public void UseController()
@@ -50,7 +54,7 @@ public class UsersInputChoice : MonoBehaviour
         PlayerController.usingController = true;
         chosenInput = true;
         Cursor.lockState = CursorLockMode.Locked;
-        LoadStart();
+        LoadStart(); 
     }
 
     public void UseKeyboard()
@@ -75,10 +79,11 @@ public class UsersInputChoice : MonoBehaviour
 
     private void AllowController()
     {
-        if(move != Vector2.zero && chosenInput == false)
+        if(move != Vector2.zero && chosenInput == false && mouseUsed == true)
         {
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(controllerButton);
+            mouseUsed = false;
         }
     }
 
@@ -88,6 +93,7 @@ public class UsersInputChoice : MonoBehaviour
         if (lastMousePosition != mousePosition && chosenInput == false)
         {
             EventSystem.current.SetSelectedGameObject(null);
+            mouseUsed = true;
         }
         lastMousePosition = mousePosition;
     }

@@ -20,16 +20,24 @@ public class ControllerMenu : MonoBehaviour
 
     private void Update()
     {
-        bool upgradesActive = sceneSwitcher.upgradeButtons.activeInHierarchy;
-
-        if (upgradesActive != lastState)
+        if(PlayerController.usingController == true)
         {
-            lastState = upgradesActive;
-            if (upgradesActive)
-                SelectButton(upgradeFirstButton);
-            else
-                SelectButton(nextLevelFirstButton);
+            bool upgradesActive = sceneSwitcher.upgradeButtons.activeInHierarchy;
+
+            if (upgradesActive != lastState)
+            {
+                lastState = upgradesActive;
+                if (upgradesActive)
+                    SelectButton(upgradeFirstButton);
+                else
+                    SelectButton(nextLevelFirstButton);
+            }
         }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+        }
+        
     }
 
     private void SelectButton(GameObject button)
